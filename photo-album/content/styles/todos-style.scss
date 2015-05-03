@@ -1,0 +1,207 @@
+$footerSize: 45px;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  word-wrap: break-word;
+}
+
+html {
+  font-size: 62.5%;
+  width: 100%;
+  height: 100%;
+  body {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(230, 230, 230);
+    #wrapper {
+      min-height:100%;
+      margin-bottom: -$footerSize;
+      &:after {
+        content: "";
+        display: block;
+      }
+      header {
+        .logo {
+          display: block;
+          width: 7%;
+          height: 7%;
+          margin: 0 auto;
+        }
+        ul {
+          margin-top: 1%;
+          display: block;
+          text-align: center;
+          font-size: 2rem;
+          li {
+            display: inline-block;
+            width: 15%;
+            height: 30px;
+            vertical-align: middle;
+            &:hover {
+              border-radius: 5px;
+              background-color: aquamarine;
+              color: peru;
+            }
+            a {
+              color: rgb(53, 53, 53);
+              text-decoration: none;
+              display: block;
+              width: 100%;
+              height: 100%;
+              vertical-align: middle;
+              &:hover {
+                color: peru;
+              }
+            }
+          }
+        }
+        .logged-in-info {
+          text-align: center;
+          width: 70%;
+          margin: 1% auto;
+          font-size: 1.5rem;
+          > div{
+            display: inline-block;
+          }
+          form {
+            button {
+              font-size: 1.7rem;
+              border-radius: 2px;
+              display: inline-block;
+              width: 80px;
+              height: 30px;
+              outline: none;
+              border: none;
+              background-color: rgb(180, 180, 180);
+              color: rgb(53, 53, 53);
+              &:hover {
+                border: none;
+                outline: none;
+                background: aquamarine;
+              }
+            }
+          }
+        }
+      } // header
+      main {
+        .anonymous-user-buttons {
+          text-align: center;
+          button {
+            font-size: 1.7rem;
+            border-radius: 2px;
+            display: inline-block;
+            width: 80px;
+            height: 30px;
+            outline: none;
+            border: none;
+            background-color: rgb(180, 180, 180);
+            color: rgb(53, 53, 53);
+            &:hover {
+              border: none;
+              outline: none;
+              background: aquamarine;
+            }
+            a {
+              font-size: 1.7rem;
+              text-decoration: none;
+              color: rgb(53, 53, 53);
+            }
+          }
+        }
+        .button {
+          display: block;
+          margin: 0% auto;
+          font-size: 1.7rem;
+          border-radius: 2px;
+          width: 150px;
+          height: 30px;
+          outline: none;
+          border: none;
+          background-color: rgb(180, 180, 180);
+          color: rgb(53, 53, 53);
+          &:hover {
+            border: none;
+            outline: none;
+            background: aquamarine;
+          }
+          a {
+            font-size: 1.7rem;
+            text-decoration: none;
+            color: rgb(53, 53, 53);
+          }
+        }
+        form {
+          font-size: 1.9rem;
+          padding: 2%;
+          width: 40%;
+          margin: 2% auto;
+          border-radius: 5px;
+          border: 1px solid aquamarine;
+          text-align: center;
+          > div {
+            margin-top: 2%;
+          }
+          input {
+            margin-left: 2%;
+            outline: none;
+            border: none;
+            height: 25px;
+            width: 160px;
+          }
+          .buttons {
+            margin-top: 2%;
+            button {
+              font-size: 1.7rem;
+              border-radius: 2px;
+              display: inline-block;
+              width: 80px;
+              height: 30px;
+              outline: none;
+              border: none;
+              background-color: rgb(180, 180, 180);
+              color: rgb(53, 53, 53);
+              a {
+                font-size: 1.7rem;
+                text-decoration: none;
+                color: rgb(53, 53, 53);
+              }
+              &:hover {
+                border: none;
+                outline: none;
+                background: aquamarine;
+              }
+            }
+          }
+        }
+        .todos {
+          tr, td {
+            border: 1px solid aquamarine;
+          }
+          font-size: 1.8rem;
+          margin: 0 auto;
+          text-align: center;
+          border-collapse: collapse;
+          tbody {
+            display: block;
+            width: 100%;
+            height: 100%;
+          }
+        }
+      } // main
+    } // wrapper
+    footer, #wrapper:after {
+      font-size: 1.5rem;
+      text-align: center;
+      color: rgb(50, 50, 50);
+      height: $footerSize;
+    }
+    footer {
+      width:100%;
+      margin-top: 2%;
+      // position:fixed;
+      bottom:0;
+    }
+  } // body
+} // html

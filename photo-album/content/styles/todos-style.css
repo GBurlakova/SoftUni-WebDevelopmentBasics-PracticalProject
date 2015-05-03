@@ -1,0 +1,166 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  word-wrap: break-word; }
+
+html {
+  font-size: 62.5%;
+  width: 100%;
+  height: 100%; }
+  html body {
+    width: 100%;
+    height: 100%;
+    background-color: #e6e6e6; }
+    html body #wrapper {
+      min-height: 100%;
+      margin-bottom: -45px; }
+      html body #wrapper:after {
+        content: "";
+        display: block; }
+      html body #wrapper header .logo {
+        display: block;
+        width: 7%;
+        height: 7%;
+        margin: 0 auto; }
+      html body #wrapper header ul {
+        margin-top: 1%;
+        display: block;
+        text-align: center;
+        font-size: 2rem; }
+        html body #wrapper header ul li {
+          display: inline-block;
+          width: 15%;
+          height: 30px;
+          vertical-align: middle; }
+          html body #wrapper header ul li:hover {
+            border-radius: 5px;
+            background-color: aquamarine;
+            color: peru; }
+          html body #wrapper header ul li a {
+            color: #353535;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            height: 100%;
+            vertical-align: middle; }
+            html body #wrapper header ul li a:hover {
+              color: peru; }
+      html body #wrapper header .logged-in-info {
+        text-align: center;
+        width: 70%;
+        margin: 1% auto;
+        font-size: 1.5rem; }
+        html body #wrapper header .logged-in-info > div {
+          display: inline-block; }
+        html body #wrapper header .logged-in-info form button {
+          font-size: 1.7rem;
+          border-radius: 2px;
+          display: inline-block;
+          width: 80px;
+          height: 30px;
+          outline: none;
+          border: none;
+          background-color: #b4b4b4;
+          color: #353535; }
+          html body #wrapper header .logged-in-info form button:hover {
+            border: none;
+            outline: none;
+            background: aquamarine; }
+      html body #wrapper main .anonymous-user-buttons {
+        text-align: center; }
+        html body #wrapper main .anonymous-user-buttons button {
+          font-size: 1.7rem;
+          border-radius: 2px;
+          display: inline-block;
+          width: 80px;
+          height: 30px;
+          outline: none;
+          border: none;
+          background-color: #b4b4b4;
+          color: #353535; }
+          html body #wrapper main .anonymous-user-buttons button:hover {
+            border: none;
+            outline: none;
+            background: aquamarine; }
+          html body #wrapper main .anonymous-user-buttons button a {
+            font-size: 1.7rem;
+            text-decoration: none;
+            color: #353535; }
+      html body #wrapper main .button {
+        display: block;
+        margin: 0% auto;
+        font-size: 1.7rem;
+        border-radius: 2px;
+        width: 150px;
+        height: 30px;
+        outline: none;
+        border: none;
+        background-color: #b4b4b4;
+        color: #353535; }
+        html body #wrapper main .button:hover {
+          border: none;
+          outline: none;
+          background: aquamarine; }
+        html body #wrapper main .button a {
+          font-size: 1.7rem;
+          text-decoration: none;
+          color: #353535; }
+      html body #wrapper main form {
+        font-size: 1.9rem;
+        padding: 2%;
+        width: 40%;
+        margin: 2% auto;
+        border-radius: 5px;
+        border: 1px solid aquamarine;
+        text-align: center; }
+        html body #wrapper main form > div {
+          margin-top: 2%; }
+        html body #wrapper main form input {
+          margin-left: 2%;
+          outline: none;
+          border: none;
+          height: 25px;
+          width: 160px; }
+        html body #wrapper main form .buttons {
+          margin-top: 2%; }
+          html body #wrapper main form .buttons button {
+            font-size: 1.7rem;
+            border-radius: 2px;
+            display: inline-block;
+            width: 80px;
+            height: 30px;
+            outline: none;
+            border: none;
+            background-color: #b4b4b4;
+            color: #353535; }
+            html body #wrapper main form .buttons button a {
+              font-size: 1.7rem;
+              text-decoration: none;
+              color: #353535; }
+            html body #wrapper main form .buttons button:hover {
+              border: none;
+              outline: none;
+              background: aquamarine; }
+      html body #wrapper main .todos {
+        font-size: 1.8rem;
+        margin: 0 auto;
+        text-align: center;
+        border-collapse: collapse; }
+        html body #wrapper main .todos tr, html body #wrapper main .todos td {
+          border: 1px solid aquamarine; }
+        html body #wrapper main .todos tbody {
+          display: block;
+          width: 100%;
+          height: 100%; }
+    html body footer, html body #wrapper:after {
+      font-size: 1.5rem;
+      text-align: center;
+      color: #323232;
+      height: 45px; }
+    html body footer {
+      width: 100%;
+      margin-top: 2%;
+      bottom: 0; }
+
+/*# sourceMappingURL=todos-style.css.map */
