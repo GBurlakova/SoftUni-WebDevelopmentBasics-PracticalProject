@@ -9,7 +9,6 @@ class AlbumsController extends BaseController {
     public function index() {
         $this->authorize();
         $this->title = "Albums";
-        $this->albums = $this->db->getAll();
         $this->renderView();
     }
 
@@ -21,7 +20,7 @@ class AlbumsController extends BaseController {
             $todoIsAdded = $this->db->addTodoItem($_POST['todo-item']);
             if($todoIsAdded) {
                 $this->addSuccessMessage("Todo added");
-                $this->redirect('photo-album');
+                $this->redirect('albums');
             } else {
                 $this->addErrorMessage("Todo cannot be added. Please try again!");
                 $this->redirect('photo-album/addTodo');
@@ -40,6 +39,17 @@ class AlbumsController extends BaseController {
             $this->addErrorMessage("Cannot delete todo.");
         }
 
-        $this->redirect('photo-album');
+        $this->redirect('albums');
+    }
+
+    public function like($albumId){
+        $this->authorize();
+        $username = $_SESSION['username'];
+        $isLiked = $this->db->like($username, $albumId);
+        if(!$isLiked) {
+            $this->addErrorMessage("Cannot like album.");
+        }
+
+        $this->redirect('home', 'index');
     }
 }

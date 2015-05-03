@@ -14,7 +14,12 @@ class HomeController extends  BaseController {
             $categoryId = $_GET['categoryId'];
         }
 
-        $this->mostLikedAlbums = $this->db->getMostLikedAlbums($categoryId);
+        $username = '';
+        if(isset($_SESSION['username'])) {
+            $username = $_SESSION['username'];
+        }
+
+        $this->mostLikedAlbums = $this->db->getMostLikedAlbums($username, $categoryId);
         $this->renderView();
     }
 
@@ -24,7 +29,12 @@ class HomeController extends  BaseController {
             $categoryId = $_GET['categoryId'];
         }
 
-        $this->publicAlbums = $this->db->getPublicAlbums($categoryId);
+        $username = '';
+        if(isset($_SESSION['username'])) {
+            $username = $_SESSION['username'];
+        }
+
+        $this->publicAlbums = $this->db->getPublicAlbums($username, $categoryId);
         $this->renderView('publicAlbums');
     }
 }

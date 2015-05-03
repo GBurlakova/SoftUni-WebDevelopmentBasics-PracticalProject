@@ -27,11 +27,22 @@
                 <div class="text-center">
                     <?php if($this->publicAlbums):
                         foreach($this->publicAlbums as $album): ?>
-                            <div class="text-center">
+                            <div class="text-center col-lg-4">
                                 <img src="/content/images/album-icon.png" alt="album-icon"/>
                                 <div>
                                     <span><?php $this->renderText($album['name']); ?></span>
-                                    <span class="badge"><?php $this->renderText($album['likes']); ?></span>
+                                    <div>
+                                        <span>Likes </span>
+                                        <span class="badge"><?php $this->renderText($album['likes']); ?></span>
+                                        <?php if($this->isLoggedIn && $album['canBeLiked'] == 0): ?>
+                                            <span class="label label-primary">You like it</span>
+                                        <?php endif; ?>
+                                    </div>
+                                    <?php if($this->isLoggedIn && $album['canBeLiked'] == 1): ?>
+                                        <div>
+                                            <a href="/albums/like/<?php $this->renderText($album['id']); ?>" class="btn btn-primary">Like</a>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         <?php endforeach;
