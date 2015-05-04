@@ -20,21 +20,31 @@ class HomeModel extends BaseModel {
                   AS canBeLiked FROM albums a LEFT OUTER JOIN album_likes al ON a.id = al.album_id
                   WHERE is_public = 1 AND a.user_id <> ?";
         if($categoryId) {
-            $query .= " AND category_id = ? GROUP BY id, name HAVING likes >= ? ORDER BY COUNT(al.album_id) DESC LIMIT 1, ?";
+            $query .= " AND category_id = ? GROUP BY id, name HAVING likes >= ? ORDER BY COUNT(al.album_id) DESC";
+            $statement = self::$db->prepare($query);
+            $statement->bind_param("iiii", $userId, $userId, $categoryId, $averageLikesCount);
+            $albumsCountBeforePaging = $this->estimateAlbumsCountBeforePaging($statement);
+
+            $query .= " LIMIT ?, ?";
             $statement = self::$db->prepare($query);
             $startPageParam = $startPage - 1;
             $pageSizeParam = DEFAULT_PAGE_SIZE;
             $statement->bind_param("iiiiii", $userId, $userId, $categoryId, $averageLikesCount, $startPageParam, $pageSizeParam);
         } else {
-            $query .= " GROUP BY id, name HAVING likes >= ? ORDER BY COUNT(al.album_id) DESC LIMIT ?, ?";
+            $query .= " GROUP BY id, name HAVING likes >= ? ORDER BY COUNT(al.album_id) DESC";
+            $statement = self::$db->prepare($query);
+            $statement->bind_param("iii", $userId, $userId, $averageLikesCount);
+            $albumsCountBeforePaging = $this->estimateAlbumsCountBeforePaging($statement);
+
+            $query .= " LIMIT ?, ?";
             $statement = self::$db->prepare($query);
             $startPageParam = $startPage - 1;
             $pageSizeParam = DEFAULT_PAGE_SIZE;
             $statement->bind_param("iiiii", $userId, $userId, $averageLikesCount, $startPageParam, $pageSizeParam);
         }
 
-        $resultData = $this->prepareResultData($statement);
-        return $resultData;
+         $resultData = $this->prepareResultData($statement, $albumsCountBeforePaging);
+         return $resultData;
     }
 
     public function getPublicAlbums($username, $startPage, $categoryId = null) {
@@ -44,20 +54,30 @@ class HomeModel extends BaseModel {
                   FROM albums a left outer JOIN album_likes al ON a.id = al.album_id
                   WHERE is_public = 1 AND a.user_id <> ?";
         if($categoryId) {
-            $query .= " AND category_id = ? GROUP BY id, name ORDER BY likes DESC LIMIT ?, ?";
+            $query .= " AND category_id = ? GROUP BY id, name ORDER BY likes DESC";
+            $statement = self::$db->prepare($query);
+            $statement->bind_param("iii", $userId, $userId, $categoryId);
+            $albumsCountBeforePaging = $this->estimateAlbumsCountBeforePaging($statement);
+
+            $query .= " LIMIT ?, ?";
             $statement = self::$db->prepare($query);
             $startPageParam = DEFAULT_PAGE_SIZE * ($startPage - 1);
             $pageSizeParam = DEFAULT_PAGE_SIZE;
             $statement->bind_param("iiiii", $userId, $userId, $categoryId, $startPageParam, $pageSizeParam);
         } else {
-            $query .= " GROUP BY id, name ORDER BY likes DESC LIMIT ?, ?";
+            $query .= " GROUP BY id, name ORDER BY likes DESC";
+            $statement = self::$db->prepare($query);
+            $statement->bind_param("ii", $userId, $userId);
+            $albumsCountBeforePaging = $this->estimateAlbumsCountBeforePaging($statement);
+
+            $query .= " LIMIT ?, ?";
             $statement = self::$db->prepare($query);
             $startPageParam = DEFAULT_PAGE_SIZE * ($startPage - 1);
             $pageSizeParam = DEFAULT_PAGE_SIZE;
             $statement->bind_param("iiii", $userId, $userId, $startPageParam, $pageSizeParam);
         }
 
-        $resultData = $this->prepareResultData($statement);
+        $resultData = $this->prepareResultData($statement, $albumsCountBeforePaging);
         return $resultData;
     }
 
@@ -104,7 +124,14 @@ class HomeModel extends BaseModel {
         return $averageLikesCount;
     }
 
-    private function prepareResultData($statement) {
+    private function estimateAlbumsCountBeforePaging($statement) {
+        $statement->execute();
+        $albums = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
+        $albumsCount = sizeof($albums);
+        return $albumsCount;
+    }
+
+    private function prepareResultData($statement, $albumsCountBeforePaging) {
         $statement->execute();
         $statement->bind_result($id, $name, $likes, $canBeLiked);
         $albums = array();
@@ -115,7 +142,7 @@ class HomeModel extends BaseModel {
         }
 
         $albums = $this->getAlbumsComments($albums);
-        $pagesCount = (sizeof($albums) + DEFAULT_PAGE_SIZE - 1) / DEFAULT_PAGE_SIZE;
+        $pagesCount = ($albumsCountBeforePaging + DEFAULT_PAGE_SIZE - 1) / DEFAULT_PAGE_SIZE;
         $pagesCount = floor($pagesCount);
         $resultData = array('albums' => $albums, 'pagesCount' => $pagesCount);
         return $resultData;

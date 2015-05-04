@@ -22,9 +22,9 @@
                 </ul>
             </li>
         </ul>
-        <div id="myTabContent" class="tab-content col-lg-10 col-lg-offset-1">
+        <div id="myTabContent" class="tab-content col-lg-10 col-lg-offset-1 text-center">
             <div class="tab-pane fade active in" id="public">
-                <div class="text-center">
+                <div>
                     <?php if($this->publicAlbums):
                         foreach($this->publicAlbums as $album): ?>
                             <div class="text-center col-lg-4">
@@ -75,6 +75,7 @@
                         </div>
                     <?php endif; ?>
                 </div>
+                <?php if($this->pagesCount > 1): ?>
                 <div class="col-lg-12 text-center">
                     <ul class="pagination">
                         <li class="disabled"><a href="#">«</a></li>
@@ -83,6 +84,7 @@
                         <?php endfor; ?>
                     </ul>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
