@@ -10,11 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" href="/content/styles/bootstrap.min.css" media="screen">
     <link rel="stylesheet" href="/content/styles/bootswatch.min.css">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
-    <script src="../bower_components/respond/dest/respond.min.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" href="/content/styles/photo-album-style.css">
     <script type="text/javascript" src="/content/lib/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="/content/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/content/js/bootwatch.js"></script>
@@ -42,7 +38,7 @@
                         </li>
                         <?php if($this->isLoggedIn): ?>
                         <li>
-                            <a href="/">My albums</a>
+                            <a href="/albums/index">My albums</a>
                         </li>
                         <?php endif; ?>
                         <li>

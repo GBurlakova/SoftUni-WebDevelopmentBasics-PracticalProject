@@ -1,0 +1,18 @@
+main p, main div, main span {
+  word-wrap: break-word; }
+main h1, main h2, main h3, main h4, main h5, main h6 {
+  text-overflow: ellipsis; }
+main .margin {
+  margin-top: 3%; }
+main .photo-album img {
+  width: 40%; }
+main .photo-album .comment {
+  border-bottom: 1px solid #2b3e50;
+  padding: 2%; }
+  main .photo-album .comment .comment-body {
+    margin-bottom: 1%;
+    padding: 1%;
+    border-radius: 2px;
+    background-color: #949da6; }
+
+/*# sourceMappingURL=photo-album-style.css.map */

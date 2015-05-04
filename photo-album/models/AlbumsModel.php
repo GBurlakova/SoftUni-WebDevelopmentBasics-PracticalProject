@@ -1,9 +1,30 @@
 <?php
 class AlbumsModel extends BaseModel{
-    public function all() {
-        $statement = self::$db->query(
-            "SELECT * FROM albums ORDER BY id");
-        return $statement->fetch_all(MYSQLI_ASSOC);
+    public function all($username) {
+        $statement = self::$db->prepare(
+            "SELECT a.id, a.name, COUNT(al.album_id) as likes
+            FROM albums a INNER JOIN users u ON a.user_id = u.id
+            LEFT OUTER JOIN album_likes al ON a.id = al.album_id
+            WHERE u.username = ?
+            GROUP BY a.id, a.name
+            ORDER BY a.id");
+        $statement->bind_param("s", $username);
+        $statement->execute();
+        $userAlbums = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
+        for ($album = 0; $album < sizeof($userAlbums); $album++){
+            $commentsQuery = self::$db->prepare(
+                "SELECT c.id, c.text, u.username, c.date
+            FROM album_comments c INNER JOIN users u ON c.user_id = u.id
+            INNER JOIN albums a ON a.id = c.album_id
+            WHERE a.id = ?
+            ORDER BY a.id");
+            $commentsQuery->bind_param("i", $userAlbums[$album]['id']);
+            $commentsQuery->execute();
+            $comments = $commentsQuery->get_result()->fetch_all(MYSQLI_ASSOC);
+            $userAlbums[$album]['comments'] = $comments;
+        }
+
+        return $userAlbums;
     }
 
     public function create($todoItem, $userId = 1){

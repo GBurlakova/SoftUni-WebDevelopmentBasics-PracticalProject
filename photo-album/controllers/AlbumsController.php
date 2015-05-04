@@ -9,6 +9,12 @@ class AlbumsController extends BaseController {
     public function index() {
         $this->authorize();
         $this->title = "Albums";
+        $username = '';
+        if(isset($_SESSION['username'])) {
+            $username = $_SESSION['username'];
+        }
+
+        $this->userAlbums = $this->db->all($username);
         $this->renderView();
     }
 

@@ -1,0 +1,29 @@
+main {
+  p, div, span{
+    word-wrap:break-word;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    text-overflow: ellipsis;
+  }
+  .margin {
+    margin-top: 3%;
+  }
+
+  .photo-album {
+    img {
+      width: 40%;
+    }
+
+    .comment {
+      border-bottom: 1px solid rgb(43, 62, 80);
+      padding: 2%;
+      .comment-body {
+        margin-bottom: 1%;
+        padding: 1%;
+        border-radius: 2px;
+        background-color: rgb(148,157,166);
+      }
+    }
+  }
+}
