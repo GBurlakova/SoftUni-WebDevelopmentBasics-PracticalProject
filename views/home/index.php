@@ -1,7 +1,7 @@
 <main>
-    <div class="jumbotron col-lg-10 col-lg-offset-1" style="background-image: url('/content/images/home.jpg'); background-size: cover;">
+    <div class="jumbotron col-lg-10 col-lg-offset-1" style="background-image: url('/photo-album/content/images/home.jpg'); background-size: cover;">
         <div class="bs-component">
-            <h2 class="well well-sm">We don't remember days, we remember moments...</h2>
+            <h2 class="grey-container">We don't remember days, we remember moments...</h2>
         </div>
     </div>
     <div class="bs-component col-lg-12">
@@ -12,11 +12,11 @@
                     Categories <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="/">All</a></li>
+                    <li><a href="/photo-album">All</a></li>
                     <li class="divider"></li>
                     <?php foreach($this->categories as $category): ?>
                     <li>
-                        <a href="?categoryId=<?php echo $category['id']?>"><?php $this->renderText($category['name']);?></a>
+                        <a href="/photo-album?categoryId=<?php echo $category['id']?>"><?php $this->renderText($category['name']);?></a>
                     </li>
                     <?php endforeach;?>
                 </ul>
@@ -29,7 +29,7 @@
                     foreach($this->mostLikedAlbums as $album): ?>
                         <div class="text-center col-lg-4">
                             <div class="photo-album">
-                                <img src="/content/images/user-album.png" alt="album-icon"/>
+                                <img src="/photo-album/content/images/user-album.png" alt="album-icon"/>
                             </div>
                             <div>
                                 <span><?php $this->renderText($album['name']); ?></span>
@@ -39,12 +39,12 @@
                                     <?php if($this->isLoggedIn && $album['canBeLiked'] == 0): ?>
                                     <span class="label label-primary">You like it</span>
                                     <?php endif; ?>
+                                    <?php if($this->isLoggedIn && $album['canBeLiked'] == 1): ?>
+                                        <span>
+                                            <a href="/photo-album/albums/like/<?php $this->renderText($album['id']); ?>" class="label label-success">Like</a>
+                                        </span>
+                                    <?php endif; ?>
                                 </div>
-                                <?php if($this->isLoggedIn && $album['canBeLiked'] == 1): ?>
-                                <div>
-                                    <a href="/albums/like/<?php $this->renderText($album['id']); ?>" class="btn btn-primary">Like</a>
-                                </div>
-                                <?php endif; ?>
                             </div>
                             <div class="panel panel-primary margin">
                                 <div class="panel-heading">
@@ -59,7 +59,11 @@
                                                 <span>Date: </span><span><?php $this->renderText(date_format(date_create($comment['date']), 'd/m/Y')); ?></span>
                                             </div>
                                         <?php endforeach;
-                                    endif; ?>
+                                    else: ?>
+                                        <div class="bs-component text-center">
+                                            <h3 class="well well-sm">No comments yet</h3>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -71,19 +75,16 @@
                     </div>
                 <?php endif; ?>
                 </div>
-<!--                <ul class="pager col-lg-12">-->
-<!--                    <li><a href="#">Previous</a></li>-->
-<!--                    <li><a href="#">Next</a></li>-->
-<!--                </ul>-->
-                <ul class="pagination">
-                    <li class="disabled"><a href="#">«</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">»</a></li>
-                </ul>
+                <?php if($this->pagesCount > 1): ?>
+                <div class="col-lg-12 text-center">
+                    <ul class="pagination">
+                        <li class="disabled"><a href="#">«</a></li>
+                        <?php for($page = 1; $page <= $this->pagesCount; $page++): ?>
+                            <li><a href="/photo-album/home/index/<?php echo $page; ?>"><?php echo $page; ?></a></li>
+                        <?php endfor; ?>
+                    </ul>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

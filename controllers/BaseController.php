@@ -69,7 +69,7 @@ abstract class BaseController {
     }
 
     public function redirect($controllerName, $action = null, $params = null) {
-        $url = '/' . $controllerName;
+        $url = '/photo-album/' . $controllerName;
         if($action) {
            $url .= '/' . $action;
         }

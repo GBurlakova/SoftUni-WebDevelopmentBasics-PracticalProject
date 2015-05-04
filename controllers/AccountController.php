@@ -51,6 +51,6 @@ class AccountController extends BaseController {
         $this->authorize();
         $this->addInfoMessage("Bye, bye, " . $_SESSION['username']);
         unset($_SESSION['username']);
-        $this->redirectToUrl("/");
+        $this->redirectToUrl("/photo-album");
     }
 }

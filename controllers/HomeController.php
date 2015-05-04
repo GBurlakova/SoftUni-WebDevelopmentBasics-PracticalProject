@@ -8,7 +8,7 @@ class HomeController extends  BaseController {
         $this->categories = $this->db->getCategories();
     }
 
-    public function index() {
+    public function index($startPage = 1) {
         $categoryId = null;
         if(isset($_GET['categoryId'])) {
             $categoryId = $_GET['categoryId'];
@@ -19,11 +19,12 @@ class HomeController extends  BaseController {
             $username = $_SESSION['username'];
         }
 
-        $this->mostLikedAlbums = $this->db->getMostLikedAlbums($username, $categoryId);
+        $this->mostLikedAlbums = $this->db->getMostLikedAlbums($username, $startPage, $categoryId)['albums'];
+        $this->pagesCount = $this->db->getMostLikedAlbums($username, $startPage, $categoryId)['pagesCount'];
         $this->renderView();
     }
 
-    public function publicAlbums(){
+    public function publicAlbums($startPage = 1){
         $categoryId = null;
         if(isset($_GET['categoryId'])) {
             $categoryId = $_GET['categoryId'];
@@ -34,7 +35,8 @@ class HomeController extends  BaseController {
             $username = $_SESSION['username'];
         }
 
-        $this->publicAlbums = $this->db->getPublicAlbums($username, $categoryId);
+        $this->publicAlbums = $this->db->getPublicAlbums($username, $startPage, $categoryId)['albums'];
+        $this->pagesCount = $this->db->getPublicAlbums($username, $startPage, $categoryId)['pagesCount'];
         $this->renderView('publicAlbums');
     }
 }

@@ -1,7 +1,7 @@
 <main>
-    <div class="jumbotron col-lg-10 col-lg-offset-1" style="background-image: url('/content/images/home.jpg'); background-size: cover;">
+    <div class="jumbotron col-lg-10 col-lg-offset-1" style="background-image: url('/photo-album/content/images/home.jpg'); background-size: cover;">
         <div class="bs-component">
-            <h2 class="well well-sm">We don't remember days, we remember moments...</h2>
+            <h2 class="grey-container">We don't remember days, we remember moments...</h2>
         </div>
     </div>
     <div class="bs-component col-lg-12">
@@ -12,11 +12,11 @@
                     Categories <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="/home/publicAlbums">All</a></li>
+                    <li><a href="/photo-album/home/publicAlbums">All</a></li>
                     <li class="divider"></li>
                     <?php foreach($this->categories as $category): ?>
                         <li>
-                            <a href="/home/publicAlbums?categoryId=<?php echo $category['id']?>"><?php $this->renderText($category['name']);?></a>
+                            <a href="/photo-album/home/publicAlbums?categoryId=<?php echo $category['id']?>"><?php $this->renderText($category['name']);?></a>
                         </li>
                     <?php endforeach;?>
                 </ul>
@@ -29,7 +29,7 @@
                         foreach($this->publicAlbums as $album): ?>
                             <div class="text-center col-lg-4">
                                 <div class="photo-album">
-                                    <img src="/content/images/user-album.png" alt="album-icon"/>
+                                    <img src="/photo-album/content/images/user-album.png" alt="album-icon"/>
                                 </div>
                                 <div>
                                     <span><?php $this->renderText($album['name']); ?></span>
@@ -39,12 +39,12 @@
                                         <?php if($this->isLoggedIn && $album['canBeLiked'] == 0): ?>
                                             <span class="label label-primary">You like it</span>
                                         <?php endif; ?>
+                                        <?php if($this->isLoggedIn && $album['canBeLiked'] == 1): ?>
+                                            <span>
+                                                <a href="/photo-album/albums/like/<?php $this->renderText($album['id']); ?>" class="label label-success">Like</a>
+                                            </span>
+                                        <?php endif; ?>
                                     </div>
-                                    <?php if($this->isLoggedIn && $album['canBeLiked'] == 1): ?>
-                                        <div>
-                                            <a href="/albums/like/<?php $this->renderText($album['id']); ?>" class="btn btn-primary">Like</a>
-                                        </div>
-                                    <?php endif; ?>
                                 </div>
                                 <div class="panel panel-primary margin">
                                     <div class="panel-heading">
@@ -52,14 +52,18 @@
                                     </div>
                                     <div class="panel-body" style="min-height: 150px; max-height: 150px; overflow-y: auto;">
                                         <?php if($album['comments']):
-                                            foreach($album['comments'] as $comment): ?>
-                                                <div class="comment">
-                                                    <div class="comment-body"><?php $this->renderText($comment['text']); ?></div>
-                                                    <span>User: </span><span class="label label-info"><?php $this->renderText($comment['username']); ?></span>
-                                                    <span>Date: </span><span><?php $this->renderText(date_format(date_create($comment['date']), 'd/m/Y')); ?></span>
-                                                </div>
-                                            <?php endforeach;
-                                        endif; ?>
+                                        foreach($album['comments'] as $comment): ?>
+                                            <div class="comment">
+                                                <div class="comment-body"><?php $this->renderText($comment['text']); ?></div>
+                                                <span>User: </span><span class="label label-info"><?php $this->renderText($comment['username']); ?></span>
+                                                <span>Date: </span><span><?php $this->renderText(date_format(date_create($comment['date']), 'd/m/Y')); ?></span>
+                                            </div>
+                                        <?php endforeach;
+                                        else: ?>
+                                            <div class="bs-component text-center">
+                                                <h3 class="well well-sm">No comments yet</h3>
+                                            </div>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
@@ -71,10 +75,14 @@
                         </div>
                     <?php endif; ?>
                 </div>
-                <ul class="pager col-lg-12">
-                    <li><a href="#">Previous</a></li>
-                    <li><a href="#">Next</a></li>
-                </ul>
+                <div class="col-lg-12 text-center">
+                    <ul class="pagination">
+                        <li class="disabled"><a href="#">«</a></li>
+                        <?php for($page = 1; $page <= $this->pagesCount; $page++): ?>
+                            <li><a href="/photo-album/home/publicAlbums/<?php echo $page; ?>"><?php echo $page; ?></a></li>
+                        <?php endfor; ?>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 <main>
-    <div class="well bs-component col-lg-4 col-lg-offset-4">
-        <form action="/account/register"  method="post" class="form-horizontal">
+    <div class="well bs-component col-lg-6 col-lg-offset-3">
+        <form action="/photo-album/account/register"  method="post" class="form-horizontal">
             <fieldset>
                 <legend>Register</legend>
                 <div class="form-group">
@@ -18,7 +18,7 @@
             </fieldset>
             <button type="submit" class="btn btn-primary">Register</button>
             <button class="btn btn-default">
-                <a href="/account/login">Login</a>
+                <a href="/photo-album/account/login">Login</a>
             </button>
         </form>
     </div>

@@ -3,7 +3,7 @@
         foreach($this->userAlbums as $album): ?>
             <div class="text-center col-lg-4">
                 <div class="photo-album">
-                    <img src="/content/images/user-album.png" alt="album-icon"/>
+                    <img src="/photo-album/content/images/user-album.png" alt="album-icon"/>
                 </div>
                 <div>
                     <span><?php $this->renderText($album['name']); ?></span>
@@ -25,7 +25,11 @@
                                             <span>Date: </span><span><?php $this->renderText(date_format(date_create($comment['date']), 'd/m/Y')); ?></span>
                                         </div>
                                     <?php endforeach;
-                                endif; ?>
+                                else: ?>
+                                    <div class="bs-component text-center">
+                                        <h3 class="well well-sm">No comments yet</h3>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

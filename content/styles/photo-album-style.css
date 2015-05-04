@@ -6,10 +6,13 @@ main .margin {
   margin-top: 3%; }
 main .photo-album img {
   width: 40%; }
-main .photo-album .comment {
+main .grey-container {
+  padding: 1.5%;
+  background-color: rgba(78, 93, 108, 0.7); }
+main .comment {
   border-bottom: 1px solid #2b3e50;
   padding: 2%; }
-  main .photo-album .comment .comment-body {
+  main .comment .comment-body {
     margin-bottom: 1%;
     padding: 1%;
     border-radius: 2px;
