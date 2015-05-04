@@ -40,6 +40,14 @@
                         <li>
                             <a href="/albums/index">My albums</a>
                         </li>
+                        <li class="dropdown open">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download" aria-expanded="true">Actions <span class="caret"></span></a>
+                            <ul class="dropdown-menu" aria-labelledby="download">
+                                <li><a href="./bootstrap.min.css">Profile</a></li>
+                                <li class="divider"></li>
+                                <li><a href="./bootstrap.css">Create album</a></li>
+                            </ul>
+                        </li>
                         <?php endif; ?>
                         <li>
                             <a href="http://news.bootswatch.com">About</a>
