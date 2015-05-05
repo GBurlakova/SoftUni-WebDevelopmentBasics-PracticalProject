@@ -36,40 +36,16 @@
                         <li>
                             <a href="/photo-album/home/publicAlbums">Public albums</a>
                         </li>
-                        <?php if($this->isLoggedIn): ?>
-                        <li>
-                            <a href="/photo-album/albums/index">My albums</a>
-                        </li>
-                        <li class="dropdown open">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download" aria-expanded="true">Actions <span class="caret"></span></a>
-                            <ul class="dropdown-menu" aria-labelledby="download">
-                                <li><a href="./bootstrap.min.css">Profile</a></li>
-                                <li class="divider"></li>
-                                <li><a href="./bootstrap.css">Create album</a></li>
-                            </ul>
-                        </li>
-                        <?php endif; ?>
+
                         <li>
                             <a href="http://news.bootswatch.com">About</a>
                         </li>
                     </ul>
-                    <?php if($this->isLoggedIn): ?>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="btn btn-primary">Hello, <?php $this->renderText($_SESSION['username'])?></li>
-                        <li>
-                            <form action="/photo-album/account/logout" method="post">
-                                <button type="submit" class="btn btn-default">Logout</button>
-                            </form>
-                        </li>
-                    </ul>
-                    <?php endif; ?>
-                    <?php if(!$this->isLoggedIn): ?>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="label-primary"><a href="/photo-album/account/login">Login</a></li>
                         <li><a href="/photo-album/account/register">Register</a></li>
                     </ul>
-                    <?php endif; ?>
                 </div>
             </div>
     </div>
-    <?php include('messages.php'); ?>
+    <?php include('./views/layouts/messages.php'); ?>

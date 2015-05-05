@@ -4,6 +4,7 @@ class AlbumsController extends BaseController {
 
     public function onInit() {
         $this->db = new AlbumsModel();
+        $this->layoutName = 'user';
     }
 
     public function index() {
