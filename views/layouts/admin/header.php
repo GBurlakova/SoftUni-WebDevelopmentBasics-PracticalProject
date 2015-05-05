@@ -24,7 +24,7 @@
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <a href="/photo-album/" class="navbar-brand">Admin header</a>
+                <a href="/photo-album/" class="navbar-brand">Photo album</a>
                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>

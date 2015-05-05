@@ -5,6 +5,7 @@ abstract class BaseController {
     protected $layoutName = DEFAULT_LAYOUT;
     protected $isPost = false;
     protected $isLoggedIn = false;
+    protected $isAdmin = false;
     private $db;
 
     function __construct($controllerName){
@@ -17,6 +18,22 @@ abstract class BaseController {
 
         if(isset($_SESSION['username'])) {
             $this->isLoggedIn = true;
+        }
+
+        if(isset($_SESSION['isAdmin'])) {
+            if($_SESSION['isAdmin']) {
+                $this->isAdmin = true;
+            }
+        }
+
+        if($this->isLoggedIn){
+            if($this->isAdmin) {
+                $this->layoutName = 'admin';
+            } else {
+                $this->layoutName = 'user';
+            }
+        } else {
+            $this->layoutName = DEFAULT_LAYOUT;
         }
 
         $this->db = new AccountModel();

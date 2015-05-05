@@ -23,20 +23,4 @@ class HomeController extends  BaseController {
         $this->pagesCount = $this->db->getMostLikedAlbums($username, $startPage, $categoryId)['pagesCount'];
         $this->renderView();
     }
-
-    public function publicAlbums($startPage = 1){
-        $categoryId = null;
-        if(isset($_GET['categoryId'])) {
-            $categoryId = $_GET['categoryId'];
-        }
-
-        $username = '';
-        if(isset($_SESSION['username'])) {
-            $username = $_SESSION['username'];
-        }
-
-        $this->publicAlbums = $this->db->getPublicAlbums($username, $startPage, $categoryId)['albums'];
-        $this->pagesCount = $this->db->getPublicAlbums($username, $startPage, $categoryId)['pagesCount'];
-        $this->renderView('publicAlbums');
-    }
 }

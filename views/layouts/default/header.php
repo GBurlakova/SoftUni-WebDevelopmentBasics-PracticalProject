@@ -34,10 +34,6 @@
                 <div class="navbar-collapse collapse" id="navbar-main">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="/photo-album/home/publicAlbums">Public albums</a>
-                        </li>
-
-                        <li>
                             <a href="http://news.bootswatch.com">About</a>
                         </li>
                     </ul>

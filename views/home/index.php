@@ -36,14 +36,6 @@
                                 <div>
                                     <span>Likes </span>
                                     <span class="badge"><?php $this->renderText($album['likes']); ?></span>
-                                    <?php if($this->isLoggedIn && $album['canBeLiked'] == 0): ?>
-                                    <span class="label label-primary">You like it</span>
-                                    <?php endif; ?>
-                                    <?php if($this->isLoggedIn && $album['canBeLiked'] == 1): ?>
-                                        <span>
-                                            <a href="/photo-album/albums/like/<?php $this->renderText($album['id']); ?>" class="label label-success">Like</a>
-                                        </span>
-                                    <?php endif; ?>
                                 </div>
                             </div>
                             <div class="panel panel-primary margin">

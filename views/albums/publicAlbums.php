@@ -12,11 +12,11 @@
                     Categories <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="/photo-album/home/publicAlbums">All</a></li>
+                    <li><a href="/photo-album/albums/publicAlbums">All</a></li>
                     <li class="divider"></li>
                     <?php foreach($this->categories as $category): ?>
                         <li>
-                            <a href="/photo-album/home/publicAlbums?categoryId=<?php echo $category['id']?>"><?php $this->renderText($category['name']);?></a>
+                            <a href="/photo-album/albums/publicAlbums?categoryId=<?php echo $category['id']?>"><?php $this->renderText($category['name']);?></a>
                         </li>
                     <?php endforeach;?>
                 </ul>
@@ -80,7 +80,7 @@
                     <ul class="pagination">
                         <li class="disabled"><a href="#">«</a></li>
                         <?php for($page = 1; $page <= $this->pagesCount; $page++): ?>
-                            <li><a href="/photo-album/home/publicAlbums/<?php echo $page; ?>"><?php echo $page; ?></a></li>
+                            <li><a href="/photo-album/albums/publicAlbums/<?php echo $page; ?>"><?php echo $page; ?></a></li>
                         <?php endfor; ?>
                     </ul>
                 </div>

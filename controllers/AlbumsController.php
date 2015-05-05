@@ -4,7 +4,6 @@ class AlbumsController extends BaseController {
 
     public function onInit() {
         $this->db = new AlbumsModel();
-        $this->layoutName = 'user';
     }
 
     public function index() {
@@ -17,6 +16,23 @@ class AlbumsController extends BaseController {
 
         $this->userAlbums = $this->db->all($username);
         $this->renderView();
+    }
+
+    public function publicAlbums($startPage = 1){
+        $this->authorize();
+        $categoryId = null;
+        if(isset($_GET['categoryId'])) {
+            $categoryId = $_GET['categoryId'];
+        }
+
+        $username = '';
+        if(isset($_SESSION['username'])) {
+            $username = $_SESSION['username'];
+        }
+
+        $this->publicAlbums = $this->db->getPublicAlbums($username, $startPage, $categoryId)['albums'];
+        $this->pagesCount = $this->db->getPublicAlbums($username, $startPage, $categoryId)['pagesCount'];
+        $this->renderView('publicAlbums');
     }
 
     public function add() {
@@ -57,6 +73,6 @@ class AlbumsController extends BaseController {
             $this->addErrorMessage("Cannot like album.");
         }
 
-        $this->redirect('home', 'index');
+        $this->redirect('albums', 'publicAlbums');
     }
 }

@@ -24,7 +24,7 @@
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <a href="/photo-album/" class="navbar-brand">User header</a>
+                <a href="/photo-album/" class="navbar-brand">Photo album</a>
                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -34,7 +34,7 @@
             <div class="navbar-collapse collapse" id="navbar-main">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="/photo-album/home/publicAlbums">Public albums</a>
+                        <a href="/photo-album/albums/publicAlbums">Public albums</a>
                     </li>
                         <li>
                             <a href="/photo-album/albums/index">My albums</a>
