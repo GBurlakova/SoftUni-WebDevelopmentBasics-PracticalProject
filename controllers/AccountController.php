@@ -53,4 +53,11 @@ class AccountController extends BaseController {
         unset($_SESSION['username']);
         $this->redirectToUrl("/photo-album");
     }
+
+    public function profile(){
+        $this->authorize();
+        $profile = $this->db->profile($_SESSION['username']);
+        $this->profile = $profile;
+        $this->renderView(__FUNCTION__);
+    }
 }

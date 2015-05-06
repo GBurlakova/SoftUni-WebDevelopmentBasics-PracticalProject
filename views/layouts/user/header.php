@@ -55,15 +55,23 @@
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download" aria-expanded="true">Profile <span class="caret"></span></a>
                             <ul class="dropdown-menu" aria-labelledby="download">
-                                <li><a href="./bootstrap.min.css">Profile</a></li>
+                                <li><a href="/photo-album/account/profile">Profile</a></li>
                                 <li class="divider"></li>
-                                <li><a href="./bootstrap.min.css">Edit profile</a></li>
+                                <li><a href="/photo-album/account/edit">Edit profile</a></li>
                             </ul>
                         </li>
                     <li>
                         <a href="http://news.bootswatch.com">About</a>
                     </li>
                 </ul>
+
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search albums">
+                    </div>
+                    <button type="submit" class="btn btn-default">Search</button>
+                </form>
+
                 <ul class="nav navbar-nav navbar-right">
                     <li class="btn btn-primary">Hello, <?php $this->renderText($_SESSION['username'])?></li>
                     <li>

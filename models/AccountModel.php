@@ -47,4 +47,12 @@ class AccountModel extends BaseModel {
 
         return true;
     }
+
+    public function profile($username){
+        $statement = self::$db->prepare("SELECT username, first_name, last_name FROM users WHERE username = ?");
+        $statement->bind_param("s", $username);
+        $statement->execute();
+        $profileInformation = $statement->get_result()->fetch_assoc();
+        return $profileInformation;
+    }
 }
