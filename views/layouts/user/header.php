@@ -48,7 +48,7 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="/photo-album/albums/uploadPhoto">Upload photo</a>
+                                <a href="/photo-album/albums/upload">Upload photo</a>
                             </li>
                         </ul>
                     </li>

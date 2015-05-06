@@ -46,6 +46,7 @@ class AlbumsController extends BaseController {
 
         if($this->isPost) {
             if(isset($_POST['submit'])) {
+                // Check for empty fields
                 if($_POST['albumName']) {
                     $albumName = $_POST['albumName'];
                 } else {
@@ -105,6 +106,70 @@ class AlbumsController extends BaseController {
     }
 
     public function upload(){
+        $this->authorize();
 
+        if(isset($_SESSION['errors'])) {
+            $this->erros = $_SESSION['errors'];
+            unset($_SESSION['errors']);
+        }
+
+        if($this->isPost) {
+            if(isset($_POST['submit'])) {
+                // Check for empty fields
+                $hasUploadedPhoto = is_uploaded_file($_FILES['photo']['tmp_name']);
+                if(!$hasUploadedPhoto){
+                    $_SESSION['errors']['emptyPhoto'] = true;
+                }
+
+                if(!$_POST['albumId']){
+                    $_SESSION['errors']['emptyAlbumId'] = true;
+                }
+
+                if (!$hasUploadedPhoto || !$_POST['albumId']) {
+                    $this->redirect('albums', 'upload');
+                }
+
+                if($_FILES['photo']['tmp_name']){
+                    if($_FILES['photo']['size'] > 2097152){
+                        $_SESSION['errors']['notAllowedPhotoSize'] = true;
+                        $this->redirect('albums', 'upload');
+                    }
+
+                    if($_FILES['photo']['type']!='image/gif' &&
+                        $_FILES['photo']['type']!='image/jpeg' &&
+                        $_FILES['photo']['type']!='image/pjerg') {
+                        $_SESSION['errors']['notAllowedPhotoType'] = true;
+                        $this->redirect('albums', 'upload');
+                    }
+
+                    $userPhotosDirectory = './content/user-photos/'.$_SESSION['username'];
+
+                    if(!is_dir($userPhotosDirectory)){
+                        mkdir($userPhotosDirectory, null, true);
+                    }
+
+                    $photoName = time().'_'.$_FILES['photo']['name'];
+                    $filePath = $userPhotosDirectory.'/'.$photoName;
+                    if(move_uploaded_file($_FILES['photo']['tmp_name'],
+                        $filePath)) {
+                        $albumId = $_POST['albumId'];
+                        if($this->db->addPhoto($photoName, $albumId, $_SESSION['username'])) {
+                            $this->addSuccessMessage('Photo uploaded successfully');
+                            $this->redirect('albums');
+                        } else {
+                            $this->addErrorMessage('Cannot upload photo. Please try again.');
+                            $this->redirect('albums', 'upload');
+                        };
+                    } else {
+                        $this->addErrorMessage('Cannot upload photo. Please try again.');
+                        $this->redirect('albums', 'upload');
+                    }
+                }
+            }
+        }
+
+        $this->albums = $this->db->getAlbums($_SESSION['username']);
+        $this->renderView(__FUNCTION__);
+        unset($this->errors);
     }
 }

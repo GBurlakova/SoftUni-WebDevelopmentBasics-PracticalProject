@@ -124,7 +124,42 @@ class AlbumsModel extends BaseModel{
         return $userId;
     }
 
+    public function getAlbums($username){
+        $userId = $this->getUserId($username);
+        $query = "SELECT a.id, a.name
+                  FROM albums a
+                  WHERE a.user_id = ?";
+        $statement = self::$db->prepare($query);
+        $statement->bind_param("i", $userId);
+        $statement->execute();
+        $statement->bind_result($id, $name);
+        $albums = array();
+        while($statement->fetch()) {
+            $album = array
+            ('id' => $id, 'name' => $name);
+            array_push($albums, $album);
+        }
+        return $albums;
+    }
 
+    public function addPhoto($photoName, $albumId, $username){
+        $userId = $this->getUserId($username);
+        $albumOwnerIdQuery = 'SELECT user_id FROM albums WHERE id = ?';
+        $albumOwnerIdStatement = self::$db->prepare($albumOwnerIdQuery);
+        $albumOwnerIdStatement->bind_param('i', $albumId);
+        $albumOwnerIdStatement->execute();
+        $albumOwnerId = $albumOwnerIdStatement->get_result()->fetch_assoc()['user_id'];
+        $currentUserIsOwner = $albumOwnerId == $userId;
+        if($currentUserIsOwner) {
+            $query = 'INSERT INTO photos (name, album_id) VALUES(?, ?)';
+            $statement = self::$db->prepare($query);
+            $statement->bind_param('si', $photoName, $albumId);
+            $statement->execute();
+            return $statement->affected_rows > 0;
+        } else {
+            return false;
+        }
+    }
 
     private function getAlbumsComments($albums) {
         for ($album = 0; $album < sizeof($albums); $album++){
