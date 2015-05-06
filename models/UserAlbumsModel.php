@@ -12,17 +12,27 @@ class UserAlbumsModel extends BaseModel{
         return $categories;
     }
 
-    public function getUserAlbums($username) {
-        $statement = self::$db->prepare(
-            "SELECT a.id, a.name, COUNT(al.album_id) as likes
+    public function getUserAlbums($startPage, $username) {
+        $query = "SELECT a.id, a.name, COUNT(al.album_id) as likes
             FROM albums a INNER JOIN users u ON a.user_id = u.id
             LEFT OUTER JOIN album_likes al ON a.id = al.album_id
             WHERE u.username = ?
             GROUP BY a.id, a.name
-            ORDER BY a.id");
+            ORDER BY a.id";
+        $statement = self::$db->prepare($query);
         $statement->bind_param("s", $username);
         $statement->execute();
         $userAlbums = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
+        $albumsCountBeforePaging = sizeof($userAlbums);
+        $query .= " LIMIT ?, ?";
+        $statement = self::$db->prepare($query);
+        $startPageParam = DEFAULT_PAGE_SIZE * ($startPage - 1);
+        $pageSizeParam = DEFAULT_PAGE_SIZE;
+        $statement->bind_param("sii", $username, $startPageParam, $pageSizeParam);
+        $statement->execute();
+        $userAlbums = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
+        $pagesCount = ($albumsCountBeforePaging + DEFAULT_PAGE_SIZE - 1) / DEFAULT_PAGE_SIZE;
+        $pagesCount = floor($pagesCount);
         for ($album = 0; $album < sizeof($userAlbums); $album++){
             $commentsQuery = self::$db->prepare(
                 "SELECT c.id, c.text, u.username, c.date
@@ -36,7 +46,8 @@ class UserAlbumsModel extends BaseModel{
             $userAlbums[$album]['comments'] = $comments;
         }
 
-        return $userAlbums;
+        $resultData = array('userAlbums' => $userAlbums, 'pagesCount' => $pagesCount);
+        return $resultData;
     }
 
     public function createNewAlbum($albumName, $userId, $categoryId){

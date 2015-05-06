@@ -2,24 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b1d3c260-2435-4371-ba51-5e471d5a5e00" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controllers/AllAlbumsController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controllers/UserAlbumsController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/models/UserAlbumsModel.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/home/photos.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/userAlbums/photos.php" />
-      <change type="DELETED" beforePath="C:\xampp\htdocs\photo-album\controllers\AlbumsController.php" afterPath="" />
-      <change type="MOVED" beforePath="C:\xampp\htdocs\photo-album\models\AlbumsModel.php" afterPath="$PROJECT_DIR$/models/AllAlbumsModel.php" />
-      <change type="MOVED" beforePath="C:\xampp\htdocs\photo-album\views\albums\index.php" afterPath="$PROJECT_DIR$/views/userAlbums/index.php" />
-      <change type="MOVED" beforePath="C:\xampp\htdocs\photo-album\views\albums\newAlbum.php" afterPath="$PROJECT_DIR$/views/userAlbums/newAlbum.php" />
-      <change type="MOVED" beforePath="C:\xampp\htdocs\photo-album\views\albums\photos.php" afterPath="$PROJECT_DIR$/views/allAlbums/photos.php" />
-      <change type="MOVED" beforePath="C:\xampp\htdocs\photo-album\views\albums\publicAlbums.php" afterPath="$PROJECT_DIR$/views/allAlbums/index.php" />
-      <change type="MOVED" beforePath="C:\xampp\htdocs\photo-album\views\albums\upload.php" afterPath="$PROJECT_DIR$/views/userAlbums/upload.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/AccountController.php" afterPath="$PROJECT_DIR$/controllers/AccountController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/HomeController.php" afterPath="$PROJECT_DIR$/controllers/HomeController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/HomeModel.php" afterPath="$PROJECT_DIR$/models/HomeModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/layouts/user/header.php" afterPath="$PROJECT_DIR$/views/layouts/user/header.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/home/index.php" afterPath="$PROJECT_DIR$/views/home/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/UserAlbumsController.php" afterPath="$PROJECT_DIR$/controllers/UserAlbumsController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/UserAlbumsModel.php" afterPath="$PROJECT_DIR$/models/UserAlbumsModel.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/userAlbums/index.php" afterPath="$PROJECT_DIR$/views/userAlbums/index.php" />
     </list>
     <ignored path="photo-album.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -44,80 +29,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AllAlbumsModel.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/AllAlbumsModel.php">
+      <file leaf-file-name="HomeModel.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/HomeModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.576923" vertical-offset="1139" max-vertical-offset="2635">
-              <caret line="84" column="75" selection-start-line="84" selection-start-column="75" selection-end-line="84" selection-end-column="75" />
+            <state vertical-scroll-proportion="-8.5" vertical-offset="2040" max-vertical-offset="2414">
+              <caret line="133" column="81" selection-start-line="131" selection-start-column="8" selection-end-line="133" selection-end-column="81" />
               <folding>
-                <element signature="n#getCategories#0;n#AllAlbumsModel#0;n#!!top" expanded="false" />
-                <marker date="1430945518236" expanded="true" signature="140:176" placeholder="SELECT * FRO..categories..." />
-                <marker date="1430945518236" expanded="true" signature="503:773" placeholder="SELECT a.id,..albums..." />
-                <marker date="1430945518236" expanded="true" signature="584:634" placeholder="SELECT album..album_likes..." />
-                <marker date="1430945518236" expanded="true" signature="2228:2267" placeholder="SELECT id FR..users..." />
-                <marker date="1430945518236" expanded="true" signature="2475:2548" placeholder="SELECT count..albums..." />
-                <marker date="1430945518236" expanded="true" signature="2825:2881" placeholder="INSERT INTO ..." />
-                <marker date="1430945518236" expanded="true" signature="3254:3293" placeholder="SELECT id FR..users..." />
-                <marker date="1430945518236" expanded="true" signature="3575:3777" placeholder="SELECT p.id,..photos..." />
-                <marker date="1430945518236" expanded="true" signature="4237:4408" placeholder="SELECT c.id,..photo_comments..." />
-                <marker date="1430945518236" expanded="true" signature="5160:5378" placeholder="SELECT c.id,..album_comments..." />
+                <marker date="1430944655480" expanded="true" signature="2143:2345" placeholder="SELECT p.id,..photos..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserAlbumsController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controllers/UserAlbumsController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.730769" vertical-offset="1475" max-vertical-offset="2261">
-              <caret line="126" column="41" selection-start-line="126" selection-start-column="41" selection-end-line="126" selection-end-column="41" />
-              <folding>
-                <element signature="n#onInit#0;n#UserAlbumsController#0;n#!!top" expanded="false" />
-                <element signature="n#index#0;n#UserAlbumsController#0;n#!!top" expanded="false" />
-                <element signature="n#delete#0;n#UserAlbumsController#0;n#!!top" expanded="false" />
-                <element signature="n#like#0;n#UserAlbumsController#0;n#!!top" expanded="false" />
-                <element signature="n#photos#0;n#UserAlbumsController#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/allAlbums/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.8846154" vertical-offset="478" max-vertical-offset="1700">
-              <caret line="31" column="62" selection-start-line="31" selection-start-column="62" selection-end-line="31" selection-end-column="62" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="photos.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/allAlbums/photos.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.6153846" vertical-offset="0" max-vertical-offset="697">
-              <caret line="4" column="69" selection-start-line="4" selection-start-column="69" selection-end-line="4" selection-end-column="69" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/userAlbums/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="7.6923075" vertical-offset="319" max-vertical-offset="918">
-              <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="photos.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/userAlbums/photos.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.6153846" vertical-offset="0" max-vertical-offset="697">
-              <caret line="4" column="109" selection-start-line="4" selection-start-column="109" selection-end-line="4" selection-end-column="109" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -125,63 +44,61 @@
       <file leaf-file-name="UserAlbumsModel.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/UserAlbumsModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-50.346153" vertical-offset="0" max-vertical-offset="2873">
-              <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+            <state vertical-scroll-proportion="-3.5769231" vertical-offset="570" max-vertical-offset="3060">
+              <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
               <folding>
                 <element signature="n#getCategories#0;n#UserAlbumsModel#0;n#!!top" expanded="false" />
-                <marker date="1430944939752" expanded="true" signature="141:177" placeholder="SELECT * FRO..categories..." />
-                <marker date="1430944939752" expanded="true" signature="462:733" placeholder="SELECT a.id,..albums..." />
-                <marker date="1430944939752" expanded="true" signature="1021:1239" placeholder="SELECT c.id,..album_comments..." />
-                <marker date="1430944939752" expanded="true" signature="1624:1687" placeholder="INSERT INTO ..." />
-                <marker date="1430944939752" expanded="true" signature="1984:2020" placeholder="DELETE FROM ..." />
-                <marker date="1430944939752" expanded="true" signature="2240:2279" placeholder="SELECT id FR..users..." />
-                <marker date="1430944939752" expanded="true" signature="2487:2563" placeholder="SELECT count..allAlbums..." />
-                <marker date="1430944939752" expanded="true" signature="2840:2896" placeholder="INSERT INTO ..." />
-                <marker date="1430944939752" expanded="true" signature="3269:3308" placeholder="SELECT id FR..users..." />
-                <marker date="1430944939752" expanded="true" signature="3623:3712" placeholder="SELECT a.id,..albums..." />
-                <marker date="1430944939752" expanded="true" signature="4243:4282" placeholder="SELECT user_..albums..." />
-                <marker date="1430944939752" expanded="true" signature="4660:4708" placeholder="INSERT INTO ..." />
-                <marker date="1430944939752" expanded="true" signature="5107:5146" placeholder="SELECT user_..albums..." />
-                <marker date="1430944939752" expanded="true" signature="5523:5725" placeholder="SELECT p.id,..photos..." />
-                <marker date="1430944939752" expanded="true" signature="6262:6433" placeholder="SELECT c.id,..photo_comments..." />
+                <marker date="1430946653475" expanded="true" signature="141:177" placeholder="SELECT * FRO..categories..." />
+                <marker date="1430946653475" expanded="true" signature="438:709" placeholder="SELECT a.id,..albums..." />
+                <marker date="1430946653475" expanded="true" signature="1614:1832" placeholder="SELECT c.id,..album_comments..." />
+                <marker date="1430946653475" expanded="true" signature="2304:2367" placeholder="INSERT INTO ..." />
+                <marker date="1430946653475" expanded="true" signature="2664:2700" placeholder="DELETE FROM ..." />
+                <marker date="1430946653475" expanded="true" signature="2920:2959" placeholder="SELECT id FR..users..." />
+                <marker date="1430946653475" expanded="true" signature="3167:3243" placeholder="SELECT count..allAlbums..." />
+                <marker date="1430946653475" expanded="true" signature="3520:3576" placeholder="INSERT INTO ..." />
+                <marker date="1430946653475" expanded="true" signature="3949:3988" placeholder="SELECT id FR..users..." />
+                <marker date="1430946653475" expanded="true" signature="4303:4392" placeholder="SELECT a.id,..albums..." />
+                <marker date="1430946653475" expanded="true" signature="4923:4962" placeholder="SELECT user_..albums..." />
+                <marker date="1430946653475" expanded="true" signature="5340:5388" placeholder="INSERT INTO ..." />
+                <marker date="1430946653475" expanded="true" signature="5787:5826" placeholder="SELECT user_..albums..." />
+                <marker date="1430946653475" expanded="true" signature="6203:6405" placeholder="SELECT p.id,..photos..." />
+                <marker date="1430946653475" expanded="true" signature="6942:7113" placeholder="SELECT c.id,..photo_comments..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BaseModel.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/BaseModel.php">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/userAlbums/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.1923075" vertical-offset="34" max-vertical-offset="340">
-              <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+            <state vertical-scroll-proportion="-6.3461537" vertical-offset="736" max-vertical-offset="1088">
+              <caret line="53" column="56" selection-start-line="53" selection-start-column="56" selection-end-line="53" selection-end-column="56" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HomeModel.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/HomeModel.php">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/home/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.961538" vertical-offset="617" max-vertical-offset="2414">
-              <caret line="50" column="75" selection-start-line="47" selection-start-column="18" selection-end-line="50" selection-end-column="75" />
+            <state vertical-scroll-proportion="-7.0" vertical-offset="1042" max-vertical-offset="1564">
+              <caret line="72" column="22" selection-start-line="72" selection-start-column="22" selection-end-line="72" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserAlbumsController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/controllers/UserAlbumsController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.27142859" vertical-offset="196" max-vertical-offset="2465">
+              <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
               <folding>
-                <marker date="1430944655480" expanded="true" signature="136:172" placeholder="SELECT * FRO..categories..." />
-                <marker date="1430944655480" expanded="true" signature="512:645" placeholder="SELECT a.id,..albums..." />
-                <marker date="1430944655480" expanded="true" signature="2143:2345" placeholder="SELECT p.id,..photos..." />
-                <marker date="1430944655480" expanded="true" signature="2805:2976" placeholder="SELECT c.id,..photo_comments..." />
-                <marker date="1430944655480" expanded="true" signature="3730:3948" placeholder="SELECT c.id,..album_comments..." />
-                <marker date="1430944655480" expanded="true" signature="4582:4696" placeholder="SELECT IFNUL..albums..." />
+                <element signature="n#onInit#0;n#UserAlbumsController#0;n#!!top" expanded="false" />
+                <element signature="n#delete#0;n#UserAlbumsController#0;n#!!top" expanded="false" />
+                <element signature="n#like#0;n#UserAlbumsController#0;n#!!top" expanded="false" />
+                <element signature="n#photos#0;n#UserAlbumsController#0;n#!!top" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="photos.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/views/home/photos.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.25468165" vertical-offset="0" max-vertical-offset="697">
-              <caret line="4" column="85" selection-start-line="4" selection-start-column="85" selection-end-line="4" selection-end-column="85" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -214,7 +131,6 @@
         <option value="$PROJECT_DIR$/views/albums/photos.php" />
         <option value="$PROJECT_DIR$/views/albums/allAlbums.php" />
         <option value="$PROJECT_DIR$/controllers/AccountController.php" />
-        <option value="$PROJECT_DIR$/views/userAlbums/index.php" />
         <option value="$PROJECT_DIR$/controllers/AlbumsController.php" />
         <option value="$PROJECT_DIR$/models/AlbumsModel.php" />
         <option value="$PROJECT_DIR$/views/layouts/user/header.php" />
@@ -224,12 +140,13 @@
         <option value="$PROJECT_DIR$/controllers/HomeController.php" />
         <option value="$PROJECT_DIR$/models/HomeModel.php" />
         <option value="$PROJECT_DIR$/views/userAlbums/photos.php" />
-        <option value="$PROJECT_DIR$/models/UserAlbumsModel.php" />
-        <option value="$PROJECT_DIR$/controllers/UserAlbumsController.php" />
         <option value="$PROJECT_DIR$/views/allAlbums/index.php" />
         <option value="$PROJECT_DIR$/models/AllAlbumsModel.php" />
         <option value="$PROJECT_DIR$/views/allAlbums/photos.php" />
         <option value="$PROJECT_DIR$/views/home/photos.php" />
+        <option value="$PROJECT_DIR$/models/UserAlbumsModel.php" />
+        <option value="$PROJECT_DIR$/views/userAlbums/index.php" />
+        <option value="$PROJECT_DIR$/controllers/UserAlbumsController.php" />
       </list>
     </option>
   </component>
@@ -349,24 +266,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="allAlbums" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="photo-album" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="photo-album" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -450,8 +349,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="0" width="1279" height="683" extended-state="0" />
-    <editor active="true" />
+    <frame x="1" y="0" width="1279" height="683" extended-state="1" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -460,7 +359,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28383923" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3938294" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3938294" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -516,11 +415,16 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/models/UserAlbumsModel.php</url>
-          <line>141</line>
+          <line>152</line>
           <option name="timeStamp" value="83" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/controllers/UserAlbumsController.php</url>
+          <line>19</line>
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="84" />
+      <option name="time" value="87" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -530,12 +434,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="1989">
           <caret line="11" column="26" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
           <folding>
-            <marker date="1430944655480" expanded="true" signature="136:172" placeholder="SELECT * FRO..categories..." />
-            <marker date="1430944655480" expanded="true" signature="512:645" placeholder="SELECT a.id,..albums..." />
             <marker date="1430944655480" expanded="true" signature="2143:2345" placeholder="SELECT p.id,..photos..." />
-            <marker date="1430944655480" expanded="true" signature="2805:2976" placeholder="SELECT c.id,..photo_comments..." />
-            <marker date="1430944655480" expanded="true" signature="3730:3948" placeholder="SELECT c.id,..album_comments..." />
-            <marker date="1430944655480" expanded="true" signature="4582:4696" placeholder="SELECT IFNUL..albums..." />
           </folding>
         </state>
       </provider>
@@ -595,12 +494,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1547">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1430944655480" expanded="true" signature="136:172" placeholder="SELECT * FRO..categories..." />
-            <marker date="1430944655480" expanded="true" signature="512:645" placeholder="SELECT a.id,..albums..." />
             <marker date="1430944655480" expanded="true" signature="2143:2345" placeholder="SELECT p.id,..photos..." />
-            <marker date="1430944655480" expanded="true" signature="2805:2976" placeholder="SELECT c.id,..photo_comments..." />
-            <marker date="1430944655480" expanded="true" signature="3730:3948" placeholder="SELECT c.id,..album_comments..." />
-            <marker date="1430944655480" expanded="true" signature="4582:4696" placeholder="SELECT IFNUL..albums..." />
           </folding>
         </state>
       </provider>
@@ -660,12 +554,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1938">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1430944655480" expanded="true" signature="136:172" placeholder="SELECT * FRO..categories..." />
-            <marker date="1430944655480" expanded="true" signature="512:645" placeholder="SELECT a.id,..albums..." />
             <marker date="1430944655480" expanded="true" signature="2143:2345" placeholder="SELECT p.id,..photos..." />
-            <marker date="1430944655480" expanded="true" signature="2805:2976" placeholder="SELECT c.id,..photo_comments..." />
-            <marker date="1430944655480" expanded="true" signature="3730:3948" placeholder="SELECT c.id,..album_comments..." />
-            <marker date="1430944655480" expanded="true" signature="4582:4696" placeholder="SELECT IFNUL..albums..." />
           </folding>
         </state>
       </provider>
@@ -814,14 +703,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/home/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="40.73077" vertical-offset="1246" max-vertical-offset="1564">
-          <caret line="11" column="21" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.36329588" vertical-offset="481" max-vertical-offset="816">
@@ -838,22 +719,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/HomeController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45357144" vertical-offset="43" max-vertical-offset="544">
-          <caret line="10" column="40" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/userAlbums/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="7.6923075" vertical-offset="319" max-vertical-offset="918">
-          <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/userAlbums/photos.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.6153846" vertical-offset="0" max-vertical-offset="697">
@@ -864,48 +729,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/BaseModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.1923075" vertical-offset="34" max-vertical-offset="340">
+        <state vertical-scroll-proportion="0.66785717" vertical-offset="34" max-vertical-offset="340">
           <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/UserAlbumsModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-50.346153" vertical-offset="0" max-vertical-offset="2873">
-          <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
-          <folding>
-            <element signature="n#getCategories#0;n#UserAlbumsModel#0;n#!!top" expanded="false" />
-            <marker date="1430944939752" expanded="true" signature="141:177" placeholder="SELECT * FRO..categories..." />
-            <marker date="1430944939752" expanded="true" signature="462:733" placeholder="SELECT a.id,..albums..." />
-            <marker date="1430944939752" expanded="true" signature="1021:1239" placeholder="SELECT c.id,..album_comments..." />
-            <marker date="1430944939752" expanded="true" signature="1624:1687" placeholder="INSERT INTO ..." />
-            <marker date="1430944939752" expanded="true" signature="1984:2020" placeholder="DELETE FROM ..." />
-            <marker date="1430944939752" expanded="true" signature="2240:2279" placeholder="SELECT id FR..users..." />
-            <marker date="1430944939752" expanded="true" signature="2487:2563" placeholder="SELECT count..allAlbums..." />
-            <marker date="1430944939752" expanded="true" signature="2840:2896" placeholder="INSERT INTO ..." />
-            <marker date="1430944939752" expanded="true" signature="3269:3308" placeholder="SELECT id FR..users..." />
-            <marker date="1430944939752" expanded="true" signature="3623:3712" placeholder="SELECT a.id,..albums..." />
-            <marker date="1430944939752" expanded="true" signature="4243:4282" placeholder="SELECT user_..albums..." />
-            <marker date="1430944939752" expanded="true" signature="4660:4708" placeholder="INSERT INTO ..." />
-            <marker date="1430944939752" expanded="true" signature="5107:5146" placeholder="SELECT user_..albums..." />
-            <marker date="1430944939752" expanded="true" signature="5523:5725" placeholder="SELECT p.id,..photos..." />
-            <marker date="1430944939752" expanded="true" signature="6262:6433" placeholder="SELECT c.id,..photo_comments..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/UserAlbumsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.730769" vertical-offset="1475" max-vertical-offset="2261">
-          <caret line="126" column="41" selection-start-line="126" selection-start-column="41" selection-end-line="126" selection-end-column="41" />
-          <folding>
-            <element signature="n#onInit#0;n#UserAlbumsController#0;n#!!top" expanded="false" />
-            <element signature="n#index#0;n#UserAlbumsController#0;n#!!top" expanded="false" />
-            <element signature="n#delete#0;n#UserAlbumsController#0;n#!!top" expanded="false" />
-            <element signature="n#like#0;n#UserAlbumsController#0;n#!!top" expanded="false" />
-            <element signature="n#photos#0;n#UserAlbumsController#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -917,37 +743,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/HomeModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.961538" vertical-offset="617" max-vertical-offset="2414">
-          <caret line="50" column="75" selection-start-line="47" selection-start-column="18" selection-end-line="50" selection-end-column="75" />
-          <folding>
-            <marker date="1430944655480" expanded="true" signature="136:172" placeholder="SELECT * FRO..categories..." />
-            <marker date="1430944655480" expanded="true" signature="512:645" placeholder="SELECT a.id,..albums..." />
-            <marker date="1430944655480" expanded="true" signature="2143:2345" placeholder="SELECT p.id,..photos..." />
-            <marker date="1430944655480" expanded="true" signature="2805:2976" placeholder="SELECT c.id,..photo_comments..." />
-            <marker date="1430944655480" expanded="true" signature="3730:3948" placeholder="SELECT c.id,..album_comments..." />
-            <marker date="1430944655480" expanded="true" signature="4582:4696" placeholder="SELECT IFNUL..albums..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/AllAlbumsModel.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.576923" vertical-offset="1139" max-vertical-offset="2635">
           <caret line="84" column="75" selection-start-line="84" selection-start-column="75" selection-end-line="84" selection-end-column="75" />
           <folding>
             <element signature="n#getCategories#0;n#AllAlbumsModel#0;n#!!top" expanded="false" />
-            <marker date="1430945518236" expanded="true" signature="140:176" placeholder="SELECT * FRO..categories..." />
-            <marker date="1430945518236" expanded="true" signature="503:773" placeholder="SELECT a.id,..albums..." />
-            <marker date="1430945518236" expanded="true" signature="584:634" placeholder="SELECT album..album_likes..." />
-            <marker date="1430945518236" expanded="true" signature="2228:2267" placeholder="SELECT id FR..users..." />
-            <marker date="1430945518236" expanded="true" signature="2475:2548" placeholder="SELECT count..albums..." />
-            <marker date="1430945518236" expanded="true" signature="2825:2881" placeholder="INSERT INTO ..." />
-            <marker date="1430945518236" expanded="true" signature="3254:3293" placeholder="SELECT id FR..users..." />
-            <marker date="1430945518236" expanded="true" signature="3575:3777" placeholder="SELECT p.id,..photos..." />
-            <marker date="1430945518236" expanded="true" signature="4237:4408" placeholder="SELECT c.id,..photo_comments..." />
-            <marker date="1430945518236" expanded="true" signature="5160:5378" placeholder="SELECT c.id,..album_comments..." />
+            <marker date="1430945518236" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..categories..." />
+            <marker date="1430945518236" expanded="true" signature="-1:-1" placeholder="SELECT a.id,..albums..." />
+            <marker date="1430945518236" expanded="true" signature="-1:-1" placeholder="SELECT album..album_likes..." />
+            <marker date="1430945518236" expanded="true" signature="-1:-1" placeholder="SELECT id FR..users..." />
+            <marker date="1430945518236" expanded="true" signature="-1:-1" placeholder="SELECT count..albums..." />
+            <marker date="1430945518236" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1430945518236" expanded="true" signature="-1:-1" placeholder="SELECT id FR..users..." />
+            <marker date="1430945518236" expanded="true" signature="-1:-1" placeholder="SELECT p.id,..photos..." />
+            <marker date="1430945518236" expanded="true" signature="-1:-1" placeholder="SELECT c.id,..photo_comments..." />
+            <marker date="1430945518236" expanded="true" signature="-1:-1" placeholder="SELECT c.id,..album_comments..." />
           </folding>
         </state>
       </provider>
@@ -965,6 +776,78 @@
         <state vertical-scroll-proportion="0.25468165" vertical-offset="0" max-vertical-offset="697">
           <caret line="4" column="85" selection-start-line="4" selection-start-column="85" selection-end-line="4" selection-end-column="85" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/HomeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.8846154" vertical-offset="43" max-vertical-offset="544">
+          <caret line="10" column="40" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/HomeModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.5" vertical-offset="2040" max-vertical-offset="2414">
+          <caret line="133" column="81" selection-start-line="131" selection-start-column="8" selection-end-line="133" selection-end-column="81" />
+          <folding>
+            <marker date="1430944655480" expanded="true" signature="2143:2345" placeholder="SELECT p.id,..photos..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/UserAlbumsModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.5769231" vertical-offset="570" max-vertical-offset="3060">
+          <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+          <folding>
+            <element signature="n#getCategories#0;n#UserAlbumsModel#0;n#!!top" expanded="false" />
+            <marker date="1430946653475" expanded="true" signature="141:177" placeholder="SELECT * FRO..categories..." />
+            <marker date="1430946653475" expanded="true" signature="438:709" placeholder="SELECT a.id,..albums..." />
+            <marker date="1430946653475" expanded="true" signature="1614:1832" placeholder="SELECT c.id,..album_comments..." />
+            <marker date="1430946653475" expanded="true" signature="2304:2367" placeholder="INSERT INTO ..." />
+            <marker date="1430946653475" expanded="true" signature="2664:2700" placeholder="DELETE FROM ..." />
+            <marker date="1430946653475" expanded="true" signature="2920:2959" placeholder="SELECT id FR..users..." />
+            <marker date="1430946653475" expanded="true" signature="3167:3243" placeholder="SELECT count..allAlbums..." />
+            <marker date="1430946653475" expanded="true" signature="3520:3576" placeholder="INSERT INTO ..." />
+            <marker date="1430946653475" expanded="true" signature="3949:3988" placeholder="SELECT id FR..users..." />
+            <marker date="1430946653475" expanded="true" signature="4303:4392" placeholder="SELECT a.id,..albums..." />
+            <marker date="1430946653475" expanded="true" signature="4923:4962" placeholder="SELECT user_..albums..." />
+            <marker date="1430946653475" expanded="true" signature="5340:5388" placeholder="INSERT INTO ..." />
+            <marker date="1430946653475" expanded="true" signature="5787:5826" placeholder="SELECT user_..albums..." />
+            <marker date="1430946653475" expanded="true" signature="6203:6405" placeholder="SELECT p.id,..photos..." />
+            <marker date="1430946653475" expanded="true" signature="6942:7113" placeholder="SELECT c.id,..photo_comments..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/home/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.0" vertical-offset="1042" max-vertical-offset="1564">
+          <caret line="72" column="22" selection-start-line="72" selection-start-column="22" selection-end-line="72" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/userAlbums/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.3461537" vertical-offset="736" max-vertical-offset="1088">
+          <caret line="53" column="56" selection-start-line="53" selection-start-column="56" selection-end-line="53" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/UserAlbumsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.27142859" vertical-offset="196" max-vertical-offset="2465">
+          <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
+          <folding>
+            <element signature="n#onInit#0;n#UserAlbumsController#0;n#!!top" expanded="false" />
+            <element signature="n#delete#0;n#UserAlbumsController#0;n#!!top" expanded="false" />
+            <element signature="n#like#0;n#UserAlbumsController#0;n#!!top" expanded="false" />
+            <element signature="n#photos#0;n#UserAlbumsController#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

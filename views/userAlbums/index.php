@@ -46,4 +46,14 @@
             <h2 class="well well-sm">No albums found</h2>
         </div>
     <?php endif; ?>
+    <?php if($this->pagesCount > 1): ?>
+        <div class="col-lg-12 text-center">
+            <ul class="pagination">
+                <li class="disabled"><a href="#">«</a></li>
+                <?php for($page = 1; $page <= $this->pagesCount; $page++): ?>
+                    <li><a href="/photo-album/userAlbums/index/<?php echo $page; ?>"><?php echo $page; ?></a></li>
+                <?php endfor; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
 </main>

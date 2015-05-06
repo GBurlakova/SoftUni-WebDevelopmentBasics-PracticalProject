@@ -7,7 +7,7 @@ class UserAlbumsController extends BaseController {
         $this->categories = $this->db->getCategories();
     }
 
-    public function index() {
+    public function index($startPage = 1) {
         $this->authorize();
         $this->title = "My Albums";
         $username = '';
@@ -15,7 +15,9 @@ class UserAlbumsController extends BaseController {
             $username = $_SESSION['username'];
         }
 
-        $this->userAlbums = $this->db->getUserAlbums($username);
+        $userAlbums = $this->db->getUserAlbums($startPage, $username);
+        $this->userAlbums = $userAlbums['userAlbums'];
+        $this->pagesCount = $userAlbums['pagesCount'];
         $this->renderView();
     }
 
