@@ -172,4 +172,10 @@ class AlbumsController extends BaseController {
         $this->renderView(__FUNCTION__);
         unset($this->errors);
     }
+
+    public function photos($albumId){
+        $this->authorize();
+        $this->albumPhotos = $this->db->getAlbumPhotos($albumId, $_SESSION['username']);
+        $this->renderView(__FUNCTION__);
+    }
 }

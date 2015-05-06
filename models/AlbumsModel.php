@@ -161,6 +161,51 @@ class AlbumsModel extends BaseModel{
         }
     }
 
+    public function getAlbumPhotos($albumId, $username){
+        $userId = $this->getUserId($username);
+        $albumOwnerIdQuery = 'SELECT user_id FROM albums WHERE id = ?';
+        $albumOwnerIdStatement = self::$db->prepare($albumOwnerIdQuery);
+        $albumOwnerIdStatement->bind_param('i', $albumId);
+        $albumOwnerIdStatement->execute();
+        $albumOwnerId = $albumOwnerIdStatement->get_result()->fetch_assoc()['user_id'];
+        $currentUserIsOwner = $albumOwnerId == $userId;
+        if($currentUserIsOwner) {
+            $query = 'SELECT id, name FROM photos WHERE album_id = ?';
+            $statement = self::$db->prepare($query);
+            $statement->bind_param('i', $albumId);
+            $statement->execute();
+            $photos = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
+            $photos = $this->getPhotosComments($photos);
+            return $photos;
+        } else {
+            return false;
+        }
+    }
+
+    private function getPhotosComments($photos){
+        for ($photo = 0; $photo < sizeof($photos); $photo++){
+            $commentsQuery = self::$db->prepare(
+                "SELECT c.id, c.text, u.username, c.date
+            FROM photo_comments c INNER JOIN users u ON c.user_id = u.id
+            WHERE c.photo_id = ?
+            ORDER BY c.id");
+            $photoId = $photos[$photo]['id'];
+            $commentsQuery->bind_param("i", $photoId);
+            $commentsQuery->execute();
+            $commentsQuery->bind_result($id, $text, $username, $date);
+            $comments = array();
+            while($commentsQuery->fetch()) {
+                $comment = array
+                ('id' => $id, 'text' => $text, 'username' => $username, 'date' => $date );
+                array_push($comments, $comment);
+            }
+
+            $photos[$photo]['comments'] = $comments;
+        }
+
+        return $photos;
+    }
+
     private function getAlbumsComments($albums) {
         for ($album = 0; $album < sizeof($albums); $album++){
             $commentsQuery = self::$db->prepare(

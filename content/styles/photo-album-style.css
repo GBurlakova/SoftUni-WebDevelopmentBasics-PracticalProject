@@ -17,5 +17,7 @@ main .comment {
     padding: 1%;
     border-radius: 2px;
     background-color: #949da6; }
+main .default-text {
+  color: #dbdcde; }
 
 /*# sourceMappingURL=photo-album-style.css.map */
