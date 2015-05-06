@@ -1,39 +1,22 @@
 <?php
-class AlbumsController extends BaseController {
+class UserAlbumsController extends BaseController {
     private $db;
 
     public function onInit() {
-        $this->db = new AlbumsModel();
+        $this->db = new UserAlbumsModel();
         $this->categories = $this->db->getCategories();
     }
 
     public function index() {
         $this->authorize();
-        $this->title = "Albums";
+        $this->title = "My Albums";
         $username = '';
         if(isset($_SESSION['username'])) {
             $username = $_SESSION['username'];
         }
 
-        $this->userAlbums = $this->db->all($username);
+        $this->userAlbums = $this->db->getUserAlbums($username);
         $this->renderView();
-    }
-
-    public function publicAlbums($startPage = 1){
-        $this->authorize();
-        $categoryId = null;
-        if(isset($_GET['categoryId'])) {
-            $categoryId = $_GET['categoryId'];
-        }
-
-        $username = '';
-        if(isset($_SESSION['username'])) {
-            $username = $_SESSION['username'];
-        }
-
-        $this->publicAlbums = $this->db->getPublicAlbums($username, $startPage, $categoryId)['albums'];
-        $this->pagesCount = $this->db->getPublicAlbums($username, $startPage, $categoryId)['pagesCount'];
-        $this->renderView('publicAlbums');
     }
 
     public function newAlbum() {
@@ -60,19 +43,18 @@ class AlbumsController extends BaseController {
                 }
 
                 if (!$_POST['albumName'] || !$_POST['categoryId']) {
-                    $this->redirect('albums', 'newAlbum');
+                    $this->redirect('userAlbums', 'newAlbum');
                 }
 
-                $isPublic = isset($_POST['isPublic']) ?  1 : 0;
                 $userId = $this->db->getUserId($_SESSION['username']);
 
-                $albumCreated = $this->db->newAlbum($albumName, $isPublic, $userId, $categoryId);
+                $albumCreated = $this->db->createNewAlbum($albumName, $userId, $categoryId);
                 if($albumCreated) {
                     $this->addSuccessMessage("Album created");
-                    $this->redirect('albums');
+                    $this->redirect('userAlbums');
                 } else {
                     $this->addErrorMessage("Album cannot be created. Please try again!");
-                    $this->redirect('albums', 'newAlbum');
+                    $this->redirect('userAlbums', 'newAlbum');
                 }
             }
         }
@@ -91,7 +73,7 @@ class AlbumsController extends BaseController {
             $this->addErrorMessage("Cannot delete todo.");
         }
 
-        $this->redirect('albums');
+        $this->redirect('allAlbums');
     }
 
     public function like($albumId){
@@ -102,7 +84,7 @@ class AlbumsController extends BaseController {
             $this->addErrorMessage("Cannot like album.");
         }
 
-        $this->redirect('albums', 'publicAlbums');
+        $this->redirect('allAlbums', 'publicAlbums');
     }
 
     public function upload(){
@@ -126,43 +108,44 @@ class AlbumsController extends BaseController {
                 }
 
                 if (!$hasUploadedPhoto || !$_POST['albumId']) {
-                    $this->redirect('albums', 'upload');
+                    $this->redirect('userAlbums', 'upload');
                 }
 
                 if($_FILES['photo']['tmp_name']){
                     if($_FILES['photo']['size'] > 2097152){
                         $_SESSION['errors']['notAllowedPhotoSize'] = true;
-                        $this->redirect('albums', 'upload');
+                        $this->redirect('userAlbums', 'upload');
                     }
 
                     if($_FILES['photo']['type']!='image/gif' &&
                         $_FILES['photo']['type']!='image/jpeg' &&
                         $_FILES['photo']['type']!='image/pjerg') {
                         $_SESSION['errors']['notAllowedPhotoType'] = true;
-                        $this->redirect('albums', 'upload');
+                        $this->redirect('userAlbums', 'upload');
                     }
 
-                    $userPhotosDirectory = './content/user-photos/'.$_SESSION['username'];
+                    $userId = $this->db->getUserId($_SESSION['username']);
+                    $userPhotosDirectory = './content/user-photos/user'.$userId;
 
                     if(!is_dir($userPhotosDirectory)){
                         mkdir($userPhotosDirectory, null, true);
                     }
 
-                    $photoName = time().'_'.$_FILES['photo']['name'];
+                    $photoName = time().'_user'.$userId;
                     $filePath = $userPhotosDirectory.'/'.$photoName;
                     if(move_uploaded_file($_FILES['photo']['tmp_name'],
                         $filePath)) {
                         $albumId = $_POST['albumId'];
                         if($this->db->addPhoto($photoName, $albumId, $_SESSION['username'])) {
                             $this->addSuccessMessage('Photo uploaded successfully');
-                            $this->redirect('albums');
+                            $this->redirect('userAlbums');
                         } else {
                             $this->addErrorMessage('Cannot upload photo. Please try again.');
-                            $this->redirect('albums', 'upload');
+                            $this->redirect('userAlbums', 'upload');
                         };
                     } else {
                         $this->addErrorMessage('Cannot upload photo. Please try again.');
-                        $this->redirect('albums', 'upload');
+                        $this->redirect('userAlbums', 'upload');
                     }
                 }
             }

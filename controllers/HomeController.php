@@ -14,13 +14,14 @@ class HomeController extends  BaseController {
             $categoryId = $_GET['categoryId'];
         }
 
-        $username = '';
-        if(isset($_SESSION['username'])) {
-            $username = $_SESSION['username'];
-        }
-
-        $this->mostLikedAlbums = $this->db->getMostLikedAlbums($username, $startPage, $categoryId)['albums'];
-        $this->pagesCount = $this->db->getMostLikedAlbums($username, $startPage, $categoryId)['pagesCount'];
+        $mostLikedAlbums = $this->db->getMostLikedAlbums($startPage, $categoryId);
+        $this->mostLikedAlbums = $mostLikedAlbums['allAlbums'];
+        $this->pagesCount = $mostLikedAlbums['pagesCount'];
         $this->renderView();
+    }
+
+    public function photos($albumId){
+        $this->albumPhotos = $this->db->getAlbumPhotos($albumId);
+        $this->renderView(__FUNCTION__);
     }
 }

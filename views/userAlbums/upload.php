@@ -1,6 +1,6 @@
 <main>
     <form class="form-horizontal col-lg-6 col-lg-offset-3" method="post"
-          action="/photo-album/albums/upload"
+          action="/photo-album/userAlbums/upload"
           enctype="multipart/form-data">
         <fieldset>
             <legend>Upload photo</legend>
@@ -32,7 +32,7 @@
             </div>
             <div class="col-lg-10 col-lg-offset-2">
                 <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-                <button type="reset" class="btn btn-default">Cancel</button>
+                <a href="/photo-album/userAlbums" type="reset" class="btn btn-default">Cancel</a>
             </div>
         </fieldset>
     </form>

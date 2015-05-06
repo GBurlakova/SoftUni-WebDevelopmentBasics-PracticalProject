@@ -3,12 +3,12 @@
         foreach($this->userAlbums as $album): ?>
             <div class="text-center col-lg-4">
                 <div class="photo-album">
-                    <a href="/photo-album/albums/photos/<?php echo $album['id']; ?>">
+                    <a href="/photo-album/userAlbums/photos/<?php echo $album['id']; ?>">
                         <img src="/photo-album/content/images/user-album.png" alt="album-icon"/>
                     </a>
                 </div>
                 <div>
-                    <a href="/photo-album/albums/photos/<?php echo $album['id']; ?>" class="default-text">
+                    <a href="/photo-album/userAlbums/photos/<?php echo $album['id']; ?>" class="default-text">
                         <span><?php $this->renderText($album['name']); ?></span>
                     </a>
                     <div>

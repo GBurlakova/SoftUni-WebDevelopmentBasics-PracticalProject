@@ -34,21 +34,21 @@
             <div class="navbar-collapse collapse" id="navbar-main">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="/photo-album/albums/publicAlbums">Public albums</a>
+                        <a href="/photo-album/allAlbums">All albums</a>
                     </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download" aria-expanded="true">My albums<span class="caret"></span></a>
                         <ul class="dropdown-menu" aria-labelledby="download">
                             <li>
-                                <a href="/photo-album/albums/index">My albums</a>
+                                <a href="/photo-album/userAlbums/index">My albums</a>
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="/photo-album/albums/newAlbum">New album</a>
+                                <a href="/photo-album/userAlbums/newAlbum">New album</a>
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="/photo-album/albums/upload">Upload photo</a>
+                                <a href="/photo-album/userAlbums/upload">Upload photo</a>
                             </li>
                         </ul>
                     </li>

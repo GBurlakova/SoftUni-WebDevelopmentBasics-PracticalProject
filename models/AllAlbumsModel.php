@@ -1,5 +1,5 @@
 <?php
-class HomeModel extends BaseModel {
+class AllAlbumsModel extends BaseModel{
     public function getCategories()
     {
         $statement = self::$db->query(
@@ -12,39 +12,73 @@ class HomeModel extends BaseModel {
         return $categories;
     }
 
-    public function getMostLikedAlbums($startPage, $categoryId = null) {
-        $averageLikesCount = $this->estimateAverageLikesCount();
-        $query = "SELECT a.id, a.name, COUNT(al.album_id) as likes
-                  FROM albums a LEFT OUTER JOIN album_likes al ON a.id = al.album_id";
+    public function getAllAlbums($username, $startPage, $categoryId = null) {
+        $userId = $this->getUserId($username);
+        $query = "SELECT a.id, a.name, COUNT(al.album_id) as likes,
+                  a.id NOT IN (SELECT album_id FROM album_likes WHERE user_id = ?) AS canBeLiked
+                  FROM albums a left outer JOIN album_likes al ON a.id = al.album_id
+                  WHERE a.user_id <> ?";
         if($categoryId) {
-            $query .= " AND category_id = ? GROUP BY id, name HAVING likes >= ? ORDER BY COUNT(al.album_id) DESC";
+            $query .= " AND category_id = ? GROUP BY id, name ORDER BY likes DESC";
             $statement = self::$db->prepare($query);
-            $statement->bind_param("ii", $categoryId, $averageLikesCount);
+            $statement->bind_param("iii", $userId, $userId, $categoryId);
             $albumsCountBeforePaging = $this->estimateAlbumsCountBeforePaging($statement);
 
             $query .= " LIMIT ?, ?";
             $statement = self::$db->prepare($query);
             $startPageParam = DEFAULT_PAGE_SIZE * ($startPage - 1);
             $pageSizeParam = DEFAULT_PAGE_SIZE;
-            $statement->bind_param("iiii", $categoryId, $averageLikesCount, $startPageParam, $pageSizeParam);
+            $statement->bind_param("iiiii", $userId, $userId, $categoryId, $startPageParam, $pageSizeParam);
         } else {
-            $query .= " GROUP BY id, name HAVING likes >= ? ORDER BY COUNT(al.album_id) DESC";
+            $query .= " GROUP BY id, name ORDER BY likes DESC";
             $statement = self::$db->prepare($query);
-            $statement->bind_param("i", $averageLikesCount);
+            $statement->bind_param("ii", $userId, $userId);
             $albumsCountBeforePaging = $this->estimateAlbumsCountBeforePaging($statement);
-
             $query .= " LIMIT ?, ?";
+
             $statement = self::$db->prepare($query);
             $startPageParam = DEFAULT_PAGE_SIZE * ($startPage - 1);
             $pageSizeParam = DEFAULT_PAGE_SIZE;
-            $statement->bind_param("iii", $averageLikesCount, $startPageParam, $pageSizeParam);
+            $statement->bind_param("iiii", $userId, $userId, $startPageParam, $pageSizeParam);
         }
-
-         $resultData = $this->prepareResultData($statement, $albumsCountBeforePaging);
-         return $resultData;
+        $resultData = $this->prepareResultData($statement, $albumsCountBeforePaging);
+        return $resultData;
     }
 
-    public function getAlbumPhotos($albumId){
+    public function like($username, $albumId){
+        $userIdQuery = self::$db->prepare("SELECT id FROM users WHERE username = ?");
+        $userIdQuery->bind_param("s", $username);
+        $userIdQuery->execute();
+        $userId = $userIdQuery->get_result()->fetch_assoc()['id'];
+        $statement = self::$db->prepare(
+            "SELECT count(id) as albumsCount FROM albums WHERE id = ? and user_id <> ?");
+        $statement->bind_param("ii", $albumId, $userId);
+        $statement->execute();
+        $albumExists = $statement->get_result()->fetch_all(MYSQLI_ASSOC)[0]['albumsCount'] > 0;
+        if($albumExists) {
+            $statement = self::$db->prepare(
+                "INSERT INTO album_likes (album_id, user_id) VALUES(?, ?)");
+            $statement->bind_param("ii", $albumId, $userId);
+            $statement->execute();
+            return $statement->affected_rows > 0;
+        } else {
+            return false;
+        }
+    }
+
+    public function getUserId($username) {
+        if($username == "") {
+            $userId = "";
+        } else {
+            $userIdQuery = self::$db->prepare("SELECT id FROM users WHERE username = ?");
+            $userIdQuery->bind_param("s", $username);
+            $userIdQuery->execute();
+            $userId = $userIdQuery->get_result()->fetch_assoc()['id'];
+        }
+        return $userId;
+    }
+
+    public function getAlbumPhotos($albumId, $username){
         $query = 'SELECT p.id, p.name, u.id as userId
                   FROM photos p
                   INNER JOIN albums a ON a.id = p.album_id
@@ -74,10 +108,8 @@ class HomeModel extends BaseModel {
                 ('id' => $id, 'text' => $text, 'username' => $username, 'date' => $date );
                 array_push($comments, $comment);
             }
-
             $photos[$photo]['comments'] = $comments;
         }
-
         return $photos;
     }
 
@@ -98,17 +130,9 @@ class HomeModel extends BaseModel {
                 ('id' => $id, 'text' => $text, 'username' => $username, 'date' => $date );
                 array_push($comments, $comment);
             }
-
             $albums[$album]['comments'] = $comments;
         }
-
         return $albums;
-    }
-
-    private function estimateAverageLikesCount() {
-        $likesQuery = self::$db->query("SELECT IFNULL(COUNT(album_id) / COUNT(id), 0)  as averageLikes FROM albums INNER JOIN album_likes ON id = album_id");
-        $averageLikesCount = $likesQuery->fetch_assoc()['averageLikes'];
-        return $averageLikesCount;
     }
 
     private function estimateAlbumsCountBeforePaging($statement) {
@@ -120,14 +144,13 @@ class HomeModel extends BaseModel {
 
     private function prepareResultData($statement, $albumsCountBeforePaging) {
         $statement->execute();
-        $statement->bind_result($id, $name, $likes);
+        $statement->bind_result($id, $name, $likes, $canBeLiked);
         $albums = array();
         while($statement->fetch()) {
             $album = array
-            ('id' => $id, 'name' => $name, 'likes' => $likes);
+            ('id' => $id, 'name' => $name, 'likes' => $likes, 'canBeLiked' => $canBeLiked );
             array_push($albums, $album);
         }
-
         $albums = $this->getAlbumsComments($albums);
         $pagesCount = ($albumsCountBeforePaging + DEFAULT_PAGE_SIZE - 1) / DEFAULT_PAGE_SIZE;
         $pagesCount = floor($pagesCount);

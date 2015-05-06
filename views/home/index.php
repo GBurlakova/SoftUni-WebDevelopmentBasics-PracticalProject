@@ -29,10 +29,14 @@
                     foreach($this->mostLikedAlbums as $album): ?>
                         <div class="text-center col-lg-4">
                             <div class="photo-album">
-                                <img src="/photo-album/content/images/user-album.png" alt="album-icon"/>
+                                <a href="/photo-album/home/photos/<?php echo $album['id']; ?>">
+                                    <img src="/photo-album/content/images/user-album.png" alt="album-icon"/>
+                                </a>
                             </div>
                             <div>
-                                <span><?php $this->renderText($album['name']); ?></span>
+                                <a class="default-text" href="/photo-album/home/photos/<?php echo $album['id']; ?>">
+                                    <span><?php $this->renderText($album['name']); ?></span>
+                                </a>
                                 <div>
                                     <span>Likes </span>
                                     <span class="badge"><?php $this->renderText($album['likes']); ?></span>

@@ -6,17 +6,17 @@
     </div>
     <div class="bs-component col-lg-12">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#public" data-toggle="tab">Public albums</a></li>
+            <li class="active"><a href="#public" data-toggle="tab">All albums</a></li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
                     Categories <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="/photo-album/albums/publicAlbums">All</a></li>
+                    <li><a href="/photo-album/allAlbums">All</a></li>
                     <li class="divider"></li>
                     <?php foreach($this->categories as $category): ?>
                         <li>
-                            <a href="/photo-album/albums/publicAlbums?categoryId=<?php echo $category['id']?>"><?php $this->renderText($category['name']);?></a>
+                            <a href="/photo-album/allAlbums/index?categoryId=<?php echo $category['id']?>"><?php $this->renderText($category['name']);?></a>
                         </li>
                     <?php endforeach;?>
                 </ul>
@@ -25,14 +25,18 @@
         <div id="myTabContent" class="tab-content col-lg-10 col-lg-offset-1 text-center">
             <div class="tab-pane fade active in" id="public">
                 <div>
-                    <?php if($this->publicAlbums):
-                        foreach($this->publicAlbums as $album): ?>
+                    <?php if($this->allAlbums):
+                        foreach($this->allAlbums as $album): ?>
                             <div class="text-center col-lg-4">
                                 <div class="photo-album">
-                                    <img src="/photo-album/content/images/user-album.png" alt="album-icon"/>
+                                    <a href="/photo-album/allAlbums/photos/<?php echo $album['id']; ?>">
+                                        <img src="/photo-album/content/images/user-album.png" alt="album-icon"/>
+                                    </a>
                                 </div>
                                 <div>
-                                    <span><?php $this->renderText($album['name']); ?></span>
+                                    <a class="default-text" href="/photo-album/allAlbums/photos/<?php echo $album['id']; ?>">
+                                        <span><?php $this->renderText($album['name']); ?></span>
+                                    </a>
                                     <div>
                                         <span>Likes </span>
                                         <span class="badge"><?php $this->renderText($album['likes']); ?></span>
@@ -41,7 +45,7 @@
                                         <?php endif; ?>
                                         <?php if($this->isLoggedIn && $album['canBeLiked'] == 1): ?>
                                             <span>
-                                                <a href="/photo-album/albums/like/<?php $this->renderText($album['id']); ?>" class="label label-success">Like</a>
+                                                <a href="/photo-album/allAlbums/like/<?php $this->renderText($album['id']); ?>" class="label label-success">Like</a>
                                             </span>
                                         <?php endif; ?>
                                     </div>
@@ -80,7 +84,7 @@
                     <ul class="pagination">
                         <li class="disabled"><a href="#">«</a></li>
                         <?php for($page = 1; $page <= $this->pagesCount; $page++): ?>
-                            <li><a href="/photo-album/albums/publicAlbums/<?php echo $page; ?>"><?php echo $page; ?></a></li>
+                            <li><a href="/photo-album/allAlbums/index/<?php echo $page; ?>"><?php echo $page; ?></a></li>
                         <?php endfor; ?>
                     </ul>
                 </div>

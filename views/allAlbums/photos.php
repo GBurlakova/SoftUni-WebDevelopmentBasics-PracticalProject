@@ -2,7 +2,7 @@
     <?php if($this->albumPhotos):
         foreach($this->albumPhotos as $photo): ?>
             <div class="text-center col-lg-4">
-                <img class="img-thumbnail" src="/photo-album/content/user-photos/<?php echo $_SESSION['username'].'/'.$photo['name']?>" alt="user-photo"/>
+                <img class="img-thumbnail" src="/photo-album/content/user-photos/user<?php echo $photo['userId'].'/'.$photo['name']?>" alt="user-photo"/>
                 <div>
                     <div class="panel panel-primary margin">
                         <div class="panel-heading">
