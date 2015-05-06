@@ -39,16 +39,34 @@ class AlbumsController extends BaseController {
     public function newAlbum() {
         $this->authorize();
         $this->title = "New album";
+        if(isset($_SESSION['emptyFields'])) {
+            $this->emptyFields = $_SESSION['emptyFields'];
+            unset($_SESSION['emptyFields']);
+        }
 
         if($this->isPost) {
             if(isset($_POST['submit'])) {
-                $albumName = $this->checkForRequiredData('albumName', $_POST['albumName']);
-                $categoryId = $this->checkForRequiredData('categoryId', $_POST['categoryId']);
+                if($_POST['albumName']) {
+                    $albumName = $_POST['albumName'];
+                } else {
+                    $_SESSION['emptyFields']['albumName'] = true;
+                }
+
+                if($_POST['categoryId']) {
+                    $categoryId = $_POST['categoryId'];
+                } else {
+                    $_SESSION['emptyFields']['categoryId'] = true;
+                }
+
+                if (!$_POST['albumName'] || !$_POST['categoryId']) {
+                    $this->redirect('albums', 'newAlbum');
+                }
+
                 $isPublic = isset($_POST['isPublic']) ?  1 : 0;
                 $userId = $this->db->getUserId($_SESSION['username']);
 
-                $todoIsAdded = $this->db->newAlbum($albumName, $isPublic, $userId, $categoryId);
-                if($todoIsAdded) {
+                $albumCreated = $this->db->newAlbum($albumName, $isPublic, $userId, $categoryId);
+                if($albumCreated) {
                     $this->addSuccessMessage("Album created");
                     $this->redirect('albums');
                 } else {
@@ -60,6 +78,7 @@ class AlbumsController extends BaseController {
 
         $this->categories = $this->db->getCategories();
         $this->renderView(__FUNCTION__);
+        unset($this->emptyFields);
     }
 
     public function delete($id){
@@ -83,5 +102,9 @@ class AlbumsController extends BaseController {
         }
 
         $this->redirect('albums', 'publicAlbums');
+    }
+
+    public function upload(){
+
     }
 }

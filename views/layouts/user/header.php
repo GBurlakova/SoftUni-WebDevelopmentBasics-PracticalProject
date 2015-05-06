@@ -46,6 +46,10 @@
                             <li>
                                 <a href="/photo-album/albums/newAlbum">New album</a>
                             </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="/photo-album/albums/uploadPhoto">Upload photo</a>
+                            </li>
                         </ul>
                     </li>
                         <li class="dropdown">

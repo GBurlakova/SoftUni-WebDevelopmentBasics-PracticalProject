@@ -124,6 +124,8 @@ class AlbumsModel extends BaseModel{
         return $userId;
     }
 
+
+
     private function getAlbumsComments($albums) {
         for ($album = 0; $album < sizeof($albums); $album++){
             $commentsQuery = self::$db->prepare(

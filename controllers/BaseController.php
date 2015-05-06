@@ -112,15 +112,6 @@ abstract class BaseController {
         $this->addMessage($msg, 'error');
     }
 
-    public function checkForRequiredData($name, $data){
-        if(!$data) {
-            $this->addErrorMessage('Missing required data');
-            $this->redirect('albums', 'newAlbum');
-        }
-
-        return $data;
-    }
-
     public function gerUserId(){
         $username = $_SESSION['username'];
         $userId = $this->db->getIserId($username);
