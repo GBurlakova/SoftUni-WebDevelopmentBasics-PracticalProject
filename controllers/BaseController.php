@@ -100,19 +100,34 @@ abstract class BaseController {
     }
 
     // notifications
-    function addInfoMessage($msg) {
+    public function addInfoMessage($msg) {
         $this->addMessage($msg, 'info');
     }
 
-    function addSuccessMessage($msg) {
+    public function addSuccessMessage($msg) {
         $this->addMessage($msg, 'success');
     }
 
-    function addErrorMessage($msg) {
+    public function addErrorMessage($msg) {
         $this->addMessage($msg, 'error');
     }
 
-    function addMessage($msg, $type) {
+    public function checkForRequiredData($name, $data){
+        if(!$data) {
+            $this->addErrorMessage('Missing required data');
+            $this->redirect('albums', 'newAlbum');
+        }
+
+        return $data;
+    }
+
+    public function gerUserId(){
+        $username = $_SESSION['username'];
+        $userId = $this->db->getIserId($username);
+        return $userId;
+    }
+
+    private function addMessage($msg, $type) {
         session_start();
         if (!isset($_SESSION['messages'])) {
             $_SESSION['messages'] = array();

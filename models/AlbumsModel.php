@@ -1,5 +1,17 @@
 <?php
 class AlbumsModel extends BaseModel{
+    public function getCategories()
+    {
+        $statement = self::$db->query(
+            "SELECT * FROM categories ORDER BY id");
+        $categories = array();
+        while($category = $statement->fetch_assoc()) {
+            array_push($categories, $category);
+        }
+
+        return $categories;
+    }
+
     public function all($username) {
         $statement = self::$db->prepare(
             "SELECT a.id, a.name, COUNT(al.album_id) as likes
@@ -27,14 +39,10 @@ class AlbumsModel extends BaseModel{
         return $userAlbums;
     }
 
-    public function create($todoItem, $userId = 1){
-        if ($todoItem == '') {
-            return false;
-        }
-
-        $statement = self::$db->prepare(
-            "INSERT INTO photo-album (user_id, todo_item) VALUES(?, ?)");
-        $statement->bind_param('is', $userId, $todoItem);
+    public function newAlbum($albumName, $isPublic, $userId, $categoryId){
+        $query = 'INSERT INTO albums (name, is_public, user_id, category_id) VALUES(?, ?, ?, ?)';
+        $statement = self::$db->prepare($query);
+        $statement->bind_param('siii', $albumName, $isPublic, $userId, $categoryId);
         $statement->execute();
         return $statement->affected_rows > 0;
     }
@@ -103,6 +111,19 @@ class AlbumsModel extends BaseModel{
         return $resultData;
     }
 
+    public function getUserId($username) {
+        if($username == "") {
+            $userId = "";
+        } else {
+            $userIdQuery = self::$db->prepare("SELECT id FROM users WHERE username = ?");
+            $userIdQuery->bind_param("s", $username);
+            $userIdQuery->execute();
+            $userId = $userIdQuery->get_result()->fetch_assoc()['id'];
+        }
+
+        return $userId;
+    }
+
     private function getAlbumsComments($albums) {
         for ($album = 0; $album < sizeof($albums); $album++){
             $commentsQuery = self::$db->prepare(
@@ -125,19 +146,6 @@ class AlbumsModel extends BaseModel{
         }
 
         return $albums;
-    }
-
-    private function getUserId($username) {
-        if($username == "") {
-            $userId = "";
-        } else {
-            $userIdQuery = self::$db->prepare("SELECT id FROM users WHERE username = ?");
-            $userIdQuery->bind_param("s", $username);
-            $userIdQuery->execute();
-            $userId = $userIdQuery->get_result()->fetch_assoc()['id'];
-        }
-
-        return $userId;
     }
 
     private function estimateAlbumsCountBeforePaging($statement) {

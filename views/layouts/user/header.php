@@ -36,16 +36,24 @@
                     <li>
                         <a href="/photo-album/albums/publicAlbums">Public albums</a>
                     </li>
-                        <li>
-                            <a href="/photo-album/albums/index">My albums</a>
-                        </li>
-                        <li class="dropdown open">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download" aria-expanded="true">Actions <span class="caret"></span></a>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download" aria-expanded="true">My albums<span class="caret"></span></a>
+                        <ul class="dropdown-menu" aria-labelledby="download">
+                            <li>
+                                <a href="/photo-album/albums/index">My albums</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="/photo-album/albums/newAlbum">New album</a>
+                            </li>
+                        </ul>
+                    </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download" aria-expanded="true">Profile <span class="caret"></span></a>
                             <ul class="dropdown-menu" aria-labelledby="download">
                                 <li><a href="./bootstrap.min.css">Profile</a></li>
-                                <li><a href="./bootstrap.min.css">Edit profile</a></li>
                                 <li class="divider"></li>
-                                <li><a href="./bootstrap.css">Create album</a></li>
+                                <li><a href="./bootstrap.min.css">Edit profile</a></li>
                             </ul>
                         </li>
                     <li>

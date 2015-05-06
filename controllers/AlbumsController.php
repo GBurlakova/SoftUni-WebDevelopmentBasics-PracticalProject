@@ -4,6 +4,7 @@ class AlbumsController extends BaseController {
 
     public function onInit() {
         $this->db = new AlbumsModel();
+        $this->categories = $this->db->getCategories();
     }
 
     public function index() {
@@ -35,21 +36,29 @@ class AlbumsController extends BaseController {
         $this->renderView('publicAlbums');
     }
 
-    public function add() {
+    public function newAlbum() {
         $this->authorize();
-        $this->title = "Add album";
+        $this->title = "New album";
 
         if($this->isPost) {
-            $todoIsAdded = $this->db->addTodoItem($_POST['todo-item']);
-            if($todoIsAdded) {
-                $this->addSuccessMessage("Todo added");
-                $this->redirect('albums');
-            } else {
-                $this->addErrorMessage("Todo cannot be added. Please try again!");
-                $this->redirect('photo-album/addTodo');
+            if(isset($_POST['submit'])) {
+                $albumName = $this->checkForRequiredData('albumName', $_POST['albumName']);
+                $categoryId = $this->checkForRequiredData('categoryId', $_POST['categoryId']);
+                $isPublic = isset($_POST['isPublic']) ?  1 : 0;
+                $userId = $this->db->getUserId($_SESSION['username']);
+
+                $todoIsAdded = $this->db->newAlbum($albumName, $isPublic, $userId, $categoryId);
+                if($todoIsAdded) {
+                    $this->addSuccessMessage("Album created");
+                    $this->redirect('albums');
+                } else {
+                    $this->addErrorMessage("Album cannot be created. Please try again!");
+                    $this->redirect('albums', 'newAlbum');
+                }
             }
         }
 
+        $this->categories = $this->db->getCategories();
         $this->renderView(__FUNCTION__);
     }
 
