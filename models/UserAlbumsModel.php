@@ -12,15 +12,18 @@ class UserAlbumsModel extends BaseModel{
         return $categories;
     }
 
-    public function getUserAlbums($startPage, $username) {
+    public function getUserAlbums($startPage, $username, $albumsSearchCondition) {
         $query = "SELECT a.id, a.name, COUNT(al.album_id) as likes
             FROM albums a INNER JOIN users u ON a.user_id = u.id
             LEFT OUTER JOIN album_likes al ON a.id = al.album_id
             WHERE u.username = ?
+            AND a.name like ?
             GROUP BY a.id, a.name
             ORDER BY a.id";
+        $albumsSearchCondition = '%' . $albumsSearchCondition . '%';
+
         $statement = self::$db->prepare($query);
-        $statement->bind_param("s", $username);
+        $statement->bind_param("ss", $username, $albumsSearchCondition);
         $statement->execute();
         $userAlbums = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
         $albumsCountBeforePaging = sizeof($userAlbums);
@@ -28,7 +31,7 @@ class UserAlbumsModel extends BaseModel{
         $statement = self::$db->prepare($query);
         $startPageParam = DEFAULT_PAGE_SIZE * ($startPage - 1);
         $pageSizeParam = DEFAULT_PAGE_SIZE;
-        $statement->bind_param("sii", $username, $startPageParam, $pageSizeParam);
+        $statement->bind_param("ssii", $username, $albumsSearchCondition, $startPageParam, $pageSizeParam);
         $statement->execute();
         $userAlbums = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
         $pagesCount = ($albumsCountBeforePaging + DEFAULT_PAGE_SIZE - 1) / DEFAULT_PAGE_SIZE;

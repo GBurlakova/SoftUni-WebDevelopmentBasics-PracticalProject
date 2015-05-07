@@ -15,7 +15,13 @@ class UserAlbumsController extends BaseController {
             $username = $_SESSION['username'];
         }
 
-        $userAlbums = $this->db->getUserAlbums($startPage, $username);
+        if(isset($_POST['albumsSearchCondition'])) {
+            $albumsSearchCondition = $_POST['albumsSearchCondition'];
+        } else {
+            $albumsSearchCondition = null;
+        }
+
+        $userAlbums = $this->db->getUserAlbums($startPage, $username, $albumsSearchCondition);
         $this->userAlbums = $userAlbums['userAlbums'];
         $this->pagesCount = $userAlbums['pagesCount'];
         $this->renderView();

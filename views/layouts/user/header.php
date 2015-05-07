@@ -68,9 +68,11 @@
                     </li>
                 </ul>
 
-                <form class="navbar-form navbar-left" role="search">
+                <form class="navbar-form navbar-left"
+                      role="search" method="post"
+                      action="/photo-album/userAlbums">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search albums">
+                        <input type="text" name="albumsSearchCondition" class="form-control" placeholder="Search in my albums">
                     </div>
                     <button type="submit" class="btn btn-default">Search</button>
                 </form>
