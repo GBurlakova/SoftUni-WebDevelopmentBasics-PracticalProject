@@ -15,8 +15,10 @@
     <script type="text/javascript" src="/photo-album/content/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/photo-album/content/js/bootwatch.js"></script>
     <script type="text/javascript" src="/photo-album/content/lib/jquery.noty.packaged.min.js"></script>
-    <script type="text/javascript" src="/photo-album/content/js/notifier.js"></script>
     <script type="text/javascript" src="/photo-album/content/lib/q.js"></script>
+<!--    // Custom scripts-->
+    <script type="text/javascript" src="/photo-album/content/js/notifier.js"></script>
+    <script type="text/javascript" src="/photo-album/content/js/albumsComments.js"></script>
 </head>
 
 <body>

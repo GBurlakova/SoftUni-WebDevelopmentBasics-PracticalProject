@@ -54,7 +54,7 @@
                                     <div class="panel-heading">
                                         <h3 class="panel-title">Comments</h3>
                                     </div>
-                                    <div class="panel-body" style="min-height: 150px; max-height: 150px; overflow-y: auto;">
+                                    <div class="panel-body" style="min-height: 150px; max-height: 150px; overflow-y: auto;" id="panel-body<?php echo $album['id']?>">
                                         <?php if($album['comments']):
                                         foreach($album['comments'] as $comment): ?>
                                             <div class="comment">
@@ -69,6 +69,9 @@
                                             </div>
                                         <?php endif; ?>
                                     </div>
+                                </div>
+                                <div>
+                                    <a class="btn btn-success comment-btn" id="comment-btn<?php echo $album['id']?>">Add comment</a>
                                 </div>
                             </div>
                         <?php endforeach;

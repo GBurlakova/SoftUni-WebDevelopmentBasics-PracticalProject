@@ -91,6 +91,16 @@ class AllAlbumsModel extends BaseModel{
         return $photos;
     }
 
+    public function comment($commentText, $albumsId, $username){
+        $userId = $this->getUserId($username);
+        $query = 'INSERT INTO album_comments (text, album_id, user_id, date) VALUES(?, ?, ?, ?)';
+        $statement = self::$db->prepare($query);
+        $date = date('Y-m-d');
+        $statement->bind_param('siis', $commentText, $albumsId, $userId, $date);
+        $statement->execute();
+        return $statement->affected_rows > 0;
+    }
+
     private function getPhotosComments($photos){
         for ($photo = 0; $photo < sizeof($photos); $photo++){
             $commentsQuery = self::$db->prepare(
