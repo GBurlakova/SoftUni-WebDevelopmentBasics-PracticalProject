@@ -19,6 +19,7 @@
 <!--    // Custom scripts-->
     <script type="text/javascript" src="/photo-album/content/js/notifier.js"></script>
     <script type="text/javascript" src="/photo-album/content/js/albumsComments.js"></script>
+    <script type="text/javascript" src="/photo-album/content/js/photosComments.js"></script>
 </head>
 
 <body>

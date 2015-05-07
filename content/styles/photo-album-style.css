@@ -19,5 +19,7 @@ main .comment {
     background-color: #949da6; }
 main .default-text {
   color: #dbdcde; }
+main .more-margin {
+  margin-bottom: 2%; }
 
 /*# sourceMappingURL=photo-album-style.css.map */

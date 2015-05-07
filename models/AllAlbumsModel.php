@@ -91,12 +91,12 @@ class AllAlbumsModel extends BaseModel{
         return $photos;
     }
 
-    public function comment($commentText, $albumsId, $username){
+    public function comment($commentText, $albumId, $username){
         $userId = $this->getUserId($username);
         $query = 'INSERT INTO album_comments (text, album_id, user_id, date) VALUES(?, ?, ?, ?)';
         $statement = self::$db->prepare($query);
         $date = date('Y-m-d');
-        $statement->bind_param('siis', $commentText, $albumsId, $userId, $date);
+        $statement->bind_param('siis', $commentText, $albumId, $userId, $date);
         $statement->execute();
         return $statement->affected_rows > 0;
     }
