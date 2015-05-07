@@ -46,4 +46,19 @@ class PhotosController extends BaseController
             }
         }
     }
+
+    public function download(){
+        $this->authorize();
+        if($this->isPost) {
+            if(isset($_POST['photoName'])) {
+                $photoName = $_POST['photoName'];
+                $userId = $_POST['userId'];
+                $filePath = $_SERVER['HTTP_ORIGIN'] . '/photo-album/content/user-photos/user'.$userId . '/'. $photoName;
+                header("Content-disposition: attachment; filename={$photoName}");
+                header('Content-type: application/octet-stream');
+                header("Content-Type: application/force-download");
+                readfile($filePath);
+            }
+        }
+    }
 }

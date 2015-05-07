@@ -21,4 +21,16 @@ class PhotosModel extends BaseModel{
         }
         return $userId;
     }
+
+    public function getPhotoInformation($photoId){
+        $query = 'SELECT p.name, u.id as userId FROM photos p
+                  INNER JOIN albums a ON a.id = p.album_id
+                  INNER JOIN users u ON a.user_id = u.id
+                  WHERE p.id = ?';
+
+        $statement = self::$db->prepare($query);
+        $statement->bind_param('i', $photoId);
+        $photo = $statement->get_result()->fetch_assoc();
+        return $photo;
+    }
 }

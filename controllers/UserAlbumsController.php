@@ -139,7 +139,8 @@ class UserAlbumsController extends BaseController {
                         mkdir($userPhotosDirectory, null, true);
                     }
 
-                    $photoName = time().'_user'.$userId;
+                    $photoName = time().'_user'.$userId.'.'.pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
+                    var_dump($photoName);
                     $filePath = $userPhotosDirectory.'/'.$photoName;
                     if(move_uploaded_file($_FILES['photo']['tmp_name'],
                         $filePath)) {

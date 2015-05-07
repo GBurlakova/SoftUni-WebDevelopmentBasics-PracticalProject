@@ -3,7 +3,11 @@
         foreach($this->albumPhotos as $photo): ?>
             <div class="text-center col-lg-4">
                 <img class="img-thumbnail more-margin" src="/photo-album/content/user-photos/user<?php echo $photo['userId'].'/'.$photo['name']?>" alt="user-photo"/>
-                <a class="btn-sm btn-primary" href="">Download</a>
+                <form action="/photo-album/photos/download" method="post">
+                    <input type="hidden" name="photoName" value="<?php echo $photo['name']; ?>"/>
+                    <input type="hidden" name="userId" value="<?php echo $photo['userId']; ?>"/>
+                    <input class="btn-sm btn-primary" type="submit" value="Download"/>
+                </form>
                 <div class="panel panel-primary margin">
                     <div class="panel-heading">
                         <h3 class="panel-title">Comments</h3>
