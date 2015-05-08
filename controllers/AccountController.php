@@ -8,32 +8,109 @@ class AccountController extends BaseController {
     }
 
     public function register() {
+        $this->title = 'Register';
+        if(isset($_SESSION['emptyFields'])) {
+            $this->emptyFields = $_SESSION['emptyFields'];
+            $this->filledFields = $_SESSION['filledFields'];
+            unset($_SESSION['emptyFields']);
+            unset($_SESSION['filledFields']);
+        }
+
+        if(isset($_SESSION['registerErrors'])) {
+            $this->registerErrors = $_SESSION['registerErrors'];
+            unset($_SESSION['registerErrors']);
+        }
+
         if ($this->isPost) {
-            $username = $_POST['username'];
-            if($username == null || strlen($username) < 3) {
-                $this->addErrorMessage("Username is invalid!");
+            $hasEmptyFields = false;
+            $filledFields = array();
+            if($_POST['username']) {
+                $username = $_POST['username'];
+                $filledFields['username'] = $username;
+            } else {
+                $_SESSION['emptyFields']['username'] = true;
+                $hasEmptyFields = true;
+            }
+
+            if($_POST['firstName']) {
+                $firstName= $_POST['firstName'];
+                $filledFields['firstName'] = $firstName;
+            } else {
+                $_SESSION['emptyFields']['firstName'] = true;
+                $hasEmptyFields = true;
+            }
+
+            if($_POST['lastName']) {
+                $lastName = $_POST['lastName'];
+                $filledFields['lastName'] = $lastName;
+            } else {
+                $_SESSION['emptyFields']['lastName'] = true;
+                $hasEmptyFields = true;
+            }
+
+            if($_POST['password']) {
+                $password = $_POST['password'];
+            } else {
+                $_SESSION['emptyFields']['password'] = true;
+                $hasEmptyFields = true;
+            }
+
+            if($hasEmptyFields) {
+                $_SESSION['filledFields'] = $filledFields;
                 $this->redirect("account", "register");
             }
 
-            $password = $_POST['password'];
-            $isRegistered = $this->db->register($username, $password);
-            if ($isRegistered) {
+            $respond = $this->db->register($firstName, $lastName, $username, $password);
+            $statusCode = $respond['statusCode'];
+            if ($statusCode == 201) {
                 $_SESSION['username'] = $username;
                 $this->addSuccessMessage("Successful registration!");
                 $this->redirect("userAlbums", "index");
             } else {
-                $this->addErrorMessage("Register failed!");
+                if(isset($respond['message'])) {
+                    $_SESSION['registerErrors']['usernameTaken'] = true;
+                } else {
+                    $this->addErrorMessage("Register failed!");
+                }
+
                 $this->redirect("account", "register");
             }
         }
 
         $this->renderView(__FUNCTION__);
+        unset($this->emptyFields);
+        unset($this->filledFields);
+        unset($this->registerErrors);
     }
 
     public function login() {
+        $this->title = 'Login';
+        if(isset($_SESSION['emptyFields'])) {
+            $this->emptyFields = $_SESSION['emptyFields'];
+            unset($_SESSION['emptyFields']);
+        }
+
         if ($this->isPost) {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
+            $hasEmptyFields = false;
+            if($_POST['username']) {
+                $username = $_POST['username'];
+                $filledFields['username'] = $username;
+            } else {
+                $_SESSION['emptyFields']['username'] = true;
+                $hasEmptyFields = true;
+            }
+
+            if($_POST['password']) {
+                $password = $_POST['password'];
+            } else {
+                $_SESSION['emptyFields']['password'] = true;
+                $hasEmptyFields = true;
+            }
+
+            if($hasEmptyFields) {
+                $this->redirect("account", "login");
+            }
+
             $isLoggedIn = $this->db->login($username, $password);
             if ($isLoggedIn) {
                 $_SESSION['username'] = $username;
@@ -45,6 +122,7 @@ class AccountController extends BaseController {
         }
 
         $this->renderView(__FUNCTION__);
+        unset($this->emptyFields);
     }
 
     public function logout() {

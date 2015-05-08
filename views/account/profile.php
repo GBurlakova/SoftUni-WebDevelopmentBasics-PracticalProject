@@ -10,15 +10,15 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-2 control-label" value="<?php $this->renderText($this->profile['first_name']); ?>">First name</label>
+                    <label class="col-lg-2 control-label">First name</label>
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" readonly value="<?php $this->renderText($this->profile['last_name']); ?>">
+                        <input type="text" class="form-control" readonly value="<?php $this->renderText($this->profile['first_name']); ?>">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Last name</label>
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control" readonly value="<?php $this->renderText($this->profile['last_name']); ?>">
                     </div>
                 </div>
             </fieldset>

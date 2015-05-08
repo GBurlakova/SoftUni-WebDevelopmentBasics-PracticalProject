@@ -1,22 +1,30 @@
 <?php
 
 class AccountModel extends BaseModel {
-    public function register($username, $password) {
+    public function register($firstName, $lastName, $username, $password) {
         $statement = self::$db->prepare("SELECT COUNT(Id) FROM users WHERE username = ?");
         $statement->bind_param("s", $username);
         $statement->execute();
         $result = $statement->get_result()->fetch_assoc();
+        $respond = array();
         if ($result['COUNT(Id)']) {
-            return false;
+            $respond = array();
+            $respond['statusCode'] = 400;
+            $respond['message'] = 'Username is already taken';
+        } else {
+            $hash_pass = password_hash($password, PASSWORD_BCRYPT);
+            $registerStatement = self::$db->prepare("INSERT INTO Users (first_name, last_name, username, password) VALUES (?, ?, ?, ?)");
+            $registerStatement->bind_param("ssss", $firstName, $lastName, $username, $hash_pass);
+            $registerStatement->execute();
+            $successfulRegister = $statement->affected_rows > 0;
+            if($successfulRegister) {
+                $respond['statusCode'] = 201;
+            } else {
+                $respond['statusCode'] = 400;
+            }
         }
 
-        $hash_pass = password_hash($password, PASSWORD_BCRYPT);
-
-        $registerStatement = self::$db->prepare("INSERT INTO Users (username, password) VALUES (?, ?)");
-        $registerStatement->bind_param("ss", $username, $hash_pass);
-        $registerStatement->execute();
-
-        return true;
+        return $respond;
     }
 
     public function login($username, $password) {
