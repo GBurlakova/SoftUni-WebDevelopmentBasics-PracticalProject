@@ -60,14 +60,14 @@ class AccountController extends BaseController {
                 $this->redirect("account", "register");
             }
 
-            $respond = $this->db->register($firstName, $lastName, $username, $password);
-            $statusCode = $respond['statusCode'];
+            $response = $this->db->register($firstName, $lastName, $username, $password);
+            $statusCode = $response['statusCode'];
             if ($statusCode == 201) {
                 $_SESSION['username'] = $username;
                 $this->addSuccessMessage("Successful registration!");
                 $this->redirect("userAlbums", "index");
             } else {
-                if(isset($respond['message'])) {
+                if(isset($response['message'])) {
                     $_SESSION['registerErrors']['usernameTaken'] = true;
                 } else {
                     $this->addErrorMessage("Register failed!");
@@ -134,8 +134,88 @@ class AccountController extends BaseController {
 
     public function profile(){
         $this->authorize();
+        $this->title = 'Profile';
         $profile = $this->db->profile($_SESSION['username']);
         $this->profile = $profile;
         $this->renderView(__FUNCTION__);
     }
+
+    public function editProfile() {
+        $this->authorize();
+        $this->title = 'Edit profile';
+        if(isset($_SESSION['emptyFields'])) {
+            $this->emptyFields = $_SESSION['emptyFields'];
+            $this->filledFields = $_SESSION['filledFields'];
+            unset($_SESSION['emptyFields']);
+            unset($_SESSION['filledFields']);
+        }
+
+        if(isset($_SESSION['editProfileErrors'])) {
+            $this->registerErrors = $_SESSION['editProfileErrors'];
+            unset($_SESSION['editProfileErrors']);
+        }
+
+        if($this->isPost) {
+            $hasEmptyFields = false;
+            $filledFields = array();
+            if($_POST['username']) {
+                $username = $_POST['username'];
+                $filledFields['username'] = $username;
+            } else {
+                $_SESSION['emptyFields']['username'] = true;
+                $hasEmptyFields = true;
+            }
+
+            if($_POST['firstName']) {
+                $firstName= $_POST['firstName'];
+                $filledFields['firstName'] = $firstName;
+            } else {
+                $_SESSION['emptyFields']['firstName'] = true;
+                $hasEmptyFields = true;
+            }
+
+            if($_POST['lastName']) {
+                $lastName = $_POST['lastName'];
+                $filledFields['lastName'] = $lastName;
+            } else {
+                $_SESSION['emptyFields']['lastName'] = true;
+                $hasEmptyFields = true;
+            }
+
+            if($_POST['password']) {
+                $password = $_POST['password'];
+            } else {
+                $_SESSION['emptyFields']['password'] = true;
+                $hasEmptyFields = true;
+            }
+
+            if($hasEmptyFields) {
+                $_SESSION['filledFields'] = $filledFields;
+                $this->redirect("account", "editProfile");
+            }
+
+            $response = $this->db->editProfile(
+                $_SESSION['username'], $firstName, $lastName, $username, $password);
+            $statusCode = $response['statusCode'];
+            if($statusCode == 200) {
+                $this->addSuccessMessage("Successful profile edit!");
+                $_SESSION['username'] = $username;
+                $this->redirect("account", "profile");
+            } else {
+                if(isset($response['message'])) {
+                    $_SESSION['editProfileErrors']['usernameTaken'] = true;
+                } else {
+                    $this->addErrorMessage("Edit profile failed!");
+                }
+
+                $this->redirect("account", "editProfile");
+            }
+
+        }
+
+        $profile = $this->db->profile($_SESSION['username']);
+        $this->profile = $profile;
+        $this->renderView(__FUNCTION__);
+    }
+
 }

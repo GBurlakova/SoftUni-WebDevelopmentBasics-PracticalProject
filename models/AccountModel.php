@@ -6,11 +6,11 @@ class AccountModel extends BaseModel {
         $statement->bind_param("s", $username);
         $statement->execute();
         $result = $statement->get_result()->fetch_assoc();
-        $respond = array();
+        $response = array();
         if ($result['COUNT(Id)']) {
-            $respond = array();
-            $respond['statusCode'] = 400;
-            $respond['message'] = 'Username is already taken';
+            $response = array();
+            $response['statusCode'] = 400;
+            $response['message'] = 'Username is already taken';
         } else {
             $hash_pass = password_hash($password, PASSWORD_BCRYPT);
             $registerStatement = self::$db->prepare("INSERT INTO Users (first_name, last_name, username, password) VALUES (?, ?, ?, ?)");
@@ -18,13 +18,13 @@ class AccountModel extends BaseModel {
             $registerStatement->execute();
             $successfulRegister = $statement->affected_rows > 0;
             if($successfulRegister) {
-                $respond['statusCode'] = 201;
+                $response['statusCode'] = 201;
             } else {
-                $respond['statusCode'] = 400;
+                $response['statusCode'] = 400;
             }
         }
 
-        return $respond;
+        return $response;
     }
 
     public function login($username, $password) {
@@ -62,5 +62,33 @@ class AccountModel extends BaseModel {
         $statement->execute();
         $profileInformation = $statement->get_result()->fetch_assoc();
         return $profileInformation;
+    }
+
+    public function editProfile($currentUsername, $newFirstName, $newLastName, $newUsername, $newPassword){
+        $statement = self::$db->prepare("SELECT COUNT(Id) FROM users WHERE username = ?");
+        $statement->bind_param("s", $newUsername);
+        $statement->execute();
+        $result = $statement->get_result()->fetch_assoc();
+        $response = array();
+        if ($result['COUNT(Id)']) {
+            $response = array();
+            $response['statusCode'] = 400;
+            $response['message'] = 'Username is already taken';
+        } else {
+            $hash_pass = password_hash($newPassword, PASSWORD_BCRYPT);
+            $registerStatement = self::$db->prepare(
+                "UPDATE users SET first_name = ?, last_name = ?, username = ?, password = ?
+                 WHERE username = ?");
+            $registerStatement->bind_param("sssss", $newFirstName, $newLastName, $newUsername, $hash_pass, $currentUsername);
+            $registerStatement->execute();
+            $successfulEdit = $statement->affected_rows > 0;
+            if($successfulEdit) {
+                $response['statusCode'] = 200;
+            } else {
+                $response['statusCode'] = 400;
+            }
+        }
+
+        return $response;
     }
 }

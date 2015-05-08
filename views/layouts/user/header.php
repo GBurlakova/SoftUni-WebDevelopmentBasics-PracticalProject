@@ -60,7 +60,7 @@
                             <ul class="dropdown-menu" aria-labelledby="download">
                                 <li><a href="/photo-album/account/profile">Profile</a></li>
                                 <li class="divider"></li>
-                                <li><a href="/photo-album/account/edit">Edit profile</a></li>
+                                <li><a href="/photo-album/account/editProfile">Edit profile</a></li>
                             </ul>
                         </li>
                     <li>
