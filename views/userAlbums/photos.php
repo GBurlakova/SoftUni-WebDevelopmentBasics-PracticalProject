@@ -2,17 +2,17 @@
     <?php if($this->albumPhotos):
         foreach($this->albumPhotos as $photo): ?>
             <div class="text-center col-lg-4">
-                <img class="img-thumbnail more-margin photo" src="/photo-album/content/user-photos/user<?php echo $photo['userId'].'/'.$photo['name']?>" alt="user-photo"/>
+                <img class="img-thumbnail more-margin photo" src="/photo-album/content/user-photos/user<?php $this->renderText($photo['userId'].'/'.$photo['name']); ?>" alt="user-photo"/>
                 <form action="/photo-album/photos/download" method="post">
-                    <input type="hidden" name="photoName" value="<?php echo $photo['name']; ?>"/>
-                    <input type="hidden" name="userId" value="<?php echo $photo['userId']; ?>"/>
+                    <input type="hidden" name="photoName" value="<?php $this->renderText($photo['name']); ?>"/>
+                    <input type="hidden" name="userId" value="<?php $this->renderText($photo['userId']); ?>"/>
                     <input class="btn-sm btn-primary" type="submit" value="Download"/>
                 </form>
                 <div class="panel panel-primary margin">
                     <div class="panel-heading">
                         <h3 class="panel-title">Comments</h3>
                     </div>
-                    <div class="panel-body" style="min-height: 150px; max-height: 150px; overflow-y: auto;" id="panel-photo-body<?php echo $photo['id']; ?>">
+                    <div class="panel-body" style="min-height: 150px; max-height: 150px; overflow-y: auto;" id="panel-photo-body<?php $this->renderText($photo['id']); ?>">
                         <?php if($photo['comments']):
                             foreach($photo['comments'] as $comment): ?>
                                 <div class="comment">
@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div>
-                    <a class="btn btn-success comment-photo-btn" id="comment-photo-btn<?php echo $photo['id']?>">Comment</a>
+                    <a class="btn btn-success comment-photo-btn" id="comment-photo-btn<?php $this->renderText($photo['id']); ?>">Comment</a>
                 </div>
             </div>
         <?php endforeach;

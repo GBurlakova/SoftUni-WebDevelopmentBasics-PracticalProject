@@ -1,8 +1,11 @@
 <?php
 class AdminModel extends BaseModel {
     public function getAllAlbums($startPage) {
-        $query = "SELECT a.id, a.name, COUNT(al.album_id) as likes
-                  FROM albums a left outer JOIN album_likes al ON a.id = al.album_id";
+        $query = "SELECT a.id, a.name, COUNT(al.album_id) as likes,
+                  (SELECT count(p.id) FROM photos p WHERE p.album_id = a.id) AS photosCount,
+                  c.name as category
+                  FROM albums a LEFT OUTER JOIN album_likes al ON a.id = al.album_id
+                  LEFT OUTER JOIN categories c ON a.category_id = c.id";
         $query .= " GROUP BY id, name ORDER BY likes DESC";
         $statement = self::$db->prepare($query);
         $albumsCountBeforePaging = $this->estimateAlbumsCountBeforePaging($statement);
@@ -27,7 +30,7 @@ class AdminModel extends BaseModel {
         return $albumsCount;
     }
 
-    public function getAlbumPhotos($albumId){
+    public function getAlbumPhotos($albumId) {
         $query = 'SELECT p.id, p.name, u.id as userId, a.id as albumId
                   FROM photos p
                   INNER JOIN albums a ON a.id = p.album_id
@@ -40,15 +43,14 @@ class AdminModel extends BaseModel {
         return $photos;
     }
 
-    public function getCategories()
-    {
+    public function getCategories() {
         $statement = self::$db->query(
             "SELECT * FROM categories ORDER BY id");
         $categories = $statement->fetch_all(MYSQL_ASSOC);
         return $categories;
     }
 
-    public function getCategoryName($categoryId){
+    public function getCategoryName($categoryId) {
         $query = "SELECT name FROM categories WHERE id = ?";
         $statement = self::$db->prepare($query);
         $statement->bind_param('i', $categoryId);
@@ -79,7 +81,7 @@ class AdminModel extends BaseModel {
         return $albums;
     }
 
-    private function getPhotosComments($photos){
+    private function getPhotosComments($photos) {
         for ($photo = 0; $photo < sizeof($photos); $photo++){
             $commentsQuery = self::$db->prepare(
                 "SELECT c.id, c.text, u.username, c.date
@@ -95,7 +97,7 @@ class AdminModel extends BaseModel {
         return $photos;
     }
 
-    public function editCategory($categoryId, $categoryName){
+    public function editCategory($categoryId, $categoryName) {
         $statement = self::$db->prepare("SELECT COUNT(id) FROM categories WHERE name = ?");
         $statement->bind_param("s", $categoryName);
         $statement->execute();
@@ -120,7 +122,7 @@ class AdminModel extends BaseModel {
         return $response;
     }
 
-    public function deleteCategory($categoryId){
+    public function deleteCategory($categoryId) {
         $statement = self::$db->prepare(
             "SELECT COUNT(c.id) as albumsCount FROM categories c INNER JOIN albums a ON c.id = a.category_id WHERE c.id = ?");
         $statement->bind_param("i", $categoryId);
@@ -146,7 +148,7 @@ class AdminModel extends BaseModel {
         return $response;
     }
 
-    public function newCategory($categoryName){
+    public function newCategory($categoryName) {
         $statement = self::$db->prepare(
             "SELECT COUNT(c.id) as categoriesCount FROM categories c WHERE c.name = ?");
         $statement->bind_param("s", $categoryName);
@@ -171,7 +173,7 @@ class AdminModel extends BaseModel {
         return $response;
     }
 
-    public function deleteAlbum($albumId){
+    public function deleteAlbum($albumId) {
         $statement = self::$db->prepare(
             "SELECT COUNT(c.id) as commentsCount
             FROM albums a LEFT OUTER JOIN album_comments c ON a.id = c.album_id
@@ -218,7 +220,7 @@ class AdminModel extends BaseModel {
         return $response;
     }
 
-    public function getAlbumName($albumId){
+    public function getAlbumName($albumId) {
         $query = "SELECT name FROM albums WHERE id = ?";
         $statement = self::$db->prepare($query);
         $statement->bind_param('i', $albumId);

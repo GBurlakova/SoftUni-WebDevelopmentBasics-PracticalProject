@@ -3,15 +3,12 @@ class AdminController extends BaseController
 {
     private $db;
 
-    public function onInit()
-    {
-        $this->title = 'Admin panel';
+    public function onInit() {
         $this->db = new AdminModel();
     }
 
-    public function index($startPage = 1){
+    public function index($startPage = 1) {
         $this->authorize(ADMIN_ROLE);
-
         $this->title = "All Albums";
         $albums = $this->db->getAllAlbums($startPage);
         $this->albums = $albums['albums'];
@@ -20,7 +17,7 @@ class AdminController extends BaseController
     }
 
     // Photos actions
-    public function photos($albumId){
+    public function photos($albumId) {
         $this->authorize(ADMIN_ROLE);
         $this->title = "Photos";
         $photos = $this->db->getAlbumPhotos($albumId);
@@ -29,23 +26,22 @@ class AdminController extends BaseController
     }
 
     // Categories actions
-    public function categories(){
+    public function categories() {
         $this->authorize(ADMIN_ROLE);
         $this->title = 'Categories';
         $this->categories = $this->db->getCategories();
         $this->renderView(__FUNCTION__);
     }
 
-    public function editCategoryForm($categoryId){
+    public function editCategoryForm($categoryId) {
         $this->authorize(ADMIN_ROLE);
         $this->categoryId = $categoryId;
         $this->categoryName = $this->db->getCategoryName($categoryId);
         $this->renderView(__FUNCTION__, false);
     }
 
-    public function editCategory(){
+    public function editCategory() {
         $this->authorize(ADMIN_ROLE);
-
         if($this->isPost) {
             if($_POST['categoryName']) {
                 $categoryName = $_POST['categoryName'];
@@ -71,7 +67,7 @@ class AdminController extends BaseController
         }
     }
 
-    public function deleteCategory($categoryId){
+    public function deleteCategory($categoryId) {
         $this->authorize(ADMIN_ROLE);
         $response = $this->db->deleteCategory($categoryId);
         if($response['statusCode'] == 200) {
@@ -88,8 +84,7 @@ class AdminController extends BaseController
         }
     }
 
-    public function newCategory()
-    {
+    public function newCategory() {
         $this->authorize(ADMIN_ROLE);
         if(isset($_SESSION['emptyFields'])) {
             $this->emptyFields = $_SESSION['emptyFields'];
@@ -122,7 +117,6 @@ class AdminController extends BaseController
                     $this->redirect("admin", "newCategory");
                 }
             }
-
         }
 
         $this->renderView(__FUNCTION__);
@@ -131,7 +125,7 @@ class AdminController extends BaseController
     }
 
     // Albums actions
-    public function deleteAlbum($albumId){
+    public function deleteAlbum($albumId) {
         $this->authorize(ADMIN_ROLE);
         if($this->isPost) {
             $response = $this->db->deleteAlbum($albumId);
@@ -150,20 +144,20 @@ class AdminController extends BaseController
         }
     }
 
-    public function editAlbumForm($albumId){
+    public function editAlbumForm($albumId) {
         $this->authorize(ADMIN_ROLE);
         $this->albumId = $albumId;
         $this->albumName = $this->db->getAlbumName($albumId);
         $this->renderView(__FUNCTION__, false);
     }
 
-    public function editAlbum(){
+    public function editAlbum() {
         $this->authorize(ADMIN_ROLE);
         if($this->isPost) {
             if($_POST['albumName']) {
                 $albumName = $_POST['albumName'];
             } else {
-                $this->addErrorMessage('Please enter non-empty category name');
+                $this->addErrorMessage('Please enter non-empty album name');
                 $this->redirect('admin');
             }
 
@@ -177,11 +171,10 @@ class AdminController extends BaseController
 
             $this->redirect('admin');
         }
-
     }
 
     // Photos actions
-    public function deletePhoto($photoId){
+    public function deletePhoto($photoId) {
         $this->authorize(ADMIN_ROLE);
         if($this->isPost) {
             $response = $this->db->deletePhoto($photoId);
@@ -205,13 +198,13 @@ class AdminController extends BaseController
     }
 
     // Album comments actions
-    public function editAlbumCommentForm($commentId){
+    public function editAlbumCommentForm($commentId) {
         $this->authorize(ADMIN_ROLE);
         $this->comment = $this->db->getAlbumComment($commentId);
         $this->renderView(__FUNCTION__, false);
     }
 
-    public function editAlbumComment(){
+    public function editAlbumComment() {
         $this->authorize(ADMIN_ROLE);
         if($this->isPost) {
             if($_POST['commentText']) {
@@ -233,14 +226,14 @@ class AdminController extends BaseController
         }
     }
 
-    public function deleteAlbumComment($commentId){
+    public function deleteAlbumComment($commentId) {
         $this->authorize(ADMIN_ROLE);
         if($this->isPost) {
             $response = $this->db->deleteAlbumComment($commentId);
             if($response['statusCode'] == 200) {
                 $this->addSuccessMessage('Album comment deleted successfully');
             } else {
-                $this->addSuccessMessage('Album comment deleted successfully');
+                $this->addErrorMessage('Album delete comment failed');
             }
 
             $this->redirect('admin');
@@ -248,14 +241,14 @@ class AdminController extends BaseController
     }
 
     // Photo comments actions
-    public function editPhotoCommentForm($commentId){
+    public function editPhotoCommentForm($commentId) {
         $this->authorize(ADMIN_ROLE);
         $this->comment = $this->db->getPhotoComment($commentId);
         $this->albumId = $this->db->getAlbumIdByPhotoCommentId($commentId);
         $this->renderView(__FUNCTION__, false);
     }
 
-    public function editPhotoComment(){
+    public function editPhotoComment() {
         $this->authorize(ADMIN_ROLE);
         if($this->isPost) {
             $commentId = $_POST['commentId'];
@@ -278,14 +271,14 @@ class AdminController extends BaseController
         }
     }
 
-    public function deletePhotoComment($commentId){
+    public function deletePhotoComment($commentId) {
         $this->authorize(ADMIN_ROLE);
         if($this->isPost) {
             $response = $this->db->deletePhotoComment($commentId);
             if($response['statusCode'] == 200) {
                 $this->addSuccessMessage('Photo comment deleted successfully');
             } else {
-                $this->addSuccessMessage('Photo comment deleted successfully');
+                $this->addErrorMessage('Photo comment delete failed');
             }
 
             $albumId = $this->db->getAlbumId($commentId);
@@ -293,12 +286,13 @@ class AdminController extends BaseController
         }
     }
 
-    public function users(){
+    // Users actions
+    public function users() {
         $this->authorize(ADMIN_ROLE);
         $this->renderView(__FUNCTION__);
     }
 
-    public function userProfile(){
+    public function userProfile() {
         $this->authorize(ADMIN_ROLE);
         if($this->isPost) {
             $username = $_POST['username'];
@@ -308,13 +302,13 @@ class AdminController extends BaseController
         $this->renderView(__FUNCTION__);
     }
 
-    public function editUsernameForm($username){
+    public function editUsernameForm($username) {
         $this->authorize(ADMIN_ROLE);
         $this->profile = $this->db->getUserProfile($username);
         $this->renderView(__FUNCTION__, false);
     }
 
-    public function editUsername(){
+    public function editUsername() {
         $this->authorize(ADMIN_ROLE);
         if($this->isPost) {
             if($_POST['newUsername']) {
@@ -344,13 +338,13 @@ class AdminController extends BaseController
 
     }
 
-    public function editFirstNameForm($username){
+    public function editFirstNameForm($username) {
         $this->authorize(ADMIN_ROLE);
         $this->profile = $this->db->getUserProfile($username);
         $this->renderView(__FUNCTION__, false);
     }
 
-    public function editFirstName(){
+    public function editFirstName() {
         $this->authorize(ADMIN_ROLE);
         if($this->isPost) {
             if($_POST['newFirstName']) {
@@ -377,13 +371,13 @@ class AdminController extends BaseController
         }
     }
 
-    public function editLastNameForm($username){
+    public function editLastNameForm($username) {
         $this->authorize(ADMIN_ROLE);
         $this->profile = $this->db->getUserProfile($username);
         $this->renderView(__FUNCTION__, false);
     }
 
-    public function editLastName(){
+    public function editLastName() {
         $this->authorize(ADMIN_ROLE);
         if($this->isPost) {
             if($_POST['newLastName']) {
@@ -408,16 +402,15 @@ class AdminController extends BaseController
 
             $this->redirect('admin', 'users');
         }
-
     }
 
-    public function editRoleForm($username){
+    public function editRoleForm($username) {
         $this->authorize(ADMIN_ROLE);
         $this->profile = $this->db->getUserProfile($username);
         $this->renderView(__FUNCTION__, false);
     }
 
-    public function editRole(){
+    public function editRole() {
         if($this->isPost) {
             $username = $_POST['username'];
             $isAdmin = 0;

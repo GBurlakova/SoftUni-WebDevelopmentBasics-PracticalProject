@@ -9,24 +9,34 @@
         foreach($this->userAlbums as $album): ?>
             <div class="text-center col-lg-4">
                 <div class="photo-album">
-                    <a href="/photo-album/userAlbums/photos/<?php echo $album['id']; ?>">
+                    <a href="/photo-album/userAlbums/photos/<?php $this->renderText($album['id']); ?>">
                         <img src="/photo-album/content/images/user-album.png" alt="album-icon"/>
                     </a>
                 </div>
                 <div>
-                    <a href="/photo-album/userAlbums/photos/<?php echo $album['id']; ?>" class="default-text">
+                    <a href="/photo-album/userAlbums/photos/<?php $this->renderText($album['id']); ?>" class="default-text">
                         <span><?php $this->renderText($album['name']); ?></span>
                     </a>
                     <div>
                         <span>Likes </span>
                         <span class="badge"><?php $this->renderText($album['likes']); ?></span>
                     </div>
+                    <div class="clearfix">
+                        <span class="pull-left">
+                            <span>Category </span>
+                            <span class="label label-primary"><?php $this->renderText($album['category']); ?></span>
+                        </span>
+                        <span class="pull-right">
+                            <span>Photos </span>
+                            <span class="badge"><?php $this->renderText($album['photosCount']); ?></span>
+                        </span>
+                    </div>
                     <div>
                         <div class="panel panel-primary margin">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Comments</h3>
                             </div>
-                            <div class="panel-body" style="min-height: 150px; max-height: 150px; overflow-y: auto;" id="panel-body<?php echo $album['id']?>">
+                            <div class="panel-body" style="min-height: 150px; max-height: 150px; overflow-y: auto;" id="panel-body<?php $this->renderText($album['id']); ?>">
                                 <?php if($album['comments']):
                                     foreach($album['comments'] as $comment): ?>
                                         <div class="comment">
@@ -45,7 +55,7 @@
                     </div>
                 </div>
                 <div>
-                    <a class="btn btn-success comment-btn" id="comment-btn<?php echo $album['id']?>">Add comment</a>
+                    <a class="btn btn-success comment-btn" id="comment-btn<?php $this->renderText($album['id']); ?>">Add comment</a>
                 </div>
             </div>
         <?php endforeach;

@@ -1,6 +1,6 @@
 <?php
 class PhotosModel extends BaseModel{
-    public function comment($commentText, $photoId, $username){
+    public function comment($commentText, $photoId, $username) {
         $userId = $this->getUserId($username);
         $query = 'INSERT INTO photo_comments (text, photo_id, user_id, date) VALUES(?, ?, ?, ?)';
         $statement = self::$db->prepare($query);
@@ -19,6 +19,7 @@ class PhotosModel extends BaseModel{
             $userIdQuery->execute();
             $userId = $userIdQuery->get_result()->fetch_assoc()['id'];
         }
+
         return $userId;
     }
 

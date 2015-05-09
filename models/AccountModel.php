@@ -50,7 +50,7 @@ class AccountModel extends BaseModel {
         return $response;
     }
 
-    public function verifyUserRole($username, $role){
+    public function verifyUserRole($username, $role) {
         $statement = self::$db->prepare(
             "SELECT COUNT(u.id) FROM users u
               INNER JOIN user_roles ur ON u.id = ur.user_id
@@ -66,7 +66,7 @@ class AccountModel extends BaseModel {
         return true;
     }
 
-    public function profile($username){
+    public function profile($username) {
         $statement = self::$db->prepare("SELECT username, first_name, last_name FROM users WHERE username = ?");
         $statement->bind_param("s", $username);
         $statement->execute();

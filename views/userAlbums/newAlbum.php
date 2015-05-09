@@ -14,7 +14,7 @@
             <div class="col-lg-10 form-group">
                 <select class="form-control" id="categories" name="categoryId">
                     <?php foreach($this->categories as $category): ?>
-                        <option value="<?php echo $category['id']?>">
+                        <option value="<?php $this->renderText($category['id']); ?>">
                             <?php $this->renderText($category['name']);?>
                         </option>
                     <?php endforeach;?>

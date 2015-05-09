@@ -13,13 +13,14 @@ class UserAlbumsModel extends BaseModel{
     }
 
     public function getUserAlbums($startPage, $username, $albumsSearchCondition) {
-        $query = "SELECT a.id, a.name, COUNT(al.album_id) as likes
-            FROM albums a INNER JOIN users u ON a.user_id = u.id
-            LEFT OUTER JOIN album_likes al ON a.id = al.album_id
-            WHERE u.username = ?
-            AND a.name like ?
-            GROUP BY a.id, a.name
-            ORDER BY a.id";
+        $query = "SELECT a.id, a.name, COUNT(al.album_id) as likes,
+                  (SELECT count(p.id) FROM photos p WHERE p.album_id = a.id) AS photosCount,
+                  c.name as category
+                  FROM albums a INNER JOIN users u ON a.user_id = u.id
+                  LEFT OUTER JOIN album_likes al ON a.id = al.album_id
+                  LEFT OUTER JOIN categories c ON a.category_id = c.id
+                  WHERE u.username = ? AND a.name like ?
+                  GROUP BY a.id, a.name ORDER BY a.id";
         $albumsSearchCondition = '%' . $albumsSearchCondition . '%';
 
         $statement = self::$db->prepare($query);
@@ -69,7 +70,7 @@ class UserAlbumsModel extends BaseModel{
         return $statement->affected_rows > 0;
     }
 
-    public function like($username, $albumId){
+    public function like($username, $albumId) {
         $userIdQuery = self::$db->prepare("SELECT id FROM users WHERE username = ?");
         $userIdQuery->bind_param("s", $username);
         $userIdQuery->execute();
@@ -103,7 +104,7 @@ class UserAlbumsModel extends BaseModel{
         return $userId;
     }
 
-    public function getAlbums($username){
+    public function getAlbums($username) {
         $userId = $this->getUserId($username);
         $query = "SELECT a.id, a.name
                   FROM albums a
@@ -118,10 +119,11 @@ class UserAlbumsModel extends BaseModel{
             ('id' => $id, 'name' => $name);
             array_push($albums, $album);
         }
+
         return $albums;
     }
 
-    public function addPhoto($photoName, $albumId, $username){
+    public function addPhoto($photoName, $albumId, $username) {
         $userId = $this->getUserId($username);
         $albumOwnerIdQuery = 'SELECT user_id FROM albums WHERE id = ?';
         $albumOwnerIdStatement = self::$db->prepare($albumOwnerIdQuery);
@@ -140,7 +142,7 @@ class UserAlbumsModel extends BaseModel{
         }
     }
 
-    public function getAlbumPhotos($albumId, $username){
+    public function getAlbumPhotos($albumId, $username) {
         $userId = $this->getUserId($username);
         $albumOwnerIdQuery = 'SELECT user_id FROM albums WHERE id = ?';
         $albumOwnerIdStatement = self::$db->prepare($albumOwnerIdQuery);
@@ -164,7 +166,7 @@ class UserAlbumsModel extends BaseModel{
         }
     }
 
-    public function comment($commentText, $albumsId, $username){
+    public function comment($commentText, $albumsId, $username) {
         $userId = $this->getUserId($username);
         $query = 'INSERT INTO album_comments (text, album_id, user_id, date) VALUES(?, ?, ?, ?)';
         $statement = self::$db->prepare($query);

@@ -1,7 +1,7 @@
 var notifier = new notifier();
 
 $(document).ready(function () {
-    // Categories
+    // Categories actions
     $('.edit-category-btn').on('click', function () {
         var $btn = $(this);
         var categoryId = $btn.attr('id').replace('edit-category-btn', '');
@@ -10,13 +10,12 @@ $(document).ready(function () {
             url: '/photo-album/admin/editCategoryForm/' + categoryId
         }).success(function (data) {
             $btn.hide();
-            var editCategoryFiledId = '#edit-category-field' + categoryId;
-            var $editCategoryForm = data;
-            var $editCategoryFiled = $(editCategoryFiledId);
-            $editCategoryFiled.html($editCategoryForm);
+            var editCategoryFieldId = '#edit-category-field' + categoryId;
+            var editCategoryForm = data;
+            var $editCategoryField = $(editCategoryFieldId);
+            $editCategoryField.html(editCategoryForm);
         })
     });
-
 
     $('.delete-category-btn').on('click', function () {
         var $btn = $(this);
@@ -34,7 +33,7 @@ $(document).ready(function () {
             });
     });
 
-    // Albums
+    // Albums actions
     $('.edit-album-btn').on('click', function () {
         var $btn = $(this);
         var albumId = $btn.attr('id').replace('edit-album-btn', '');
@@ -43,13 +42,12 @@ $(document).ready(function () {
             url: '/photo-album/admin/editAlbumForm/' + albumId
         }).success(function (data) {
             $btn.hide();
-            var editAlbumFiledId = '#edit-album-field' + albumId;
-            var $editAlbumForm = data;
-            var $editAlbumFiled = $(editAlbumFiledId);
-            $editAlbumFiled.html($editAlbumForm);
+            var editAlbumFieldId = '#edit-album-field' + albumId;
+            var editAlbumForm = data;
+            var $editAlbumField = $(editAlbumFieldId);
+            $editAlbumField.html(editAlbumForm);
         })
     });
-
 
     $('.delete-album-btn').on('click', function () {
         var $btn = $(this);
@@ -67,7 +65,7 @@ $(document).ready(function () {
             });
     });
 
-    // Photos
+    // Photos actions
     $('.delete-photo-btn').on('click', function () {
         var $btn = $(this);
         var photoId = $btn.attr('id').replace('delete-photo-btn', '');
@@ -82,7 +80,7 @@ $(document).ready(function () {
             });
     });
 
-    // Album comments
+    // Album comments actions
     $('.edit-album-comment-btn').on('click', function () {
         var $btn = $(this);
         var commentId = $btn.attr('id').replace('edit-album-comment-btn', '');
@@ -91,10 +89,10 @@ $(document).ready(function () {
             url: '/photo-album/admin/editAlbumCommentForm/' + commentId
         }).success(function (data) {
             $btn.hide();
-            var editAlbumCommentFiledId = '#edit-album-comment-field' + commentId;
-            var $editAlbumCommentForm = data;
-            var $editAlbumCommentFiled = $(editAlbumCommentFiledId);
-            $editAlbumCommentFiled.html($editAlbumCommentForm);
+            var editAlbumCommentFieldId = '#edit-album-comment-field' + commentId;
+            var editAlbumCommentForm = data;
+            var $editAlbumCommentField = $(editAlbumCommentFieldId);
+            $editAlbumCommentField.html(editAlbumCommentForm);
         })
     });
 
@@ -114,7 +112,7 @@ $(document).ready(function () {
             });
     });
 
-    // Photo comments
+    // Photo comments actions
     $('.edit-photo-comment-btn').on('click', function () {
         var $btn = $(this);
         var commentId = $btn.attr('id').replace('edit-photo-comment-btn', '');
@@ -123,10 +121,10 @@ $(document).ready(function () {
             url: '/photo-album/admin/editPhotoCommentForm/' + commentId
         }).success(function (data) {
             $btn.hide();
-            var editPhotoCommentFiledId = '#edit-photo-comment-field' + commentId;
-            var $editPhotoCommentForm = data;
-            var $editPhotoCommentFiled = $(editPhotoCommentFiledId);
-            $editPhotoCommentFiled.html($editPhotoCommentForm);
+            var editPhotoCommentFieldId = '#edit-photo-comment-field' + commentId;
+            var editPhotoCommentForm = data;
+            var $editPhotoCommentField = $(editPhotoCommentFieldId);
+            $editPhotoCommentField.html(editPhotoCommentForm);
         })
     });
 
@@ -155,9 +153,9 @@ $(document).ready(function () {
         }).then(function (data) {
             $btn.hide();
             var editUsernameFiledId = '#edit-user-username-field';
-            var $editUsernameForm = data;
+            var editUsernameForm = data;
             var $editUsernameField = $(editUsernameFiledId);
-            $editUsernameField.html($editUsernameForm);
+            $editUsernameField.html(editUsernameForm);
         });
     });
 
@@ -184,10 +182,10 @@ $(document).ready(function () {
             url: '/photo-album/admin/editLastNameForm/' + username
         }).then(function (data) {
             $btn.hide();
-            var editUserLastNameFiledId = '#edit-user-last-name-field';
-            var $editUserLastNameForm = data;
-            var $editUserLastNameField = $(editUserLastNameFiledId);
-            $editUserLastNameField.html($editUserLastNameForm);
+            var editUserLastNameFieldId = '#edit-user-last-name-field';
+            var editUserLastNameForm = data;
+            var $editUserLastNameField = $(editUserLastNameFieldId);
+            $editUserLastNameField.html(editUserLastNameForm);
         });
     });
 
@@ -200,9 +198,9 @@ $(document).ready(function () {
         }).then(function (data) {
             $btn.hide();
             var editUserRoleFiledId = '#edit-user-role-field';
-            var $editUserRoleForm = data;
+            var editUserRoleForm = data;
             var $editUserRoleField = $(editUserRoleFiledId);
-            $editUserRoleField.html($editUserRoleForm);
+            $editUserRoleField.html(editUserRoleForm);
         });
     });
 });

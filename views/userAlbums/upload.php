@@ -21,7 +21,7 @@
             <div class="col-lg-10 form-group">
                 <select class="form-control" id="albums" name="albumId">
                     <?php foreach($this->albums as $album): ?>
-                        <option value="<?php echo $album['id']?>">
+                        <option value="<?php $this->renderText($album['id']); ?>">
                             <?php $this->renderText($album['name']);?>
                         </option>
                     <?php endforeach;?>

@@ -2,8 +2,8 @@
     <fieldset>
         <div class="form-group">
             <div class="col-lg-12">
-                <input type="text" name="categoryName" value="<?php echo $this->categoryName; ?>"/>
-                <input type="hidden" name="categoryId" value="<?php echo $this->categoryId; ?>"/>
+                <input type="text" name="categoryName" value="<?php $this->renderText($this->categoryName); ?>"/>
+                <input type="hidden" name="categoryId" value="<?php $this->renderText($this->categoryId); ?>"/>
             </div>
         </div>
     </fieldset>

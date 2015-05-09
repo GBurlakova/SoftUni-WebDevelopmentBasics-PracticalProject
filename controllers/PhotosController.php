@@ -3,8 +3,7 @@ class PhotosController extends BaseController
 {
     private $db;
 
-    public function onInit()
-    {
+    public function onInit() {
         $this->db = new PhotosModel();
     }
 
@@ -14,7 +13,6 @@ class PhotosController extends BaseController
             $photoId = $_GET['photoId'];
             $albumId = $_GET['albumId'];
             $controller = $_GET['controller'];
-
             $this->photoId = $photoId;
             $this->albumId = $albumId;
             $this->controller = $controller;
@@ -22,7 +20,7 @@ class PhotosController extends BaseController
         }
     }
 
-    public function comment(){
+    public function comment() {
         $this->authorize();
         if($this->isPost) {
             $commentText = $_POST['comment'];
@@ -47,7 +45,7 @@ class PhotosController extends BaseController
         }
     }
 
-    public function download(){
+    public function download() {
         $this->authorize();
         if($this->isPost) {
             if(isset($_POST['photoName'])) {

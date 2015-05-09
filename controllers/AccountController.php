@@ -201,14 +201,14 @@ class AccountController extends BaseController {
                 $_SESSION['username'], $firstName, $lastName, $username, $password);
             $statusCode = $response['statusCode'];
             if($statusCode == 200) {
-                $this->addSuccessMessage("Successful profile edit!");
+                $this->addSuccessMessage("Profile edited successfully");
                 $_SESSION['username'] = $username;
                 $this->redirect("account", "profile");
             } else {
                 if(isset($response['message'])) {
                     $_SESSION['editProfileErrors']['usernameTaken'] = true;
                 } else {
-                    $this->addErrorMessage("Edit profile failed!");
+                    $this->addErrorMessage("Edit profile failed");
                 }
 
                 $this->redirect("account", "editProfile");
@@ -220,5 +220,4 @@ class AccountController extends BaseController {
         $this->profile = $profile;
         $this->renderView(__FUNCTION__);
     }
-
 }

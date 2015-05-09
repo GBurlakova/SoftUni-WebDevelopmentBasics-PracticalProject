@@ -2,7 +2,7 @@
     <?php if($this->albumPhotos):
         foreach($this->albumPhotos as $photo): ?>
             <div class="text-center col-lg-4">
-                <img class="img-thumbnail more-margin photo" src="/photo-album/content/user-photos/user<?php echo $photo['userId'].'/'.$photo['name']?>" alt="user-photo"/>
+                <img class="img-thumbnail more-margin photo" src="/photo-album/content/user-photos/user<?php $this->renderText($photo['userId'].'/'.$photo['name']); ?>" alt="user-photo"/>
                 <form action="/photo-album/photos/download" method="post">
                     <input type="hidden" name="photoName" value="<?php echo $photo['name']; ?>"/>
                     <input type="hidden" name="userId" value="<?php echo $photo['userId']; ?>"/>

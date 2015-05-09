@@ -1,7 +1,6 @@
 <?php
 class HomeModel extends BaseModel {
-    public function getCategories()
-    {
+    public function getCategories() {
         $statement = self::$db->query(
             "SELECT * FROM categories ORDER BY id");
         $categories = array();
@@ -14,8 +13,11 @@ class HomeModel extends BaseModel {
 
     public function getMostLikedAlbums($startPage, $categoryId = null) {
         $averageLikesCount = $this->estimateAverageLikesCount();
-        $query = "SELECT a.id, a.name, COUNT(al.album_id) as likes
-                  FROM albums a LEFT OUTER JOIN album_likes al ON a.id = al.album_id";
+        $query = "SELECT a.id, a.name, COUNT(al.album_id) as likes,
+                  (SELECT count(p.id) FROM photos p WHERE p.album_id = a.id) AS photosCount,
+                  c.name as category
+                  FROM albums a LEFT OUTER JOIN album_likes al ON a.id = al.album_id
+                  LEFT OUTER JOIN categories c ON a.category_id = c.id";
         if($categoryId) {
             $query .= " AND category_id = ? GROUP BY id, name HAVING likes >= ? ORDER BY COUNT(al.album_id) DESC";
             $statement = self::$db->prepare($query);
@@ -44,7 +46,7 @@ class HomeModel extends BaseModel {
          return $resultData;
     }
 
-    public function getAlbumPhotos($albumId){
+    public function getAlbumPhotos($albumId) {
         $query = 'SELECT p.id, p.name, u.id as userId
                   FROM photos p
                   INNER JOIN albums a ON a.id = p.album_id
@@ -57,7 +59,7 @@ class HomeModel extends BaseModel {
         return $photos;
     }
 
-    private function getPhotosComments($photos){
+    private function getPhotosComments($photos) {
         for ($photo = 0; $photo < sizeof($photos); $photo++){
             $commentsQuery = self::$db->prepare(
                 "SELECT c.id, c.text, u.username, c.date
@@ -120,14 +122,7 @@ class HomeModel extends BaseModel {
 
     private function prepareResultData($statement, $albumsCountBeforePaging) {
         $statement->execute();
-        $statement->bind_result($id, $name, $likes);
-        $albums = array();
-        while($statement->fetch()) {
-            $album = array
-            ('id' => $id, 'name' => $name, 'likes' => $likes);
-            array_push($albums, $album);
-        }
-
+        $albums = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
         $albums = $this->getAlbumsComments($albums);
         $pagesCount = ($albumsCountBeforePaging + DEFAULT_PAGE_SIZE - 1) / DEFAULT_PAGE_SIZE;
         $pagesCount = floor($pagesCount);

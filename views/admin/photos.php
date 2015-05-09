@@ -15,16 +15,16 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">Comments</h3>
                     </div>
-                    <div class="panel-body" style="min-height: 150px; max-height: 150px; overflow-y: auto;" id="panel-photo-body<?php echo $photo['id']; ?>">
+                    <div class="panel-body" style="min-height: 150px; max-height: 150px; overflow-y: auto;" id="panel-photo-body<?php $this->renderText($photo['id']); ?>">
                         <?php if($photo['comments']):
                             foreach($photo['comments'] as $comment): ?>
-                                <div class="comment" id="edit-photo-comment-field<?php echo $comment['id'] ?>">
+                                <div class="comment" id="edit-photo-comment-field<?php $this->renderText($comment['id']); ?>">
                                     <div class="comment-body"><?php $this->renderText($comment['text']); ?></div>
                                     <span>User: </span><span class="label label-info"><?php $this->renderText($comment['username']); ?></span>
                                     <span>Date: </span><span><?php $this->renderText(date_format(date_create($comment['date']), 'd/m/Y')); ?></span>
                                     <div class="margin">
-                                        <a class="btn-sm btn-danger delete-photo-comment-btn" id="delete-photo-comment-btn<?php echo $comment['id'] ?>">Delete</a>
-                                        <a class="btn-sm btn-info edit-photo-comment-btn" id="edit-photo-comment-btn<?php echo $comment['id'] ?>">Edit</a>
+                                        <a class="btn-sm btn-danger delete-photo-comment-btn" id="delete-photo-comment-btn<?php $this->renderText($comment['id']); ?>">Delete</a>
+                                        <a class="btn-sm btn-info edit-photo-comment-btn" id="edit-photo-comment-btn<?php $this->renderText($comment['id']); ?>">Edit</a>
                                     </div>
                                 </div>
                             <?php endforeach;

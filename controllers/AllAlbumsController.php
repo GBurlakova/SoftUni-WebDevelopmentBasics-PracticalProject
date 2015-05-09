@@ -9,10 +9,8 @@ class AllAlbumsController extends BaseController {
 
     public function index($startPage = 1){
         $this->authorize();
-
         $this->title = "All Albums";
         $username = '';
-
         if(isset($_SESSION['username'])) {
             $username = $_SESSION['username'];
         }

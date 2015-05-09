@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-lg-2 control-label">Role</label>
+                    <label class="col-lg-2 control-label">Administrator</label>
                     <div class="col-lg-10" id="edit-user-role-field">
                         <input type="text" class="form-control" readonly
                                value="<?php if($this->profile['role']){ $this->renderText(ucfirst($this->profile['role'])); } else{ echo 'Not defined'; } ?>">

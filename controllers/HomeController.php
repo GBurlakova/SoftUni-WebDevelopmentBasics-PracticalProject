@@ -10,6 +10,7 @@ class HomeController extends  BaseController {
 
     public function index($startPage = 1) {
         $categoryId = null;
+        $this->title = 'Home';
         if(isset($_GET['categoryId'])) {
             $categoryId = $_GET['categoryId'];
         }

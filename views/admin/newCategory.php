@@ -2,7 +2,7 @@
     <div class="well bs-component col-lg-6 col-lg-offset-3">
         <form action="/photo-album/admin/newCategory"  method="post" class="form-horizontal">
             <fieldset>
-                <legend>Login</legend>
+                <legend>Create category</legend>
                 <label for="category-name" class="col-lg-3 control-label">Category name</label>
                 <div class="form-group col-lg-9">
                     <input type="text" name="categoryName" class="form-control" id="category-name" placeholder="Category name">

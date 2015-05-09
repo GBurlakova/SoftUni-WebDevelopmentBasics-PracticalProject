@@ -50,6 +50,16 @@
                                         <?php endif; ?>
                                     </div>
                                 </div>
+                                <div class="clearfix">
+                                <span class="pull-left">
+                                    <span>Category </span>
+                                    <span class="label label-primary"><?php $this->renderText($album['category']); ?></span>
+                                </span>
+                                <span class="pull-right">
+                                    <span>Photos </span>
+                                    <span class="badge"><?php $this->renderText($album['photosCount']); ?></span>
+                                </span>
+                                </div>
                                 <div class="panel panel-primary margin">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">Comments</h3>

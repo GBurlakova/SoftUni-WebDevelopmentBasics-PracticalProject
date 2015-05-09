@@ -8,7 +8,7 @@ abstract class BaseController {
     protected $isAdmin = false;
     private $db;
 
-    function __construct($controllerName){
+    function __construct($controllerName) {
         session_start();
         $this->controllerName = $controllerName;
         $this->onInit();
@@ -47,7 +47,7 @@ abstract class BaseController {
         // Functionality of the subclasses
     }
 
-    public function authorize($role = null){
+    public function authorize($role = null) {
         if(!$this->isLoggedIn) {
             $this->addErrorMessage('Please login first.');
             $this->redirect('account', 'login');
@@ -63,7 +63,7 @@ abstract class BaseController {
         }
     }
 
-    public function renderText($text){
+    public function renderText($text) {
         echo htmlspecialchars($text);
     }
 
@@ -80,7 +80,7 @@ abstract class BaseController {
     }
 
     // redirect functions
-    public function redirectToUrl($url){
+    public function redirectToUrl($url) {
         header('Location: ' . $url);
         die;
     }
@@ -100,6 +100,12 @@ abstract class BaseController {
     }
 
     // notifications
+    public function gerUserId() {
+        $username = $_SESSION['username'];
+        $userId = $this->db->getIserId($username);
+        return $userId;
+    }
+
     public function addInfoMessage($msg) {
         $this->addMessage($msg, 'info');
     }
@@ -110,12 +116,6 @@ abstract class BaseController {
 
     public function addErrorMessage($msg) {
         $this->addMessage($msg, 'error');
-    }
-
-    public function gerUserId(){
-        $username = $_SESSION['username'];
-        $userId = $this->db->getIserId($username);
-        return $userId;
     }
 
     private function addMessage($msg, $type) {

@@ -16,7 +16,7 @@
                     <li class="divider"></li>
                     <?php foreach($this->categories as $category): ?>
                     <li>
-                        <a href="/photo-album?categoryId=<?php echo $category['id']?>"><?php $this->renderText($category['name']);?></a>
+                        <a href="/photo-album?categoryId=<?php $this->renderText($category['id']); ?>"><?php $this->renderText($category['name']);?></a>
                     </li>
                     <?php endforeach;?>
                 </ul>
@@ -29,18 +29,28 @@
                     foreach($this->mostLikedAlbums as $album): ?>
                         <div class="text-center col-lg-4">
                             <div class="photo-album">
-                                <a href="/photo-album/home/photos/<?php echo $album['id']; ?>">
+                                <a href="/photo-album/home/photos/<?php $this->renderText($album['id']); ?>">
                                     <img src="/photo-album/content/images/user-album.png" alt="album-icon"/>
                                 </a>
                             </div>
                             <div>
-                                <a class="default-text" href="/photo-album/home/photos/<?php echo $album['id']; ?>">
+                                <a class="default-text" href="/photo-album/home/photos/<?php $this->renderText($album['id']); ?>">
                                     <span><?php $this->renderText($album['name']); ?></span>
                                 </a>
                                 <div>
                                     <span>Likes </span>
                                     <span class="badge"><?php $this->renderText($album['likes']); ?></span>
                                 </div>
+                            </div>
+                            <div class="clearfix">
+                                <span class="pull-left">
+                                    <span>Category </span>
+                                    <span class="label label-primary"><?php $this->renderText($album['category']); ?></span>
+                                </span>
+                                <span class="pull-right">
+                                    <span>Photos </span>
+                                    <span class="badge"><?php $this->renderText($album['photosCount']); ?></span>
+                                </span>
                             </div>
                             <div class="panel panel-primary margin">
                                 <div class="panel-heading">

@@ -21,25 +21,35 @@
                             <span>Likes </span>
                             <span class="badge"><?php $this->renderText($album['likes']); ?></span>
                         </div>
+                        <div class="clearfix">
+                                <span class="pull-left">
+                                    <span>Category </span>
+                                    <span class="label label-primary"><?php $this->renderText($album['category']); ?></span>
+                                </span>
+                                <span class="pull-right">
+                                    <span>Photos </span>
+                                    <span class="badge"><?php $this->renderText($album['photosCount']); ?></span>
+                                </span>
+                        </div>
                         <div class="margin">
                             <a class="btn-sm btn-danger delete-album-btn" id="delete-album-btn<?php echo $album['id'] ?>">Delete</a>
                             <a class="btn-sm btn-info edit-album-btn" id="edit-album-btn<?php echo $album['id'] ?>">Edit</a>
                         </div>
                         <div>
-                            <div class="panel panel-primary margin" id="edit-album-field<?php echo $album['id']; ?>">
+                            <div class="panel panel-primary margin" id="edit-album-field<?php $this->renderText($album['id']); ?>">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Comments</h3>
                                 </div>
-                                <div class="panel-body" style="min-height: 150px; max-height: 150px; overflow-y: auto;" id="panel-body<?php echo $album['id']?>">
+                                <div class="panel-body" style="min-height: 150px; max-height: 150px; overflow-y: auto;" id="panel-body<?php $this->renderText($album['id']); ?>">
                                     <?php if($album['comments']):
                                         foreach($album['comments'] as $comment): ?>
-                                            <div class="comment" id="edit-album-comment-field<?php echo $comment['id'] ?>">
+                                            <div class="comment" id="edit-album-comment-field<?php $this->renderText($comment['id']); ?>">
                                                 <div class="comment-body"><?php $this->renderText($comment['text']); ?></div>
                                                 <span>User: </span><span class="label label-info"><?php $this->renderText($comment['username']); ?></span>
                                                 <span>Date: </span><span><?php $this->renderText(date_format(date_create($comment['date']), 'd/m/Y')); ?></span>
                                                 <div class="margin">
-                                                    <a class="btn-sm btn-danger delete-album-comment-btn" id="delete-album-comment-btn<?php echo $comment['id'] ?>">Delete</a>
-                                                    <a class="btn-sm btn-info edit-album-comment-btn" id="edit-album-comment-btn<?php echo $comment['id'] ?>">Edit</a>
+                                                    <a class="btn-sm btn-danger delete-album-comment-btn" id="delete-album-comment-btn<?php $this->renderText($comment['id']); ?>">Delete</a>
+                                                    <a class="btn-sm btn-info edit-album-comment-btn" id="edit-album-comment-btn<?php $this->renderText($comment['id']); ?>">Edit</a>
                                                 </div>
                                             </div>
                                         <?php endforeach;

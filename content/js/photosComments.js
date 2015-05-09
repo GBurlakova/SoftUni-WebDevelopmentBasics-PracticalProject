@@ -10,9 +10,9 @@ $(document).ready(function () {
         }).success(function (data) {
             $btn.hide();
             var panelBodyId = '#panel-photo-body' + photoId;
-            var $commentForm = data;
+            var commentForm = data;
             var $panelBody = $(panelBodyId);
-            $panelBody.html($commentForm);
+            $panelBody.html(commentForm);
         }).error(function () {
         });
     });

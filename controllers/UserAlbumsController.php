@@ -72,19 +72,7 @@ class UserAlbumsController extends BaseController {
         unset($this->emptyFields);
     }
 
-    public function delete($id){
-        $this->authorize();
-
-        if ($this->db->deleteTodo($id)) {
-            $this->addSuccessMessage("Todo deleted.");
-        } else {
-            $this->addErrorMessage("Cannot delete todo.");
-        }
-
-        $this->redirect('allAlbums');
-    }
-
-    public function like($albumId){
+    public function like($albumId) {
         $this->authorize();
         $username = $_SESSION['username'];
         $isLiked = $this->db->like($username, $albumId);
@@ -97,7 +85,6 @@ class UserAlbumsController extends BaseController {
 
     public function upload(){
         $this->authorize();
-
         if(isset($_SESSION['errors'])) {
             $this->erros = $_SESSION['errors'];
             unset($_SESSION['errors']);

@@ -8,7 +8,7 @@
                     <input type="text" name="firstName"
                            class="form-control" id="first-name"
                            placeholder="First name"
-                           value="<?php if(isset($this->filledFields['firstName'])) { echo $this->filledFields['firstName']; }?>">
+                           value="<?php if(isset($this->filledFields['firstName'])) { $this->renderText($this->filledFields['firstName']); }?>">
                     <?php if(isset($this->emptyFields['firstName'])): ?>
                     <div class="label label-danger">Please enter your first name</div>
                     <?php endif; ?>
@@ -19,7 +19,7 @@
                            name="lastName"
                            class="form-control" id="last-name"
                            placeholder="Last name"
-                           value="<?php if(isset($this->filledFields['lastName'])) { echo $this->filledFields['lastName']; }?>">
+                           value="<?php if(isset($this->filledFields['lastName'])) { $this->renderText($this->filledFields['lastName']); }?>">
                     <?php if(isset($this->emptyFields['lastName'])): ?>
                     <div class=" label label-danger">Please enter your last name</div>
                     <?php endif; ?>
@@ -30,7 +30,7 @@
                            name="username" class="form-control"
                            id="username"
                            placeholder="Username"
-                           value="<?php if(isset($this->filledFields['username'])) { echo $this->filledFields['username']; }?>">
+                           value="<?php if(isset($this->filledFields['username'])) { $this->renderText($this->filledFields['username']); }?>">
                     <?php if(isset($this->emptyFields['username'])): ?>
                     <div class=" label label-danger">Please enter your username</div>
                     <?php endif; ?>

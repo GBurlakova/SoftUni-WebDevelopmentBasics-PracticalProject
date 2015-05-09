@@ -1,7 +1,6 @@
 <?php
 class AllAlbumsModel extends BaseModel{
-    public function getCategories()
-    {
+    public function getCategories() {
         $statement = self::$db->query(
             "SELECT * FROM categories ORDER BY id");
         $categories = array();
@@ -15,8 +14,11 @@ class AllAlbumsModel extends BaseModel{
     public function getAllAlbums($username, $startPage, $categoryId = null) {
         $userId = $this->getUserId($username);
         $query = "SELECT a.id, a.name, COUNT(al.album_id) as likes,
-                  a.id NOT IN (SELECT album_id FROM album_likes WHERE user_id = ?) AS canBeLiked
+                  a.id NOT IN (SELECT album_id FROM album_likes WHERE user_id = ?) AS canBeLiked,
+                  (SELECT count(p.id) FROM photos p WHERE p.album_id = a.id) AS photosCount,
+                  c.name as category
                   FROM albums a left outer JOIN album_likes al ON a.id = al.album_id
+                  LEFT OUTER JOIN categories c ON a.category_id = c.id
                   WHERE a.user_id <> ?";
         if($categoryId) {
             $query .= " AND category_id = ? GROUP BY id, name ORDER BY likes DESC";
@@ -45,7 +47,7 @@ class AllAlbumsModel extends BaseModel{
         return $resultData;
     }
 
-    public function like($username, $albumId){
+    public function like($username, $albumId) {
         $userIdQuery = self::$db->prepare("SELECT id FROM users WHERE username = ?");
         $userIdQuery->bind_param("s", $username);
         $userIdQuery->execute();
@@ -78,7 +80,7 @@ class AllAlbumsModel extends BaseModel{
         return $userId;
     }
 
-    public function getAlbumPhotos($albumId){
+    public function getAlbumPhotos($albumId) {
         $query = 'SELECT p.id, p.name, u.id as userId
                   FROM photos p
                   INNER JOIN albums a ON a.id = p.album_id
@@ -91,7 +93,7 @@ class AllAlbumsModel extends BaseModel{
         return $photos;
     }
 
-    public function comment($commentText, $albumId, $username){
+    public function comment($commentText, $albumId, $username) {
         $userId = $this->getUserId($username);
         $query = 'INSERT INTO album_comments (text, album_id, user_id, date) VALUES(?, ?, ?, ?)';
         $statement = self::$db->prepare($query);
@@ -118,8 +120,10 @@ class AllAlbumsModel extends BaseModel{
                 ('id' => $id, 'text' => $text, 'username' => $username, 'date' => $date );
                 array_push($comments, $comment);
             }
+
             $photos[$photo]['comments'] = $comments;
         }
+
         return $photos;
     }
 
@@ -154,13 +158,7 @@ class AllAlbumsModel extends BaseModel{
 
     private function prepareResultData($statement, $albumsCountBeforePaging) {
         $statement->execute();
-        $statement->bind_result($id, $name, $likes, $canBeLiked);
-        $albums = array();
-        while($statement->fetch()) {
-            $album = array
-            ('id' => $id, 'name' => $name, 'likes' => $likes, 'canBeLiked' => $canBeLiked );
-            array_push($albums, $album);
-        }
+        $albums = $statement->get_result()->fetch_all(MYSQL_ASSOC);
         $albums = $this->getAlbumsComments($albums);
         $pagesCount = ($albumsCountBeforePaging + DEFAULT_PAGE_SIZE - 1) / DEFAULT_PAGE_SIZE;
         $pagesCount = floor($pagesCount);

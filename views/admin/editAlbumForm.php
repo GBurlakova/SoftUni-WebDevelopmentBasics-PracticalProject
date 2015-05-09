@@ -6,8 +6,8 @@
         <fieldset>
             <div class="form-group">
                 <div class="col-lg-12">
-                    <input type="text" class="col-lg-12" name="albumName" value="<?php echo $this->albumName; ?>"/>
-                    <input type="hidden" class="col-lg-12" name="albumId" value="<?php echo $this->albumId; ?>"/>
+                    <input type="text" class="col-lg-12" name="albumName" value="<?php $this->renderText($this->albumName); ?>"/>
+                    <input type="hidden" class="col-lg-12" name="albumId" value="<?php $this->renderText($this->albumId); ?>"/>
                 </div>
             </div>
         </fieldset>
