@@ -251,6 +251,18 @@ class AdminModel extends BaseModel {
         return $albumName;
     }
 
+    public function getAlbumComment($commendId){
+        $query = "SELECT c.id, c.text, u.username, c.date
+            FROM album_comments c INNER JOIN users u ON c.user_id = u.id
+            INNER JOIN albums a ON a.id = c.album_id
+            WHERE c.id = ?";
+        $statement = self::$db->prepare($query);
+        $statement->bind_param('i', $commendId);
+        $statement->execute();
+        $commentText = $statement->get_result()->fetch_assoc();
+        return $commentText;
+    }
+
     public function deletePhoto($photoId){
         $commentCountQuery = 'SELECT COUNT(c.id) as commentsCount
                   FROM photos p LEFT OUTER JOIN photo_comments c ON p.id = c.photo_id
@@ -283,6 +295,36 @@ class AdminModel extends BaseModel {
             } else {
                 $response['statusCode'] = 400;
             }
+        }
+
+        return $response;
+    }
+
+    public function editAlbumComment($commentId, $commentText){
+        $query = 'UPDATE album_comments SET text = ? WHERE id = ?';
+        $statement = self::$db->prepare($query);
+        $statement->bind_param('si', $commentText, $commentId);
+        $statement->execute();
+        $response = array();
+        if($statement->affected_rows > 0) {
+            $response['statusCode'] = 200;
+        } else {
+            $response['statusCode'] = 400;
+        }
+
+        return $response;
+    }
+
+    public function deleteAlbumComment($commentId){
+        $query = 'DELETE FROM album_comments WHERE id = ?';
+        $statement = self::$db->prepare($query);
+        $statement->bind_param('i', $commentId);
+        $statement->execute();
+        $response = array();
+        if($statement->affected_rows > 0) {
+            $response['statusCode'] = 200;
+        } else {
+            $response['statusCode'] = 400;
         }
 
         return $response;

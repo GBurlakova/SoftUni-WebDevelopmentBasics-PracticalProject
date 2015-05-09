@@ -203,4 +203,47 @@ class AdminController extends BaseController
             $this->redirectToUrl('/photo-album/admin/photos/' . $albumId);
         }
     }
+
+    // Comments actions
+    public function editAlbumCommentForm($commentId){
+        $this->authorize(ADMIN_ROLE);
+        $this->comment = $this->db->getAlbumComment($commentId);
+        $this->renderView(__FUNCTION__, false);
+    }
+
+    public function editAlbumComment(){
+        $this->authorize(ADMIN_ROLE);
+        if($this->isPost) {
+            if($_POST['commentText']) {
+                $commentText = $_POST['commentText'];
+            } else {
+                $this->addErrorMessage('Please enter non-empty comment');
+                $this->redirect('admin');
+            }
+
+            $commentId = $_POST['commentId'];
+            $response = $this->db->editAlbumComment($commentId, $commentText);
+            if($response['statusCode'] == 200) {
+                $this->addSuccessMessage('Album comment edited successfully');
+            } else {
+                $this->addErrorMessage('Edit album comment failed. Please try again');
+            }
+
+            $this->redirect('admin');
+        }
+    }
+
+    public function deleteAlbumComment($commentId){
+        $this->authorize(ADMIN_ROLE);
+        if($this->isPost) {
+            $response = $this->db->deleteAlbumComment($commentId);
+            if($response['statusCode'] == 200) {
+                $this->addSuccessMessage('Album comment deleted successfully');
+            } else {
+                $this->addSuccessMessage('Album comment deleted successfully');
+            }
+
+            $this->redirect('admin');
+        }
+    }
 }

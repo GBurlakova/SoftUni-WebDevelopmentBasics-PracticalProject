@@ -81,4 +81,37 @@ $(document).ready(function () {
                 });
             });
     });
+
+    // Album comments
+    $('.edit-album-comment-btn').on('click', function () {
+        var $btn = $(this);
+        var commentId = $btn.attr('id').replace('edit-album-comment-btn', '');
+        $.ajax({
+            method: 'POST',
+            url: '/photo-album/admin/editAlbumCommentForm/' + commentId
+        }).success(function (data) {
+            $btn.hide();
+            var editAlbumCommentFiledId = '#edit-album-comment-field' + commentId;
+            var $editAlbumCommentForm = data;
+            var $editAlbumCommentFiled = $(editAlbumCommentFiledId);
+            $editAlbumCommentFiled.html($editAlbumCommentForm);
+        })
+    });
+
+
+    $('.delete-album-comment-btn').on('click', function () {
+        var $btn = $(this);
+        var commentId = $btn.attr('id').replace('delete-album-comment-btn', '');
+        notifier.showMessage('Do want to delete the comment', 'confirm')
+            .then(function () {
+                location.reload();
+                $.ajax({
+                    method: 'POST',
+                    url: '/photo-album/admin/deleteAlbumComment/' + commentId
+                }).then(function () {
+                    location.reload();
+                    location.reload();
+                });
+            });
+    });
 });
