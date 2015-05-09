@@ -292,4 +292,151 @@ class AdminController extends BaseController
             $this->redirect('/photo-album/admin/photos' . $albumId);
         }
     }
+
+    public function users(){
+        $this->authorize(ADMIN_ROLE);
+        $this->renderView(__FUNCTION__);
+    }
+
+    public function userProfile(){
+        $this->authorize(ADMIN_ROLE);
+        if($this->isPost) {
+            $username = $_POST['username'];
+            $this->profile = $this->db->getUserProfile($username);
+        }
+
+        $this->renderView(__FUNCTION__);
+    }
+
+    public function editUsernameForm($username){
+        $this->authorize(ADMIN_ROLE);
+        $this->profile = $this->db->getUserProfile($username);
+        $this->renderView(__FUNCTION__, false);
+    }
+
+    public function editUsername(){
+        $this->authorize(ADMIN_ROLE);
+        if($this->isPost) {
+            if($_POST['newUsername']) {
+                $newUsername = $_POST['newUsername'];
+                $currentUsername = $_POST['currentUsername'];
+            } else {
+                $this->addErrorMessage('Please enter non-empty username');
+                $this->redirect('admin', 'users');
+            }
+
+            $response = $this->db->editUsername($currentUsername, $newUsername);
+            if($response['statusCode'] == 200) {
+                $this->addSuccessMessage('Username edited successfully');
+                if($currentUsername == $_SESSION['username']) {
+                    $_SESSION['username'] = $newUsername;
+                }
+            } else {
+                if(isset($response['message'])) {
+                    $this->addErrorMessage($response['message']);
+                } else {
+                    $this->addErrorMessage("Edit username failed!");
+                }
+            }
+
+            $this->redirect('admin', 'users');
+        }
+
+    }
+
+    public function editFirstNameForm($username){
+        $this->authorize(ADMIN_ROLE);
+        $this->profile = $this->db->getUserProfile($username);
+        $this->renderView(__FUNCTION__, false);
+    }
+
+    public function editFirstName(){
+        $this->authorize(ADMIN_ROLE);
+        if($this->isPost) {
+            if($_POST['newFirstName']) {
+                $newFirstName = $_POST['newFirstName'];
+                $currentFirstName = $_POST['currentFirstName'];
+                $username = $_POST['username'];
+            } else {
+                $this->addErrorMessage('Please enter non-empty first name');
+                $this->redirect('admin', 'users');
+            }
+
+            $response = $this->db->editFirstName($currentFirstName, $newFirstName, $username);
+            if($response['statusCode'] == 200) {
+                $this->addSuccessMessage('First name edited successfully');
+            } else {
+                if(isset($response['message'])) {
+                    $this->addErrorMessage($response['message']);
+                } else {
+                    $this->addErrorMessage("Edit first name failed!");
+                }
+            }
+
+            $this->redirect('admin', 'users');
+        }
+    }
+
+    public function editLastNameForm($username){
+        $this->authorize(ADMIN_ROLE);
+        $this->profile = $this->db->getUserProfile($username);
+        $this->renderView(__FUNCTION__, false);
+    }
+
+    public function editLastName(){
+        $this->authorize(ADMIN_ROLE);
+        if($this->isPost) {
+            if($_POST['newLastName']) {
+                $newLastName = $_POST['newLastName'];
+                $currentLastName = $_POST['currentLastName'];
+                $username = $_POST['username'];
+            } else {
+                $this->addErrorMessage('Please enter non-empty last name');
+                $this->redirect('admin', 'users');
+            }
+
+            $response = $this->db->editLastName($currentLastName, $newLastName, $username);
+            if($response['statusCode'] == 200) {
+                $this->addSuccessMessage('Last name edited successfully');
+            } else {
+                if(isset($response['message'])) {
+                    $this->addErrorMessage($response['message']);
+                } else {
+                    $this->addErrorMessage("Edit last name failed!");
+                }
+            }
+
+            $this->redirect('admin', 'users');
+        }
+
+    }
+
+    public function editRoleForm($username){
+        $this->authorize(ADMIN_ROLE);
+        $this->profile = $this->db->getUserProfile($username);
+        $this->renderView(__FUNCTION__, false);
+    }
+
+    public function editRole(){
+        if($this->isPost) {
+            $username = $_POST['username'];
+            $isAdmin = 0;
+            if(isset($_POST['isAdmin'])) {
+                $isAdmin = 1;
+            }
+
+            $response = $this->db->editRole($username, $isAdmin);
+            if($response['statusCode'] == 200) {
+                $this->addSuccessMessage('User role edited successfully');
+            } else {
+                if(isset($response['message'])) {
+                    $this->addErrorMessage($response['message']);
+                } else {
+                    $this->addErrorMessage("Edit user role failed!");
+                }
+            }
+
+            $this->redirect('admin', 'users');
+        }
+    }
 }

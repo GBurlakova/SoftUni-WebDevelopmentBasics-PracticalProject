@@ -382,4 +382,135 @@ class AdminModel extends BaseModel {
 
         return $response;
     }
+
+    public function getUserProfile($username){
+        $statement = self::$db->prepare(
+            "SELECT username, first_name, last_name, r.name as role FROM users u
+            LEFT OUTER JOIN user_roles ur ON u.id = ur.user_id
+            LEFT OUTER JOIN roles r ON ur.role_id = r.id
+            WHERE username = ?");
+        $statement->bind_param("s", $username);
+        $statement->execute();
+        $profileInformation = $statement->get_result()->fetch_assoc();
+        return $profileInformation;
+    }
+
+    public function editUsername($currentUsername, $newUsername){
+        $response = array();
+        if($currentUsername != $newUsername) {
+            $statement = self::$db->prepare("SELECT COUNT(id) FROM users WHERE username = ?");
+            $statement->bind_param("s", $newUsername);
+            $statement->execute();
+            $result = $statement->get_result()->fetch_assoc();
+            if ($result['COUNT(id)']) {
+                $response = array();
+                $response['editProfileStatusCode'] = 400;
+                $response['message'] = 'Username is already taken';
+                return $response;
+            } else {
+                $query = 'UPDATE users SET username = ? WHERE username = ?';
+                $statement = self::$db->prepare($query);
+                $statement->bind_param('ss', $newUsername, $currentUsername);
+                $statement->execute();
+                if ($statement->affected_rows > 0) {
+                    $response['statusCode'] = 200;
+                } else {
+                    $response['statusCode'] = 400;
+                }
+            }
+        } else {
+            $response['statusCode'] = 200;
+        }
+
+        return $response;
+    }
+
+    public function editFirstName($currentFirstName, $newFirstName, $username){
+        $response = array();
+        if($currentFirstName != $newFirstName) {
+            $query = 'UPDATE users SET first_name = ? WHERE username = ?';
+            $statement = self::$db->prepare($query);
+            $statement->bind_param('ss', $newFirstName, $username);
+            $statement->execute();
+            if ($statement->affected_rows > 0) {
+                $response['statusCode'] = 200;
+            } else {
+                $response['statusCode'] = 400;
+            }
+        } else {
+            $response['statusCode'] = 200;
+        }
+
+        return $response;
+    }
+
+    public function editLastName($currentLastName, $newLastName, $username){
+        $response = array();
+        if($currentLastName != $newLastName) {
+            $query = 'UPDATE users SET last_name = ? WHERE username = ?';
+            $statement = self::$db->prepare($query);
+            $statement->bind_param('ss', $newLastName, $username);
+            $statement->execute();
+            if ($statement->affected_rows > 0) {
+                $response['statusCode'] = 200;
+            } else {
+                $response['statusCode'] = 400;
+            }
+        } else {
+            $response['statusCode'] = 200;
+        }
+
+        return $response;
+    }
+
+    public function editRole($username, $isAdmin){
+        $checkQuery = 'SELECT COUNT(u.id) as isAdmin FROM users u
+              INNER JOIN user_roles ur ON u.id = ur.user_id
+              INNER JOIN roles r ON r.id = ur.role_id
+              WHERE u.username = ? AND r.name = ?';
+        $statemenmt = self::$db->prepare($checkQuery);
+        $adminRole = ADMIN_ROLE;
+        $statemenmt->bind_param('ss', $username, $adminRole);
+        $statemenmt->execute();
+        $hasAdminRole = $statemenmt->get_result()->fetch_assoc()['isAdmin'];
+        $response = array();
+        if($isAdmin == 1) {
+            if(!$hasAdminRole) {
+                $query =
+                  'INSERT INTO user_roles (user_id, role_id) VALUES((SELECT id FROM users WHERE username = ?),
+                                            (SELECT id FROM roles WHERE name = ?))';
+                $statemenmt = self::$db->prepare($query);
+                $adminRole = ADMIN_ROLE;
+                $statemenmt->bind_param('ss', $username, $adminRole);
+                $statemenmt->execute();
+                if($statemenmt->affected_rows > 0) {
+                    $response['statusCode'] = 200;
+                } else {
+                    $response['statusCode'] = 400;
+                }
+
+            } else {
+                $response['statusCode'] = 200;
+            }
+        } else {
+            if($hasAdminRole){
+                $query = 'DELETE FROM user_roles
+                          WHERE user_id = (SELECT id FROM users WHERE username = ?)
+                          AND role_id = (SELECT id FROM roles WHERE name = ?)';
+                $statemenmt = self::$db->prepare($query);
+                $adminRole = ADMIN_ROLE;
+                $statemenmt->bind_param('ss', $username, $adminRole);
+                $statemenmt->execute();
+                if($statemenmt->affected_rows > 0) {
+                    $response['statusCode'] = 200;
+                } else {
+                    $response['statusCode'] = 400;
+                }
+            } else {
+                $response['statusCode'] = 200;
+            }
+        }
+
+        return $response;
+    }
 }

@@ -144,4 +144,65 @@ $(document).ready(function () {
                 });
             });
     });
+
+    // User profile actions
+    $('.edit-user-username-btn').on('click', function () {
+        var $btn = $(this);
+        var username = $btn.attr('id').replace('edit-user-username-btn-', '');
+        $.ajax({
+            method: 'POST',
+            url: '/photo-album/admin/editUsernameForm/' + username
+        }).then(function (data) {
+            $btn.hide();
+            var editUsernameFiledId = '#edit-user-username-field';
+            var $editUsernameForm = data;
+            var $editUsernameField = $(editUsernameFiledId);
+            $editUsernameField.html($editUsernameForm);
+        });
+    });
+
+    $('.edit-user-first-name-btn').on('click', function () {
+        var $btn = $(this);
+        var username = $btn.attr('id').replace('edit-user-first-name-btn-', '');
+        $.ajax({
+            method: 'POST',
+            url: '/photo-album/admin/editFirstNameForm/' + username
+        }).then(function (data) {
+            $btn.hide();
+            var editUserFirstNameFiledId = '#edit-user-first-name-field';
+            var $editUserFirstNameForm = data;
+            var $editUserFirstNameField = $(editUserFirstNameFiledId);
+            $editUserFirstNameField.html($editUserFirstNameForm);
+        });
+    });
+
+    $('.edit-user-last-name-btn').on('click', function () {
+        var $btn = $(this);
+        var username = $btn.attr('id').replace('edit-user-last-name-btn-', '');
+        $.ajax({
+            method: 'POST',
+            url: '/photo-album/admin/editLastNameForm/' + username
+        }).then(function (data) {
+            $btn.hide();
+            var editUserLastNameFiledId = '#edit-user-last-name-field';
+            var $editUserLastNameForm = data;
+            var $editUserLastNameField = $(editUserLastNameFiledId);
+            $editUserLastNameField.html($editUserLastNameForm);
+        });
+    });
+
+    $('.edit-user-role-btn').on('click', function () {
+        var $btn = $(this);
+        var username = $btn.attr('id').replace('edit-user-role-btn-', '');
+        $.ajax({
+            method: 'POST',
+            url: '/photo-album/admin/editRoleForm/' + username
+        }).then(function (data) {
+            $btn.hide();
+            var editUserRoleFiledId = '#edit-user-role-field';
+            var $editUserRoleForm = data;
+            var $editUserRoleField = $(editUserRoleFiledId);
+            $editUserRoleField.html($editUserRoleForm);
+        });
+    });
 });

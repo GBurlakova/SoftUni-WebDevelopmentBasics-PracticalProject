@@ -80,17 +80,17 @@ class AccountModel extends BaseModel {
         $statement->execute();
         $result = $statement->get_result()->fetch_assoc();
         $response = array();
-        if ($result['COUNT(Id)']) {
+        if ($result['COUNT(Id)'] && $currentUsername != $newUsername) {
             $response = array();
             $response['statusCode'] = 400;
             $response['message'] = 'Username is already taken';
         } else {
             $hash_pass = password_hash($newPassword, PASSWORD_BCRYPT);
-            $registerStatement = self::$db->prepare(
+            $updateProfileStatement = self::$db->prepare(
                 "UPDATE users SET first_name = ?, last_name = ?, username = ?, password = ?
                  WHERE username = ?");
-            $registerStatement->bind_param("sssss", $newFirstName, $newLastName, $newUsername, $hash_pass, $currentUsername);
-            $registerStatement->execute();
+            $updateProfileStatement->bind_param("sssss", $newFirstName, $newLastName, $newUsername, $hash_pass, $currentUsername);
+            $updateProfileStatement->execute();
             $successfulEdit = $statement->affected_rows > 0;
             if($successfulEdit) {
                 $response['statusCode'] = 200;
