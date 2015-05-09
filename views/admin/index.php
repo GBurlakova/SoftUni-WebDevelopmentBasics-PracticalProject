@@ -22,11 +22,11 @@
                             <span class="badge"><?php $this->renderText($album['likes']); ?></span>
                         </div>
                         <div class="margin">
-                            <a class="btn-sm btn-danger" href="/photo-album/admin/deleteAlbum/<?php echo $album['id'] ?>">Delete</a>
-                            <a class="btn-sm btn-info" href="/photo-album/admin/editAlbum/<?php echo $album['id'] ?>">Edit</a>
+                            <a class="btn-sm btn-danger delete-album-btn" id="delete-album-btn<?php echo $album['id'] ?>">Delete</a>
+                            <a class="btn-sm btn-info edit-album-btn" id="edit-album-btn<?php echo $album['id'] ?>">Edit</a>
                         </div>
                         <div>
-                            <div class="panel panel-primary margin">
+                            <div class="panel panel-primary margin" id="edit-album-field<?php echo $album['id']; ?>">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Comments</h3>
                                 </div>

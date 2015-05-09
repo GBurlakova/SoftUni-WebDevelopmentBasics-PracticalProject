@@ -170,4 +170,75 @@ class AdminModel extends BaseModel {
 
         return $response;
     }
+
+    public function deleteAlbum($albumId){
+        $statement = self::$db->prepare(
+            "SELECT COUNT(c.id) as commentsCount
+            FROM albums a LEFT OUTER JOIN album_comments c ON a.id = c.album_id
+            WHERE a.id = ?");
+        $statement->bind_param("i", $albumId);
+        $statement->execute();
+        $result = $statement->get_result()->fetch_assoc();
+        $response = array();
+        if($result['commentsCount'] > 0) {
+            $response['statusCode'] = 400;
+            $response['message'] =
+                'Attempt to delete album with comments. Please delete corresponding comments first';
+        } else {
+            $statement = self::$db->prepare(
+                "SELECT COUNT(p.id) as photosCount
+            FROM albums a LEFT OUTER JOIN photos p ON a.id = p.album_id
+            WHERE a.id = ?");
+            $statement->bind_param("i", $albumId);
+            $statement->execute();
+            $result = $statement->get_result()->fetch_assoc();
+            if($result['photosCount'] > 0) {
+                $response['statusCode'] = 400;
+                $response['message'] =
+                    'Attempt to delete album with photos. Please delete corresponding photos first';
+            } else {
+                $deleteLikesQuery = 'DELETE FROM album_likes WHERE album_id = ?';
+                $statement = self::$db->prepare($deleteLikesQuery);
+                $statement->bind_param('i', $albumId);
+                $statement->execute();
+
+                $query = 'DELETE FROM albums WHERE id = ?';
+                $statement = self::$db->prepare($query);
+                $statement->bind_param('i', $albumId);
+                $statement->execute();
+                $response = array();
+                if($statement->affected_rows > 0) {
+                    $response['statusCode'] = 200;
+                } else {
+                    $response['statusCode'] = 400;
+                }
+            }
+        }
+
+        return $response;
+    }
+
+    public function getAlbumName($albumId){
+        $query = "SELECT name FROM albums WHERE id = ?";
+        $statement = self::$db->prepare($query);
+        $statement->bind_param('i', $albumId);
+        $statement->execute();
+        $albumName = $statement->get_result()->fetch_assoc()['name'];
+        return $albumName;
+    }
+
+    public function editAlbum($albumId, $albumName){
+        $query = 'UPDATE albums SET name = ? WHERE id = ?';
+        $statement = self::$db->prepare($query);
+        $statement->bind_param('si', $albumName, $albumId);
+        $statement->execute();
+        $response = array();
+        if($statement->affected_rows > 0) {
+            $response['statusCode'] = 200;
+        } else {
+            $response['statusCode'] = 400;
+        }
+
+        return $response;
+    }
 }

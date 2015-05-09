@@ -63,4 +63,4 @@
 <?php include('./views/layouts/messages.php'); ?>
     <!--    Custom scripts-->
     <script type="text/javascript" src="/photo-album/content/js/notifier.js"></script>
-    <script type="text/javascript" src="/photo-album/content/js/adminCategoriesActions.js"></script>
+    <script type="text/javascript" src="/photo-album/content/js/adminActions.js"></script>
