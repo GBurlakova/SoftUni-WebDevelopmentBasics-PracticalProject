@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b1d3c260-2435-4371-ba51-5e471d5a5e00" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/admin/editAlbumCommentForm.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/admin/editPhotoCommentForm.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/AdminController.php" afterPath="$PROJECT_DIR$/controllers/AdminController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/AdminModel.php" afterPath="$PROJECT_DIR$/models/AdminModel.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/content/js/adminActions.js" afterPath="$PROJECT_DIR$/content/js/adminActions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/admin/editAlbumForm.php" afterPath="$PROJECT_DIR$/views/admin/editAlbumForm.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/admin/index.php" afterPath="$PROJECT_DIR$/views/admin/index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/admin/photos.php" afterPath="$PROJECT_DIR$/views/admin/photos.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="photo-album.iws" />
@@ -36,8 +35,8 @@
       <file leaf-file-name="AdminController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/AdminController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.384615" vertical-offset="1227" max-vertical-offset="1598">
-              <caret line="245" column="37" selection-start-line="245" selection-start-column="37" selection-end-line="245" selection-end-column="37" />
+            <state vertical-scroll-proportion="-1.5" vertical-offset="1729" max-vertical-offset="2176">
+              <caret line="276" column="0" selection-start-line="276" selection-start-column="0" selection-end-line="276" selection-end-column="0" />
               <folding>
                 <element signature="n#photos#0;n#AdminController#0;n#!!top" expanded="false" />
                 <element signature="n#categories#0;n#AdminController#0;n#!!top" expanded="false" />
@@ -49,6 +48,7 @@
                 <element signature="n#editAlbumForm#0;n#AdminController#0;n#!!top" expanded="false" />
                 <element signature="n#deletePhoto#0;n#AdminController#0;n#!!top" expanded="false" />
                 <element signature="n#editAlbumComment#0;n#AdminController#0;n#!!top" expanded="false" />
+                <element signature="n#deleteAlbumComment#0;n#AdminController#0;n#!!top" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -57,48 +57,55 @@
       <file leaf-file-name="AdminModel.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/AdminModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.038462" vertical-offset="3556" max-vertical-offset="3927">
-              <caret line="329" column="25" selection-start-line="329" selection-start-column="25" selection-end-line="329" selection-end-column="25" />
+            <state vertical-scroll-proportion="-3.8076923" vertical-offset="3947" max-vertical-offset="4318">
+              <caret line="374" column="30" selection-start-line="374" selection-start-column="30" selection-end-line="374" selection-end-column="30" />
               <folding>
                 <element signature="n#deleteAlbum#0;n#AdminModel#0;n#!!top" expanded="false" />
                 <element signature="n#editAlbum#0;n#AdminModel#0;n#!!top" expanded="false" />
+                <element signature="n#getAlbumId#0;n#AdminModel#0;n#!!top" expanded="false" />
+                <element signature="n#getAlbumComment#0;n#AdminModel#0;n#!!top" expanded="false" />
                 <element signature="n#deletePhoto#0;n#AdminModel#0;n#!!top" expanded="false" />
                 <element signature="n#editAlbumComment#0;n#AdminModel#0;n#!!top" expanded="false" />
-                <marker date="1431168884781" expanded="true" signature="108:241" placeholder="SELECT a.id,..albums..." />
-                <marker date="1431168884781" expanded="true" signature="1410:1629" placeholder="SELECT p.id,..photos..." />
-                <marker date="1431168884781" expanded="true" signature="2006:2042" placeholder="SELECT * FRO..categories..." />
-                <marker date="1431168884781" expanded="true" signature="2207:2247" placeholder="SELECT name ..categories..." />
-                <marker date="1431168884781" expanded="true" signature="2668:2886" placeholder="SELECT c.id,..album_comments..." />
-                <marker date="1431168884781" expanded="true" signature="3604:3775" placeholder="SELECT c.id,..photo_comments..." />
-                <marker date="1431168884781" expanded="true" signature="4194:4241" placeholder="SELECT COUNT..categories..." />
-                <marker date="1431168884781" expanded="true" signature="4603:4646" placeholder="UPDATE categ..." />
-                <marker date="1431168884781" expanded="true" signature="5164:5274" placeholder="SELECT COUNT..categories..." />
-                <marker date="1431168884781" expanded="true" signature="5675:5710" placeholder="DELETE FROM ..." />
-                <marker date="1431168884781" expanded="true" signature="6211:6283" placeholder="SELECT COUNT..categories..." />
-                <marker date="1431168884781" expanded="true" signature="6690:6729" placeholder="INSERT INTO ..." />
-                <marker date="1431168884781" expanded="true" signature="7193:7335" placeholder="SELECT COUNT..albums..." />
-                <marker date="1431168884781" expanded="true" signature="7806:7938" placeholder="SELECT COUNT..albums..." />
-                <marker date="1431168884781" expanded="true" signature="8381:8423" placeholder="DELETE FROM ..." />
-                <marker date="1431168884781" expanded="true" signature="8615:8646" placeholder="DELETE FROM ..." />
-                <marker date="1431168884781" expanded="true" signature="9154:9190" placeholder="SELECT name ..albums..." />
-                <marker date="1431168884781" expanded="true" signature="9495:9534" placeholder="UPDATE album..." />
-                <marker date="1431168884781" expanded="true" signature="9957:9999" placeholder="SELECT album..albums..." />
-                <marker date="1431168884781" expanded="true" signature="10304:10496" placeholder="SELECT c.id,..album_comments..." />
-                <marker date="1431168884781" expanded="true" signature="10801:10955" placeholder="SELECT COUNT..photos..." />
-                <marker date="1431168884781" expanded="true" signature="11473:11696" placeholder="SELECT u.id ..photos..." />
-                <marker date="1431168884781" expanded="true" signature="11943:11974" placeholder="DELETE FROM ..." />
-                <marker date="1431168884781" expanded="true" signature="12483:12530" placeholder="UPDATE album..." />
-                <marker date="1431168884781" expanded="true" signature="12967:13006" placeholder="DELETE FROM ..." />
+                <element signature="n#editPhotoComment#0;n#AdminModel#0;n#!!top" expanded="false" />
+                <marker date="1431171774613" expanded="true" signature="108:241" placeholder="SELECT a.id,..albums..." />
+                <marker date="1431171774613" expanded="true" signature="1410:1629" placeholder="SELECT p.id,..photos..." />
+                <marker date="1431171774613" expanded="true" signature="2006:2042" placeholder="SELECT * FRO..categories..." />
+                <marker date="1431171774613" expanded="true" signature="2207:2247" placeholder="SELECT name ..categories..." />
+                <marker date="1431171774613" expanded="true" signature="2668:2886" placeholder="SELECT c.id,..album_comments..." />
+                <marker date="1431171774613" expanded="true" signature="3604:3775" placeholder="SELECT c.id,..photo_comments..." />
+                <marker date="1431171774613" expanded="true" signature="4194:4241" placeholder="SELECT COUNT..categories..." />
+                <marker date="1431171774613" expanded="true" signature="4603:4646" placeholder="UPDATE categ..." />
+                <marker date="1431171774613" expanded="true" signature="5164:5274" placeholder="SELECT COUNT..categories..." />
+                <marker date="1431171774613" expanded="true" signature="5675:5710" placeholder="DELETE FROM ..." />
+                <marker date="1431171774613" expanded="true" signature="6211:6283" placeholder="SELECT COUNT..categories..." />
+                <marker date="1431171774613" expanded="true" signature="6690:6729" placeholder="INSERT INTO ..." />
+                <marker date="1431171774613" expanded="true" signature="7193:7335" placeholder="SELECT COUNT..albums..." />
+                <marker date="1431171774613" expanded="true" signature="7806:7938" placeholder="SELECT COUNT..albums..." />
+                <marker date="1431171774613" expanded="true" signature="8381:8423" placeholder="DELETE FROM ..." />
+                <marker date="1431171774613" expanded="true" signature="8615:8646" placeholder="DELETE FROM ..." />
+                <marker date="1431171774613" expanded="true" signature="9154:9190" placeholder="SELECT name ..albums..." />
+                <marker date="1431171774613" expanded="true" signature="9495:9534" placeholder="UPDATE album..." />
+                <marker date="1431171774613" expanded="true" signature="9957:9999" placeholder="SELECT album..albums..." />
+                <marker date="1431171774613" expanded="true" signature="10300:10492" placeholder="SELECT c.id,..album_comments..." />
+                <marker date="1431171774613" expanded="true" signature="10789:10943" placeholder="SELECT COUNT..photos..." />
+                <marker date="1431171774613" expanded="true" signature="11461:11684" placeholder="SELECT u.id ..photos..." />
+                <marker date="1431171774613" expanded="true" signature="11931:11962" placeholder="DELETE FROM ..." />
+                <marker date="1431171774613" expanded="true" signature="12471:12518" placeholder="UPDATE album..." />
+                <marker date="1431171774613" expanded="true" signature="12955:12994" placeholder="DELETE FROM ..." />
+                <marker date="1431171774613" expanded="true" signature="13429:13613" placeholder="SELECT a.id ..albums..." />
+                <marker date="1431171774613" expanded="true" signature="13915:14054" placeholder="SELECT c.id,..photo_comments..." />
+                <marker date="1431171774613" expanded="true" signature="14360:14407" placeholder="UPDATE photo..." />
+                <marker date="1431171774613" expanded="true" signature="14845:14884" placeholder="DELETE FROM ..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/admin/index.php">
+      <file leaf-file-name="photos.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/admin/photos.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.576923" vertical-offset="561" max-vertical-offset="1343">
-              <caret line="40" column="116" selection-start-line="40" selection-start-column="116" selection-end-line="40" selection-end-column="116" />
+            <state vertical-scroll-proportion="-3.2692308" vertical-offset="255" max-vertical-offset="867">
+              <caret line="20" column="67" selection-start-line="20" selection-start-column="67" selection-end-line="20" selection-end-column="67" />
               <folding />
             </state>
           </provider>
@@ -107,13 +114,35 @@
       <file leaf-file-name="adminActions.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/content/js/adminActions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.44805196" vertical-offset="1001" max-vertical-offset="1428">
-              <caret line="106" column="16" selection-start-line="106" selection-start-column="16" selection-end-line="106" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.44805196" vertical-offset="1052" max-vertical-offset="1479">
+              <caret line="136" column="31" selection-start-line="136" selection-start-column="31" selection-end-line="136" selection-end-column="31" />
               <folding>
                 <element signature="e#1328#1823#0" expanded="false" />
                 <element signature="e#1879#2401#0" expanded="false" />
                 <element signature="e#2470#2922#0" expanded="false" />
+                <element signature="e#3005#3571#0" expanded="false" />
+                <element signature="e#3634#4181#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="editPhotoCommentForm.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/admin/editPhotoCommentForm.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="289">
+              <caret line="0" column="42" selection-start-line="0" selection-start-column="42" selection-end-line="0" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="editAlbumCommentForm.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/admin/editAlbumCommentForm.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="289">
+              <caret line="0" column="49" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="49" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -126,7 +155,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/views/userAlbums/upload.php" />
         <option value="$PROJECT_DIR$/controllers/HomeController.php" />
         <option value="$PROJECT_DIR$/models/HomeModel.php" />
         <option value="$PROJECT_DIR$/views/patrials/comment-form.php" />
@@ -169,13 +197,14 @@
         <option value="$PROJECT_DIR$/content/js/adminAlbumsActions.js" />
         <option value="$PROJECT_DIR$/content/js/adminCategoriesActions.js" />
         <option value="$PROJECT_DIR$/views/layouts/admin/header.php" />
-        <option value="$PROJECT_DIR$/views/admin/photos.php" />
         <option value="$PROJECT_DIR$/views/admin/editCommentForm.php" />
         <option value="$PROJECT_DIR$/views/admin/editAlbumForm.php" />
         <option value="$PROJECT_DIR$/views/admin/editAlbumCommentForm.php" />
+        <option value="$PROJECT_DIR$/views/admin/index.php" />
+        <option value="$PROJECT_DIR$/views/admin/photos.php" />
+        <option value="$PROJECT_DIR$/views/admin/editPhotoCommentForm.php" />
         <option value="$PROJECT_DIR$/controllers/AdminController.php" />
         <option value="$PROJECT_DIR$/models/AdminModel.php" />
-        <option value="$PROJECT_DIR$/views/admin/index.php" />
         <option value="$PROJECT_DIR$/content/js/adminActions.js" />
       </list>
     </option>
@@ -456,18 +485,11 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="135" />
+      <option name="time" value="139" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/content/styles/photo-album-style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="521">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../gallery/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.064150944" vertical-offset="0" max-vertical-offset="1734">
@@ -757,26 +779,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/admin/editCategoryForm.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="13" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/controllers/PhotosController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.49814126" vertical-offset="801" max-vertical-offset="1173">
           <caret line="55" column="120" selection-start-line="53" selection-start-column="16" selection-end-line="55" selection-end-column="120" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/admin/photos.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6951673" vertical-offset="0" max-vertical-offset="867">
-          <caret line="11" column="64" selection-start-line="11" selection-start-column="64" selection-end-line="11" selection-end-column="64" />
           <folding />
         </state>
       </provider>
@@ -789,26 +795,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/BaseController.php">
+    <entry file="file://$PROJECT_DIR$/views/admin/editCategoryForm.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.6153846" vertical-offset="1232" max-vertical-offset="2295">
-          <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="13" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/admin/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.3076923" vertical-offset="561" max-vertical-offset="1343">
+          <caret line="35" column="122" selection-start-line="35" selection-start-column="65" selection-end-line="35" selection-end-column="122" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/admin/photos.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.2692308" vertical-offset="255" max-vertical-offset="867">
+          <caret line="20" column="67" selection-start-line="20" selection-start-column="67" selection-end-line="20" selection-end-column="67" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/admin/editAlbumCommentForm.php">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="289">
+          <caret line="0" column="49" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/admin/editPhotoCommentForm.php">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
-          <caret line="0" column="45" selection-start-line="0" selection-start-column="45" selection-end-line="0" selection-end-column="45" />
+          <caret line="0" column="42" selection-start-line="0" selection-start-column="42" selection-end-line="0" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/BaseController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="1232" max-vertical-offset="2295">
+          <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/AdminController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.384615" vertical-offset="1227" max-vertical-offset="1598">
-          <caret line="245" column="37" selection-start-line="245" selection-start-column="37" selection-end-line="245" selection-end-column="37" />
+        <state vertical-scroll-proportion="-1.5" vertical-offset="1729" max-vertical-offset="2176">
+          <caret line="276" column="0" selection-start-line="276" selection-start-column="0" selection-end-line="276" selection-end-column="0" />
           <folding>
             <element signature="n#photos#0;n#AdminController#0;n#!!top" expanded="false" />
             <element signature="n#categories#0;n#AdminController#0;n#!!top" expanded="false" />
@@ -820,64 +858,66 @@
             <element signature="n#editAlbumForm#0;n#AdminController#0;n#!!top" expanded="false" />
             <element signature="n#deletePhoto#0;n#AdminController#0;n#!!top" expanded="false" />
             <element signature="n#editAlbumComment#0;n#AdminController#0;n#!!top" expanded="false" />
+            <element signature="n#deleteAlbumComment#0;n#AdminController#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/AdminModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.038462" vertical-offset="3556" max-vertical-offset="3927">
-          <caret line="329" column="25" selection-start-line="329" selection-start-column="25" selection-end-line="329" selection-end-column="25" />
+        <state vertical-scroll-proportion="-3.8076923" vertical-offset="3947" max-vertical-offset="4318">
+          <caret line="374" column="30" selection-start-line="374" selection-start-column="30" selection-end-line="374" selection-end-column="30" />
           <folding>
             <element signature="n#deleteAlbum#0;n#AdminModel#0;n#!!top" expanded="false" />
             <element signature="n#editAlbum#0;n#AdminModel#0;n#!!top" expanded="false" />
+            <element signature="n#getAlbumId#0;n#AdminModel#0;n#!!top" expanded="false" />
+            <element signature="n#getAlbumComment#0;n#AdminModel#0;n#!!top" expanded="false" />
             <element signature="n#deletePhoto#0;n#AdminModel#0;n#!!top" expanded="false" />
             <element signature="n#editAlbumComment#0;n#AdminModel#0;n#!!top" expanded="false" />
-            <marker date="1431168884781" expanded="true" signature="108:241" placeholder="SELECT a.id,..albums..." />
-            <marker date="1431168884781" expanded="true" signature="1410:1629" placeholder="SELECT p.id,..photos..." />
-            <marker date="1431168884781" expanded="true" signature="2006:2042" placeholder="SELECT * FRO..categories..." />
-            <marker date="1431168884781" expanded="true" signature="2207:2247" placeholder="SELECT name ..categories..." />
-            <marker date="1431168884781" expanded="true" signature="2668:2886" placeholder="SELECT c.id,..album_comments..." />
-            <marker date="1431168884781" expanded="true" signature="3604:3775" placeholder="SELECT c.id,..photo_comments..." />
-            <marker date="1431168884781" expanded="true" signature="4194:4241" placeholder="SELECT COUNT..categories..." />
-            <marker date="1431168884781" expanded="true" signature="4603:4646" placeholder="UPDATE categ..." />
-            <marker date="1431168884781" expanded="true" signature="5164:5274" placeholder="SELECT COUNT..categories..." />
-            <marker date="1431168884781" expanded="true" signature="5675:5710" placeholder="DELETE FROM ..." />
-            <marker date="1431168884781" expanded="true" signature="6211:6283" placeholder="SELECT COUNT..categories..." />
-            <marker date="1431168884781" expanded="true" signature="6690:6729" placeholder="INSERT INTO ..." />
-            <marker date="1431168884781" expanded="true" signature="7193:7335" placeholder="SELECT COUNT..albums..." />
-            <marker date="1431168884781" expanded="true" signature="7806:7938" placeholder="SELECT COUNT..albums..." />
-            <marker date="1431168884781" expanded="true" signature="8381:8423" placeholder="DELETE FROM ..." />
-            <marker date="1431168884781" expanded="true" signature="8615:8646" placeholder="DELETE FROM ..." />
-            <marker date="1431168884781" expanded="true" signature="9154:9190" placeholder="SELECT name ..albums..." />
-            <marker date="1431168884781" expanded="true" signature="9495:9534" placeholder="UPDATE album..." />
-            <marker date="1431168884781" expanded="true" signature="9957:9999" placeholder="SELECT album..albums..." />
-            <marker date="1431168884781" expanded="true" signature="10304:10496" placeholder="SELECT c.id,..album_comments..." />
-            <marker date="1431168884781" expanded="true" signature="10801:10955" placeholder="SELECT COUNT..photos..." />
-            <marker date="1431168884781" expanded="true" signature="11473:11696" placeholder="SELECT u.id ..photos..." />
-            <marker date="1431168884781" expanded="true" signature="11943:11974" placeholder="DELETE FROM ..." />
-            <marker date="1431168884781" expanded="true" signature="12483:12530" placeholder="UPDATE album..." />
-            <marker date="1431168884781" expanded="true" signature="12967:13006" placeholder="DELETE FROM ..." />
+            <element signature="n#editPhotoComment#0;n#AdminModel#0;n#!!top" expanded="false" />
+            <marker date="1431171774613" expanded="true" signature="108:241" placeholder="SELECT a.id,..albums..." />
+            <marker date="1431171774613" expanded="true" signature="1410:1629" placeholder="SELECT p.id,..photos..." />
+            <marker date="1431171774613" expanded="true" signature="2006:2042" placeholder="SELECT * FRO..categories..." />
+            <marker date="1431171774613" expanded="true" signature="2207:2247" placeholder="SELECT name ..categories..." />
+            <marker date="1431171774613" expanded="true" signature="2668:2886" placeholder="SELECT c.id,..album_comments..." />
+            <marker date="1431171774613" expanded="true" signature="3604:3775" placeholder="SELECT c.id,..photo_comments..." />
+            <marker date="1431171774613" expanded="true" signature="4194:4241" placeholder="SELECT COUNT..categories..." />
+            <marker date="1431171774613" expanded="true" signature="4603:4646" placeholder="UPDATE categ..." />
+            <marker date="1431171774613" expanded="true" signature="5164:5274" placeholder="SELECT COUNT..categories..." />
+            <marker date="1431171774613" expanded="true" signature="5675:5710" placeholder="DELETE FROM ..." />
+            <marker date="1431171774613" expanded="true" signature="6211:6283" placeholder="SELECT COUNT..categories..." />
+            <marker date="1431171774613" expanded="true" signature="6690:6729" placeholder="INSERT INTO ..." />
+            <marker date="1431171774613" expanded="true" signature="7193:7335" placeholder="SELECT COUNT..albums..." />
+            <marker date="1431171774613" expanded="true" signature="7806:7938" placeholder="SELECT COUNT..albums..." />
+            <marker date="1431171774613" expanded="true" signature="8381:8423" placeholder="DELETE FROM ..." />
+            <marker date="1431171774613" expanded="true" signature="8615:8646" placeholder="DELETE FROM ..." />
+            <marker date="1431171774613" expanded="true" signature="9154:9190" placeholder="SELECT name ..albums..." />
+            <marker date="1431171774613" expanded="true" signature="9495:9534" placeholder="UPDATE album..." />
+            <marker date="1431171774613" expanded="true" signature="9957:9999" placeholder="SELECT album..albums..." />
+            <marker date="1431171774613" expanded="true" signature="10300:10492" placeholder="SELECT c.id,..album_comments..." />
+            <marker date="1431171774613" expanded="true" signature="10789:10943" placeholder="SELECT COUNT..photos..." />
+            <marker date="1431171774613" expanded="true" signature="11461:11684" placeholder="SELECT u.id ..photos..." />
+            <marker date="1431171774613" expanded="true" signature="11931:11962" placeholder="DELETE FROM ..." />
+            <marker date="1431171774613" expanded="true" signature="12471:12518" placeholder="UPDATE album..." />
+            <marker date="1431171774613" expanded="true" signature="12955:12994" placeholder="DELETE FROM ..." />
+            <marker date="1431171774613" expanded="true" signature="13429:13613" placeholder="SELECT a.id ..albums..." />
+            <marker date="1431171774613" expanded="true" signature="13915:14054" placeholder="SELECT c.id,..photo_comments..." />
+            <marker date="1431171774613" expanded="true" signature="14360:14407" placeholder="UPDATE photo..." />
+            <marker date="1431171774613" expanded="true" signature="14845:14884" placeholder="DELETE FROM ..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/admin/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.576923" vertical-offset="561" max-vertical-offset="1343">
-          <caret line="40" column="116" selection-start-line="40" selection-start-column="116" selection-end-line="40" selection-end-column="116" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/content/js/adminActions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44805196" vertical-offset="1001" max-vertical-offset="1428">
-          <caret line="106" column="16" selection-start-line="106" selection-start-column="16" selection-end-line="106" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.44805196" vertical-offset="1052" max-vertical-offset="1479">
+          <caret line="136" column="31" selection-start-line="136" selection-start-column="31" selection-end-line="136" selection-end-column="31" />
           <folding>
             <element signature="e#1328#1823#0" expanded="false" />
             <element signature="e#1879#2401#0" expanded="false" />
             <element signature="e#2470#2922#0" expanded="false" />
+            <element signature="e#3005#3571#0" expanded="false" />
+            <element signature="e#3634#4181#0" expanded="false" />
           </folding>
         </state>
       </provider>

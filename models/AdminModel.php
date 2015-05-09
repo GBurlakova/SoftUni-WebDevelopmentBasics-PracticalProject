@@ -247,8 +247,8 @@ class AdminModel extends BaseModel {
         $statement = self::$db->prepare($query);
         $statement->bind_param('i', $photoId);
         $statement->execute();
-        $albumName = $statement->get_result()->fetch_assoc()['album_id'];
-        return $albumName;
+        $albumId = $statement->get_result()->fetch_assoc()['album_id'];
+        return $albumId;
     }
 
     public function getAlbumComment($commendId){
@@ -259,8 +259,8 @@ class AdminModel extends BaseModel {
         $statement = self::$db->prepare($query);
         $statement->bind_param('i', $commendId);
         $statement->execute();
-        $commentText = $statement->get_result()->fetch_assoc();
-        return $commentText;
+        $comment = $statement->get_result()->fetch_assoc();
+        return $comment;
     }
 
     public function deletePhoto($photoId){
@@ -317,6 +317,59 @@ class AdminModel extends BaseModel {
 
     public function deleteAlbumComment($commentId){
         $query = 'DELETE FROM album_comments WHERE id = ?';
+        $statement = self::$db->prepare($query);
+        $statement->bind_param('i', $commentId);
+        $statement->execute();
+        $response = array();
+        if($statement->affected_rows > 0) {
+            $response['statusCode'] = 200;
+        } else {
+            $response['statusCode'] = 400;
+        }
+
+        return $response;
+    }
+
+    public function getAlbumIdByPhotoCommentId($photoCommentId){
+        $query = "SELECT a.id FROM albums a
+                  INNER JOIN photos p ON a.id = p.album_id
+                  INNER JOIN photo_comments c ON p.id = c.photo_id
+                  WHERE c.id = ?";
+        $statement = self::$db->prepare($query);
+        $statement->bind_param('i', $photoCommentId);
+        $statement->execute();
+        $albumId = $statement->get_result()->fetch_assoc()['id'];
+        return $albumId;
+    }
+
+    public function getPhotoComment($commendId){
+        $query = "SELECT c.id, c.text, u.username, c.date
+            FROM photo_comments c INNER JOIN users u ON c.user_id = u.id
+            WHERE c.id = ?";
+        $statement = self::$db->prepare($query);
+        $statement->bind_param('i', $commendId);
+        $statement->execute();
+        $comment = $statement->get_result()->fetch_assoc();
+        return $comment;
+    }
+
+    public function editPhotoComment($commentId, $commentText){
+        $query = 'UPDATE photo_comments SET text = ? WHERE id = ?';
+        $statement = self::$db->prepare($query);
+        $statement->bind_param('si', $commentText, $commentId);
+        $statement->execute();
+        $response = array();
+        if($statement->affected_rows > 0) {
+            $response['statusCode'] = 200;
+        } else {
+            $response['statusCode'] = 400;
+        }
+
+        return $response;
+    }
+
+    public function deletePhotoComment($commentId) {
+        $query = 'DELETE FROM photo_comments WHERE id = ?';
         $statement = self::$db->prepare($query);
         $statement->bind_param('i', $commentId);
         $statement->execute();

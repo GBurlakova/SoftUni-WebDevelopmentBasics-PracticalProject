@@ -98,7 +98,6 @@ $(document).ready(function () {
         })
     });
 
-
     $('.delete-album-comment-btn').on('click', function () {
         var $btn = $(this);
         var commentId = $btn.attr('id').replace('delete-album-comment-btn', '');
@@ -108,6 +107,37 @@ $(document).ready(function () {
                 $.ajax({
                     method: 'POST',
                     url: '/photo-album/admin/deleteAlbumComment/' + commentId
+                }).then(function () {
+                    location.reload();
+                    location.reload();
+                });
+            });
+    });
+
+    // Photo comments
+    $('.edit-photo-comment-btn').on('click', function () {
+        var $btn = $(this);
+        var commentId = $btn.attr('id').replace('edit-photo-comment-btn', '');
+        $.ajax({
+            method: 'POST',
+            url: '/photo-album/admin/editPhotoCommentForm/' + commentId
+        }).success(function (data) {
+            $btn.hide();
+            var editPhotoCommentFiledId = '#edit-photo-comment-field' + commentId;
+            var $editPhotoCommentForm = data;
+            var $editPhotoCommentFiled = $(editPhotoCommentFiledId);
+            $editPhotoCommentFiled.html($editPhotoCommentForm);
+        })
+    });
+
+    $('.delete-photo-comment-btn').on('click', function () {
+        var $btn = $(this);
+        var commentId = $btn.attr('id').replace('delete-photo-comment-btn', '');
+        notifier.showMessage('Do want to delete the comment', 'confirm')
+            .then(function () {
+                $.ajax({
+                    method: 'POST',
+                    url: '/photo-album/admin/deletePhotoComment/' + commentId
                 }).then(function () {
                     location.reload();
                     location.reload();

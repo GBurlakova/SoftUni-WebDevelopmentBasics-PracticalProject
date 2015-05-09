@@ -204,7 +204,7 @@ class AdminController extends BaseController
         }
     }
 
-    // Comments actions
+    // Album comments actions
     public function editAlbumCommentForm($commentId){
         $this->authorize(ADMIN_ROLE);
         $this->comment = $this->db->getAlbumComment($commentId);
@@ -244,6 +244,52 @@ class AdminController extends BaseController
             }
 
             $this->redirect('admin');
+        }
+    }
+
+    // Photo comments actions
+    public function editPhotoCommentForm($commentId){
+        $this->authorize(ADMIN_ROLE);
+        $this->comment = $this->db->getPhotoComment($commentId);
+        $this->albumId = $this->db->getAlbumIdByPhotoCommentId($commentId);
+        $this->renderView(__FUNCTION__, false);
+    }
+
+    public function editPhotoComment(){
+        $this->authorize(ADMIN_ROLE);
+        if($this->isPost) {
+            $commentId = $_POST['commentId'];
+            $albumId = $this->db->getAlbumIdByPhotoCommentId($commentId);
+            if($_POST['commentText']) {
+                $commentText = $_POST['commentText'];
+            } else {
+                $this->addErrorMessage('Please enter non-empty comment');
+                $this->redirect('admin/photos/' . $albumId);
+            }
+
+            $response = $this->db->editPhotoComment($commentId, $commentText);
+            if($response['statusCode'] == 200) {
+                $this->addSuccessMessage('Photo comment edited successfully');
+            } else {
+                $this->addErrorMessage('Edit photo comment failed. Please try again');
+            }
+
+            $this->redirect('admin/photos/' . $albumId);
+        }
+    }
+
+    public function deletePhotoComment($commentId){
+        $this->authorize(ADMIN_ROLE);
+        if($this->isPost) {
+            $response = $this->db->deletePhotoComment($commentId);
+            if($response['statusCode'] == 200) {
+                $this->addSuccessMessage('Photo comment deleted successfully');
+            } else {
+                $this->addSuccessMessage('Photo comment deleted successfully');
+            }
+
+            $albumId = $this->db->getAlbumId($commentId);
+            $this->redirect('/photo-album/admin/photos' . $albumId);
         }
     }
 }
