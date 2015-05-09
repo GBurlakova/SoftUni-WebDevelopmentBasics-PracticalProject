@@ -34,7 +34,7 @@
                     <?php if(isset($this->emptyFields['username'])): ?>
                         <div class=" label label-danger">Please enter your username</div>
                     <?php endif; ?>
-                    <?php if(isset($this->registerErrors['usernameTaken'])): ?>
+                    <?php if(isset($this->editProfileErrors['usernameTaken'])): ?>
                         <div class=" label label-danger">Username is already taken</div>
                     <?php endif; ?>
                 </div>

@@ -17,6 +17,7 @@
     <script type="text/javascript" src="/photo-album/content/lib/jquery.noty.packaged.min.js"></script>
     <script type="text/javascript" src="/photo-album/content/js/notifier.js"></script>
     <script type="text/javascript" src="/photo-album/content/lib/q.js"></script>
+    <script type="text/javascript" src="/photo-album/content/js/notifier.js"></script>
 </head>
 
 <body>
@@ -34,26 +35,22 @@
             <div class="navbar-collapse collapse" id="navbar-main">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="/photo-album/home/publicAlbums">Public albums</a>
+                        <a href="/photo-album/admin">Albums</a>
                     </li>
-                    <li>
-                        <a href="/photo-album/albums/index">My albums</a>
-                    </li>
-                    <li class="dropdown open">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download" aria-expanded="true">Actions <span class="caret"></span></a>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download" aria-expanded="false">Categories <span class="caret"></span></a>
                         <ul class="dropdown-menu" aria-labelledby="download">
-                            <li><a href="./bootstrap.min.css">Profile</a></li>
-                            <li><a href="./bootstrap.min.css">Edit profile</a></li>
+                            <li><a href="/photo-album/admin/categories">Categories</a></li>
                             <li class="divider"></li>
-                            <li><a href="./bootstrap.css">Create album</a></li>
+                            <li><a href="/photo-album/admin/newCategory">New category</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="http://news.bootswatch.com">About</a>
+                        <a href="/photo-album/admin/users">Users</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="btn btn-primary">Hello, <?php $this->renderText($_SESSION['username'])?></li>
+                    <li class="btn btn-info">Hello, <?php $this->renderText($_SESSION['username'])?></li>
                     <li>
                         <form action="/photo-album/account/logout" method="post">
                             <button type="submit" class="btn btn-default">Logout</button>
@@ -64,3 +61,6 @@
         </div>
     </div>
 <?php include('./views/layouts/messages.php'); ?>
+    <!--    Custom scripts-->
+    <script type="text/javascript" src="/photo-album/content/js/notifier.js"></script>
+    <script type="text/javascript" src="/photo-album/content/js/adminCategoriesActions.js"></script>

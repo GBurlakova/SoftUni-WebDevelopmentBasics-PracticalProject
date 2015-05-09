@@ -78,7 +78,7 @@ class AllAlbumsModel extends BaseModel{
         return $userId;
     }
 
-    public function getAlbumPhotos($albumId, $username){
+    public function getAlbumPhotos($albumId){
         $query = 'SELECT p.id, p.name, u.id as userId
                   FROM photos p
                   INNER JOIN albums a ON a.id = p.album_id

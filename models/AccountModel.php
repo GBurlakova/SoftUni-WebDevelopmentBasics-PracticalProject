@@ -1,5 +1,4 @@
 <?php
-
 class AccountModel extends BaseModel {
     public function register($firstName, $lastName, $username, $password) {
         $statement = self::$db->prepare("SELECT COUNT(Id) FROM users WHERE username = ?");
@@ -28,16 +27,27 @@ class AccountModel extends BaseModel {
     }
 
     public function login($username, $password) {
-        $statement = self::$db->prepare("SELECT Id, username, password FROM users WHERE username = ?");
+        $statement = self::$db->prepare(
+            "SELECT u.id, u.username, u.password, r.name as role
+             FROM users u LEFT OUTER JOIN user_roles ur ON u.id = ur.user_id
+             LEFT OUTER JOIN roles r ON ur.role_id = r.id WHERE u.username = ?");
         $statement->bind_param("s", $username);
         $statement->execute();
         $result = $statement->get_result()->fetch_assoc();
 
+        $response = array();
         if(password_verify($password, $result['password'])) {
-            return true;
+            $response['statusCode'] = 200;
+            if($result['role'] == 'administrator') {
+                $response['isAdmin'] = true;
+            } else {
+                $response['isAdmin'] = false;
+            }
+        } else {
+            $response['statusCode'] = 400;
         }
 
-        return false;
+        return $response;
     }
 
     public function verifyUserRole($username, $role){

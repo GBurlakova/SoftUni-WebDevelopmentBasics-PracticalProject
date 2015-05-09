@@ -21,5 +21,8 @@ main .default-text {
   color: #dbdcde; }
 main .more-margin {
   margin-bottom: 2%; }
+main .photo {
+  min-height: 220.609px;
+  max-height: 220.609px; }
 
 /*# sourceMappingURL=photo-album-style.css.map */

@@ -1,4 +1,10 @@
 <main class="col-lg-10 col-lg-offset-1">
+    <div class="jumbotron col-lg-10 col-lg-offset-1" style="background-image: url('/photo-album/content/images/home.jpg'); background-size: cover;">
+        <div class="bs-component">
+            <h2 class="grey-container">We don't remember days, we remember moments...</h2>
+        </div>
+    </div>
+    <div class="col-lg-12">
     <?php if($this->userAlbums):
         foreach($this->userAlbums as $album): ?>
             <div class="text-center col-lg-4">
@@ -59,4 +65,5 @@
             </ul>
         </div>
     <?php endif; ?>
+    </div>
 </main>

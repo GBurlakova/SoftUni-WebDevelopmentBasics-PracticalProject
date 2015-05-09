@@ -10,11 +10,9 @@ var notifier = (function Notifier() {
                 break;
             case 'success': showSuccessMessage(message);
                 break;
-
             case 'error': showErrorMessage(message);
                 break;
-            case 'confirm': showConfirmMessage(message);
-                break;
+            case 'confirm': return showConfirmMessage(message);
         }
     };
 

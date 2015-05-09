@@ -65,7 +65,7 @@ class AccountController extends BaseController {
             if ($statusCode == 201) {
                 $_SESSION['username'] = $username;
                 $this->addSuccessMessage("Successful registration!");
-                $this->redirect("userAlbums", "index");
+                $this->redirect("home");
             } else {
                 if(isset($response['message'])) {
                     $_SESSION['registerErrors']['usernameTaken'] = true;
@@ -111,10 +111,12 @@ class AccountController extends BaseController {
                 $this->redirect("account", "login");
             }
 
-            $isLoggedIn = $this->db->login($username, $password);
-            if ($isLoggedIn) {
+            $response = $this->db->login($username, $password);
+            $statusCode = $response['statusCode'];
+            if ($statusCode == 200) {
                 $_SESSION['username'] = $username;
-                $this->redirect("userAlbums", "index");
+                $_SESSION['isAdmin'] = $response['isAdmin'];
+                $this->redirect("home");
             } else {
                 $this->addErrorMessage("Login error!");
                 $this->redirect("account", "login");
@@ -129,6 +131,7 @@ class AccountController extends BaseController {
         $this->authorize();
         $this->addInfoMessage("Bye, bye, " . $_SESSION['username']);
         unset($_SESSION['username']);
+        unset($_SESSION['isAdmin']);
         $this->redirectToUrl("/photo-album");
     }
 
@@ -151,7 +154,7 @@ class AccountController extends BaseController {
         }
 
         if(isset($_SESSION['editProfileErrors'])) {
-            $this->registerErrors = $_SESSION['editProfileErrors'];
+            $this->editProfileErrors = $_SESSION['editProfileErrors'];
             unset($_SESSION['editProfileErrors']);
         }
 

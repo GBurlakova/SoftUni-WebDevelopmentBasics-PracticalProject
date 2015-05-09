@@ -1,6 +1,6 @@
 <main class="col-lg-10 col-lg-offset-1">
-    <?php if($this->albumPhotos):
-        foreach($this->albumPhotos as $photo): ?>
+    <?php if($this->photos):
+        foreach($this->photos as $photo): ?>
             <div class="text-center col-lg-4">
                 <img class="img-thumbnail more-margin photo" src="/photo-album/content/user-photos/user<?php echo $photo['userId'].'/'.$photo['name']?>" alt="user-photo"/>
                 <form action="/photo-album/photos/download" method="post">
@@ -8,6 +8,9 @@
                     <input type="hidden" name="userId" value="<?php echo $photo['userId']; ?>"/>
                     <input class="btn-sm btn-primary" type="submit" value="Download"/>
                 </form>
+                <div class="margin">
+                    <a class="btn-sm btn-danger" href="/photo-album/admin/deletePhoto/<?php echo $photo['id'] ?>">Delete</a>
+                </div>
                 <div class="panel panel-primary margin">
                     <div class="panel-heading">
                         <h3 class="panel-title">Comments</h3>
@@ -19,6 +22,10 @@
                                     <div class="comment-body"><?php $this->renderText($comment['text']); ?></div>
                                     <span>User: </span><span class="label label-info"><?php $this->renderText($comment['username']); ?></span>
                                     <span>Date: </span><span><?php $this->renderText(date_format(date_create($comment['date']), 'd/m/Y')); ?></span>
+                                    <div class="margin">
+                                        <a class="btn-sm btn-danger" href="/photo-album/admin/deleteComment/<?php echo $photo['id'] ?>">Delete</a>
+                                        <a class="btn-sm btn-info" href="/photo-album/admin/editComment/<?php echo $photo['id'] ?>">Edit</a>
+                                    </div>
                                 </div>
                             <?php endforeach;
                         else: ?>
@@ -27,9 +34,6 @@
                             </div>
                         <?php endif; ?>
                     </div>
-                </div>
-                <div>
-                    <a class="btn btn-success comment-photo-btn" id="comment-photo-btn<?php echo $photo['id']?>">Comment</a>
                 </div>
             </div>
         <?php endforeach;
