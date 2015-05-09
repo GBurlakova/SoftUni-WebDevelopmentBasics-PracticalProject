@@ -28,7 +28,7 @@ class AdminModel extends BaseModel {
     }
 
     public function getAlbumPhotos($albumId){
-        $query = 'SELECT p.id, p.name, u.id as userId
+        $query = 'SELECT p.id, p.name, u.id as userId, a.id as albumId
                   FROM photos p
                   INNER JOIN albums a ON a.id = p.album_id
                   INNER JOIN users u ON a.user_id = u.id WHERE album_id = ?';
@@ -237,6 +237,52 @@ class AdminModel extends BaseModel {
             $response['statusCode'] = 200;
         } else {
             $response['statusCode'] = 400;
+        }
+
+        return $response;
+    }
+
+    public function getAlbumId($photoId){
+        $query = "SELECT album_id FROM albums a WHERE id = ?";
+        $statement = self::$db->prepare($query);
+        $statement->bind_param('i', $photoId);
+        $statement->execute();
+        $albumName = $statement->get_result()->fetch_assoc()['album_id'];
+        return $albumName;
+    }
+
+    public function deletePhoto($photoId){
+        $commentCountQuery = 'SELECT COUNT(c.id) as commentsCount
+                  FROM photos p LEFT OUTER JOIN photo_comments c ON p.id = c.photo_id
+                  WHERE p.id = ?';
+        $statement = self::$db->prepare($commentCountQuery);
+        $statement->bind_param('i', $photoId);
+        $statement->execute();
+        $result = $statement->get_result()->fetch_assoc();
+        $response = array();
+        if($result['commentsCount'] > 0) {
+            $response['statusCode'] = 400;
+            $response['message'] = 'Attempt to delete photo with comments.
+                                    Please delete corresponding comments first.';
+        } else {
+            $userIdQuery = 'SELECT u.id as userId, p.name as photoName FROM photos p
+                        INNER JOIN albums a ON a.id = p.album_id
+                        INNER JOIN users u ON u.id = a.user_id
+                        WHERE p.id = ?';
+            $statement = self::$db->prepare($userIdQuery);
+            $statement->bind_param('i', $photoId);
+            $statement->execute();
+            $photoInfo = $statement->get_result()->fetch_assoc();
+            $deletePhotoQuery = 'DELETE FROM photos WHERE id = ?';
+            $statement = self::$db->prepare($deletePhotoQuery);
+            $statement->bind_param('i', $photoId);
+            $statement->execute();
+            if($statement->affected_rows > 0) {
+                $response['photoInfo'] = $photoInfo;
+                $response['statusCode'] = 200;
+            } else {
+                $response['statusCode'] = 400;
+            }
         }
 
         return $response;

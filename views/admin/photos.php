@@ -9,7 +9,7 @@
                     <input class="btn-sm btn-primary" type="submit" value="Download"/>
                 </form>
                 <div class="margin">
-                    <a class="btn-sm btn-danger" href="/photo-album/admin/deletePhoto/<?php echo $photo['id'] ?>">Delete</a>
+                    <a class="btn-sm btn-danger delete-photo-btn" id="delete-photo-btn<?php echo $photo['id'] ?>?albumId=<?php echo $photo['albumId'] ?>">Delete</a>
                 </div>
                 <div class="panel panel-primary margin">
                     <div class="panel-heading">

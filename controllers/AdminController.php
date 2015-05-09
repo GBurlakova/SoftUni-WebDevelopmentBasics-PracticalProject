@@ -181,4 +181,26 @@ class AdminController extends BaseController
     }
 
     // Photos actions
+    public function deletePhoto($photoId){
+        $this->authorize(ADMIN_ROLE);
+        if($this->isPost) {
+            $response = $this->db->deletePhoto($photoId);
+            if($response['statusCode'] == 200) {
+                $photoName = $response['photoInfo']['photoName'];
+                $userId = $response['photoInfo']['userId'];
+                $filePath = $_SERVER['DOCUMENT_ROOT'] . '/photo-album/content/user-photos/user'.$userId . '/'. $photoName;
+                unlink($filePath);
+                $this->addSuccessMessage('Photo deleted successfully');
+            } else {
+                if(isset($response['message'])) {
+                    $this->addErrorMessage($response['message']);
+                } else {
+                    $this->addErrorMessage("Delete photo failed!");
+                }
+            }
+
+            $albumId = $this->db->getAlbumId($photoId);
+            $this->redirectToUrl('/photo-album/admin/photos/' . $albumId);
+        }
+    }
 }

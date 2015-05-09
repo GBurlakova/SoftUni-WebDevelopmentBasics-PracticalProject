@@ -66,4 +66,19 @@ $(document).ready(function () {
                 });
             });
     });
+
+    // Photos
+    $('.delete-photo-btn').on('click', function () {
+        var $btn = $(this);
+        var photoId = $btn.attr('id').replace('delete-photo-btn', '');
+        notifier.showMessage('Do want to delete the photo', 'confirm')
+            .then(function () {
+                $.ajax({
+                    method: 'POST',
+                    url: '/photo-album/admin/deletePhoto/' + photoId
+                }).then(function () {
+                    location.reload();
+                });
+            });
+    });
 });
