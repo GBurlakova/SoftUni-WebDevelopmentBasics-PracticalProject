@@ -17,7 +17,7 @@ class HomeModel extends BaseModel {
                   (SELECT count(p.id) FROM photos p WHERE p.album_id = a.id) AS photosCount,
                   c.name as category
                   FROM albums a LEFT OUTER JOIN album_likes al ON a.id = al.album_id
-                  LEFT OUTER JOIN categories c ON a.category_id = c.id";
+                  INNER JOIN categories c ON a.category_id = c.id";
         if($categoryId) {
             $query .= " AND category_id = ? GROUP BY id, name HAVING likes >= ? ORDER BY COUNT(al.album_id) DESC";
             $statement = self::$db->prepare($query);
