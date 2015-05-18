@@ -15,7 +15,7 @@ class AccountModel extends BaseModel {
             $registerStatement = self::$db->prepare("INSERT INTO Users (first_name, last_name, username, password) VALUES (?, ?, ?, ?)");
             $registerStatement->bind_param("ssss", $firstName, $lastName, $username, $hash_pass);
             $registerStatement->execute();
-            $successfulRegister = $statement->affected_rows > 0;
+            $successfulRegister = $registerStatement->affected_rows > 0;
             if($successfulRegister) {
                 $response['statusCode'] = 201;
             } else {
@@ -91,7 +91,7 @@ class AccountModel extends BaseModel {
                  WHERE username = ?");
             $updateProfileStatement->bind_param("sssss", $newFirstName, $newLastName, $newUsername, $hash_pass, $currentUsername);
             $updateProfileStatement->execute();
-            $successfulEdit = $statement->affected_rows > 0;
+            $successfulEdit = $updateProfileStatement->affected_rows > 0;
             if($successfulEdit) {
                 $response['statusCode'] = 200;
             } else {
