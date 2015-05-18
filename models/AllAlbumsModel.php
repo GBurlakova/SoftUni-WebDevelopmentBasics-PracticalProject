@@ -17,11 +17,11 @@ class AllAlbumsModel extends BaseModel{
                   a.id NOT IN (SELECT album_id FROM album_likes WHERE user_id = ?) AS canBeLiked,
                   (SELECT count(p.id) FROM photos p WHERE p.album_id = a.id) AS photosCount,
                   c.name as category
-                  FROM albums a left outer JOIN album_likes al ON a.id = al.album_id
-                  LEFT OUTER JOIN categories c ON a.category_id = c.id
+                  FROM albums a LEFT OUTER JOIN album_likes al ON a.id = al.album_id
+                  INNER JOIN categories c ON a.category_id = c.id
                   WHERE a.user_id <> ?";
         if($categoryId) {
-            $query .= " AND category_id = ? GROUP BY id, name ORDER BY likes DESC";
+            $query .= " AND category_id = ? GROUP BY id, name ORDER BY likes DESC, id";
             $statement = self::$db->prepare($query);
             $statement->bind_param("iii", $userId, $userId, $categoryId);
             $albumsCountBeforePaging = $this->estimateAlbumsCountBeforePaging($statement);
@@ -32,7 +32,7 @@ class AllAlbumsModel extends BaseModel{
             $pageSizeParam = DEFAULT_PAGE_SIZE;
             $statement->bind_param("iiiii", $userId, $userId, $categoryId, $startPageParam, $pageSizeParam);
         } else {
-            $query .= " GROUP BY id, name ORDER BY likes DESC";
+            $query .= " GROUP BY id, name ORDER BY likes DESC, id";
             $statement = self::$db->prepare($query);
             $statement->bind_param("ii", $userId, $userId);
             $albumsCountBeforePaging = $this->estimateAlbumsCountBeforePaging($statement);
