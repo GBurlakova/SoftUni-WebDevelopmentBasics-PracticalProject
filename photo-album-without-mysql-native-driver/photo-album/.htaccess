@@ -1,0 +1,7 @@
+<IfModule mod_rewrite.c>
+  AddType image/jpeg .jpeg .jpg
+  RewriteEngine On
+  RewriteCond %{REQUEST_URI} !^/photo-album/content/.*$
+  RewriteCond %{REQUEST_URI} !^favicon\.ico$
+  RewriteRule ^ index.php
+</IfModule>

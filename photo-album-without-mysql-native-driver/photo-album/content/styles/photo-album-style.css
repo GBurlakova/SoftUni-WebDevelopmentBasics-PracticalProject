@@ -1,0 +1,32 @@
+main p, main div, main span {
+  word-wrap: break-word; }
+main h1, main h2, main h3, main h4, main h5, main h6 {
+  text-overflow: ellipsis; }
+main .margin {
+  margin-top: 3%; }
+main .photo-album img {
+  width: 40%; }
+main .grey-container {
+  padding: 1.5%;
+  background-color: rgba(78, 93, 108, 0.7); }
+main .comment {
+  border-bottom: 1px solid #2b3e50;
+  padding: 2%; }
+  main .comment .comment-body {
+    margin-bottom: 1%;
+    padding: 1%;
+    border-radius: 2px;
+    background-color: #949da6; }
+main .default-text {
+  color: #dbdcde; }
+main .more-margin {
+  margin-bottom: 2%; }
+main .photo {
+  min-height: 220.609px;
+  max-height: 220.609px; }
+main .checkbox-medium {
+  display: inline-block;
+  width: 25px;
+  height: 25px; }
+
+/*# sourceMappingURL=photo-album-style.css.map */

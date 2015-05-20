@@ -1,0 +1,256 @@
+<?php
+class UserAlbumsModel extends BaseModel{
+    public function getCategories()
+    {
+        $statement = self::$db->query(
+            "SELECT * FROM categories ORDER BY id");
+        $categories = array();
+        while($category = $statement->fetch_assoc()) {
+            array_push($categories, $category);
+        }
+
+        return $categories;
+    }
+
+    public function getUserAlbums($startPage, $username, $albumsSearchCondition) {
+        $query = "SELECT a.id, a.name, COUNT(al.album_id) as likes,
+                  (SELECT count(p.id) FROM photos p WHERE p.album_id = a.id) AS photosCount,
+                  c.name as category
+                  FROM albums a INNER JOIN users u ON a.user_id = u.id
+                  LEFT OUTER JOIN album_likes al ON a.id = al.album_id
+                  LEFT OUTER JOIN categories c ON a.category_id = c.id
+                  WHERE u.username = ? AND a.name like ?
+                  GROUP BY a.id, a.name ORDER BY a.id";
+        $albumsSearchCondition = '%' . $albumsSearchCondition . '%';
+
+        $statement = self::$db->prepare($query);
+        $statement->bind_param("ss", $username, $albumsSearchCondition);
+        $statement->execute();
+        $albumsCountBeforePaging = 0;
+        while($statement->fetch()) {
+            $albumsCountBeforePaging++;
+        }
+
+        $query .= " LIMIT ?, ?";
+        $statement = self::$db->prepare($query);
+        $startPageParam = DEFAULT_PAGE_SIZE * ($startPage - 1);
+        $pageSizeParam = DEFAULT_PAGE_SIZE;
+        $statement->bind_param("ssii", $username, $albumsSearchCondition, $startPageParam, $pageSizeParam);
+        $statement->execute();
+        $statement->bind_result($id, $name, $likes, $photosCount, $category);
+        $userAlbums = array();
+        while($statement->fetch()) {
+            $tempResult = array();
+            $tempResult['id'] = $id;
+            $tempResult['name'] = $name;
+            $tempResult['likes'] = $likes;
+            $tempResult['photosCount'] = $photosCount;
+            $tempResult['category'] = $category;
+            array_push($userAlbums, $tempResult);
+        }
+
+        $pagesCount = ($albumsCountBeforePaging + DEFAULT_PAGE_SIZE - 1) / DEFAULT_PAGE_SIZE;
+        $pagesCount = floor($pagesCount);
+        for ($album = 0; $album < sizeof($userAlbums); $album++){
+            $commentsStatement = self::$db->prepare(
+                "SELECT c.id, c.text, u.username, c.date
+            FROM album_comments c INNER JOIN users u ON c.user_id = u.id
+            INNER JOIN albums a ON a.id = c.album_id
+            WHERE a.id = ?
+            ORDER BY a.id");
+            $commentsStatement->bind_param("i", $userAlbums[$album]['id']);
+            $commentsStatement->execute();
+            $commentsStatement->bind_result($id, $text, $username, $date);
+            $comments = array();
+            while($commentsStatement->fetch()) {
+                $tempResult = array();
+                $tempResult['id'] = $id;
+                $tempResult['text'] = $text;
+                $tempResult['username'] = $username;
+                $tempResult['date'] = $date;
+                array_push($comments, $tempResult);
+            }
+
+            $userAlbums[$album]['comments'] = $comments;
+        }
+
+        $resultData = array('userAlbums' => $userAlbums, 'pagesCount' => $pagesCount);
+        return $resultData;
+    }
+
+    public function createNewAlbum($albumName, $userId, $categoryId){
+        $query = 'INSERT INTO albums (name, user_id, category_id) VALUES(?, ?, ?)';
+        $statement = self::$db->prepare($query);
+        $statement->bind_param('sii', $albumName, $userId, $categoryId);
+        $statement->execute();
+        return $statement->affected_rows > 0;
+    }
+
+    public function delete($id) {
+        $statement = self::$db->prepare(
+            "DELETE FROM photo-album WHERE id = ?");
+        $statement->bind_param("i", $id);
+        $statement->execute();
+        return $statement->affected_rows > 0;
+    }
+
+    public function like($username, $albumId) {
+        $userIdStatement = self::$db->prepare("SELECT id FROM users WHERE username = ?");
+        $userIdStatement->bind_param("s", $username);
+        $userIdStatement->execute();
+        $userIdStatement->bind_result($id);
+        $result = array();
+        while($userIdStatement->fetch()) {
+            $result['id'] = $id;
+        }
+
+        $userId = $result['id'];
+        $statement = self::$db->prepare(
+            "SELECT count(id) as albumsCount FROM allAlbums WHERE id = ? and user_id <> ?");
+        $statement->bind_param("ii", $albumId, $userId);
+        $statement->execute();
+        $statement->bind_result($albumsCount);
+        $result = array();
+        while($statement->fetch()) {
+            $result['albumsCount'] = $albumsCount;
+        }
+
+        $albumExists = $result['albumsCount'] > 0;
+        if($albumExists) {
+            $statement = self::$db->prepare(
+                "INSERT INTO album_likes (album_id, user_id) VALUES(?, ?)");
+            $statement->bind_param("ii", $albumId, $userId);
+            $statement->execute();
+            return $statement->affected_rows > 0;
+        } else {
+            return false;
+        }
+    }
+
+    public function getUserId($username) {
+        if($username == "") {
+            $userId = "";
+        } else {
+            $userIdStatement = self::$db->prepare("SELECT id FROM users WHERE username = ?");
+            $userIdStatement->bind_param("s", $username);
+            $userIdStatement->execute();
+            $userIdStatement->bind_result($id);
+            $result = array();
+            while($userIdStatement->fetch()) {
+                $result['id'] = $id;
+            }
+
+            $userId = $result['id'];
+        }
+
+        return $userId;
+    }
+
+    public function getAlbums($username) {
+        $userId = $this->getUserId($username);
+        $query = "SELECT a.id, a.name
+                  FROM albums a
+                  WHERE a.user_id = ?";
+        $statement = self::$db->prepare($query);
+        $statement->bind_param("i", $userId);
+        $statement->execute();
+        $statement->bind_result($id, $name);
+        $albums = array();
+        while($statement->fetch()) {
+            $album = array
+            ('id' => $id, 'name' => $name);
+            array_push($albums, $album);
+        }
+
+        return $albums;
+    }
+
+    public function addPhoto($photoName, $albumId, $username) {
+        $userId = $this->getUserId($username);
+        $albumOwnerIdQuery = 'SELECT user_id FROM albums WHERE id = ?';
+        $albumOwnerIdStatement = self::$db->prepare($albumOwnerIdQuery);
+        $albumOwnerIdStatement->bind_param('i', $albumId);
+        $albumOwnerIdStatement->execute();
+        $albumOwnerIdStatement->bind_result($user_id);
+        $result = array();
+        while($albumOwnerIdStatement->fetch()) {
+            $result['user_id'] = $user_id;
+        }
+
+        $albumOwnerId = $result['user_id'];
+        $currentUserIsOwner = $albumOwnerId == $userId;
+        if($currentUserIsOwner) {
+            $query = 'INSERT INTO photos (name, album_id) VALUES(?, ?)';
+            $statement = self::$db->prepare($query);
+            $statement->bind_param('si', $photoName, $albumId);
+            $statement->execute();
+            return $statement->affected_rows > 0;
+        } else {
+            return false;
+        }
+    }
+
+    public function getAlbumPhotos($albumId, $username) {
+        $userId = $this->getUserId($username);
+        $albumOwnerIdQuery = 'SELECT user_id FROM albums WHERE id = ?';
+        $albumOwnerIdStatement = self::$db->prepare($albumOwnerIdQuery);
+        $albumOwnerIdStatement->bind_param('i', $albumId);
+        $albumOwnerIdStatement->execute();
+        $albumOwnerIdStatement->bind_result($user_id);
+        $result = array();
+        while($albumOwnerIdStatement->fetch()) {
+            $result['user_id'] = $user_id;
+        }
+
+        $albumOwnerId = $result['user_id'];
+        $currentUserIsOwner = $albumOwnerId == $userId;
+        if($currentUserIsOwner){
+            $query = 'SELECT p.id, p.name, u.id as userId
+                  FROM photos p
+                  INNER JOIN albums a ON a.id = p.album_id
+                  INNER JOIN users u ON a.user_id = u.id WHERE album_id = ?';
+            $statement = self::$db->prepare($query);
+            $statement->bind_param('i', $albumId);
+            $statement->execute();
+            $photos = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
+            $photos = $this->getPhotosComments($photos);
+            return $photos;
+        } else {
+            return false;
+        }
+    }
+
+    public function comment($commentText, $albumsId, $username) {
+        $userId = $this->getUserId($username);
+        $query = 'INSERT INTO album_comments (text, album_id, user_id, date) VALUES(?, ?, ?, ?)';
+        $statement = self::$db->prepare($query);
+        $date = date('Y-m-d');
+        $statement->bind_param('siis', $commentText, $albumsId, $userId, $date);
+        $statement->execute();
+        return $statement->affected_rows > 0;
+    }
+
+    private function getPhotosComments($photos){
+        for ($photo = 0; $photo < sizeof($photos); $photo++){
+            $commentsQuery = self::$db->prepare(
+                "SELECT c.id, c.text, u.username, c.date
+            FROM photo_comments c INNER JOIN users u ON c.user_id = u.id
+            WHERE c.photo_id = ?
+            ORDER BY c.id");
+            $photoId = $photos[$photo]['id'];
+            $commentsQuery->bind_param("i", $photoId);
+            $commentsQuery->execute();
+            $commentsQuery->bind_result($id, $text, $username, $date);
+            $comments = array();
+            while($commentsQuery->fetch()) {
+                $comment = array
+                ('id' => $id, 'text' => $text, 'username' => $username, 'date' => $date );
+                array_push($comments, $comment);
+            }
+            
+            $photos[$photo]['comments'] = $comments;
+        }
+
+        return $photos;
+    }
+}

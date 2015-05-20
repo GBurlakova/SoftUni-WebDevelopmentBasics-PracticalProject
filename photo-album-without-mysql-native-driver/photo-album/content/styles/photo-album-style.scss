@@ -1,0 +1,53 @@
+main {
+  p, div, span{
+    word-wrap:break-word;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    text-overflow: ellipsis;
+  }
+  .margin {
+    margin-top: 3%;
+  }
+
+  .photo-album {
+    img {
+      width: 40%;
+    }
+  }
+
+  .grey-container {
+    padding: 1.5%;
+    background-color: rgba(78, 93, 108, 0.7);
+  }
+
+  .comment {
+    border-bottom: 1px solid rgb(43, 62, 80);
+    padding: 2%;
+    .comment-body {
+      margin-bottom: 1%;
+      padding: 1%;
+      border-radius: 2px;
+      background-color: rgb(148,157,166);
+    }
+  }
+
+  .default-text {
+    color: rgb(219, 220, 222);
+  }
+
+  .more-margin {
+    margin-bottom: 2%;
+  }
+
+  .photo {
+    min-height: 220.609px;
+    max-height: 220.609px;
+  }
+
+  .checkbox-medium{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+  }
+}
