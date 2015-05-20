@@ -2,7 +2,7 @@
 class AllAlbumsModel extends BaseModel{
     public function getCategories() {
         $statement = self::$db->query(
-            "SELECT * FROM categories ORDER BY id");
+            "SELECT id, name FROM categories ORDER BY id");
         $categories = array();
         while($category = $statement->fetch_assoc()) {
             array_push($categories, $category);

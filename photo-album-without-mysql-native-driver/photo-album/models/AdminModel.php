@@ -78,7 +78,11 @@ class AdminModel extends BaseModel {
     public function getCategories() {
         $statement = self::$db->query(
             "SELECT id, name FROM categories ORDER BY id");
-        $categories = $statement->fetch_all(MYSQL_ASSOC);
+        $categories = array();
+        while($category = $statement->fetch_assoc()) {
+            array_push($categories, $category);
+        }
+
         return $categories;
     }
 
