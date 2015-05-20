@@ -18,7 +18,11 @@ define('DEFAULT_PAGE_SIZE', 3);
 define('ADMIN_ROLE', 'administrator');
 
 // Database settings
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'photo-album');
+define('DB_HOST', 'sql5.freemysqlhosting.net');
+define('DB_USER', 'sql577949');
+define('DB_PASS', 'xT3%iX4%');
+define('DB_NAME', 'sql577949');
+//define('DB_HOST', 'localhost');
+//define('DB_USER', 'root');
+//define('DB_PASS', '');
+//define('DB_NAME', 'photo-album');

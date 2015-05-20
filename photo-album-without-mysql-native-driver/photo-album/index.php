@@ -16,7 +16,8 @@ if(count($requestParts) >= URL_WITH_ACTION_MIN_LENGTH && $requestParts[ACTION_NA
 }
 
 $params = array_splice($requestParts, URL_PARAMS_POSITION);
-$controllerClassName = ucfirst(strtolower($controllerName)) . 'Controller';
+//$controllerClassName = ucfirst(strtolower($controllerName)) . 'Controller';
+$controllerClassName = ucfirst($controllerName) . 'Controller';
 $controllerFileName = "controllers/" . $controllerClassName . '.php';
 
 if (class_exists($controllerClassName)) {

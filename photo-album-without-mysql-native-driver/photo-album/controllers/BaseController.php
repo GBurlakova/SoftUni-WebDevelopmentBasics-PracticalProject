@@ -67,7 +67,7 @@ abstract class BaseController {
         echo htmlspecialchars($text);
     }
 
-    public function renderView($viewName = "Index", $includeLayout = true) {
+    public function renderView($viewName = "index", $includeLayout = true) {
         // Include header
         if ($includeLayout) {
             $headerFile = 'views/layouts/' . $this->layoutName . '/header.php';
